@@ -1,0 +1,202 @@
+---
+import { cn } from "../../lib/utils";
+import BaseHead from "../../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import Layout from "../../layouts/layout.astro";
+import SkillAccordion from "../../components/SkillAccordion";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <Layout>
+    <div
+      class="font-sans grid gap-2 container md:md:mx-auto px-6 md:px-6 w-full md:max-w-2xl"
+    >
+      <h1 class="text-foreground font-semibold text-5xl my-5">Resume</h1>
+      <!-- Resume -->
+      <div class="grid gap-8">
+        <div class="grid gap-3">
+          <p class="text-muted-foreground text-base">
+            I'm a software engineer with a passion for building products that
+            people love. I have experience working with a variety of
+            technologies and languages, including JavaScript, TypeScript, React,
+            Node.js. I'm always looking for new challenges and opportunities to
+            learn and grow as a developer.
+          </p>
+        </div>
+        <div class="grid gap-3">
+          <h2
+            class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"
+          >
+            Work Experience
+          </h2>
+          <ul class="relative border-l border-border/40 list-none">
+            {
+              [
+                {
+                  date: "2019 - Present",
+                  company: "Andronix App",
+                  designation: "Lead Software Engineer",
+                  details: [
+                    "Developed and maintained the world's most popular Linux on Android app.",
+                    "Single-handedly managed the development of the app, including the backend, frontend, and infrastructure.",
+                  ],
+                },
+                {
+                  date: "2023 - Present",
+                  company: "Lumuflo",
+                  designation: "Lead Software Engineer",
+                  details: [
+                    "Lumoflo aims to provide a platform for small businesses to manage their inventory and sales.",
+                    "Developed the entire platform from scratch, including the backend, frontend, and infrastructure.",
+                    "Created a fully typed Rest API using Typescript, TsRest, and Express.",
+                    "NextJS powers the frontend, with TailwindCSS for styling.",
+                  ],
+                },
+              ].map((work, index) => (
+                <li class="mb-10 ml-4">
+                  <div style="">
+                    <div class="absolute w-3 h-3 bg-card rounded-full mt-1.5 -left-1.5 border border-border" />
+                    <time class="mb-1 font-normal leading-none text-muted-foreground">
+                      {work.date}
+                    </time>
+                    <div class="grid gap-1">
+                      <h3 class="text-lg font-semibold text-foreground">
+                        {work.company}
+                      </h3>
+                      <p class="font-normal  text-muted-foreground">
+                        {work.designation}
+                      </p>
+                      {work.details.map((detail, idx) => (
+                        <ul class="">
+                          <li>
+                            <p class=" font-normal text-muted-foreground">
+                              - {detail}
+                            </p>
+                          </li>
+                        </ul>
+                      ))}
+                    </div>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <!-- Education -->
+        <div class="grid gap-3">
+          <h2
+            class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"
+          >
+            Education
+          </h2>
+          <ul class="relative border-l border-border/40 list-none">
+            {
+              [
+                {
+                  date: "2019 - 2020",
+                  institution: "Spring Dale College",
+                  location: "Lucknow",
+                  details: [
+                    "President of the Computer Science and Mathematics Club",
+                    "Senior Year in PCM + Computer Science",
+                  ],
+                },
+                {
+                  date: "2021 - 2025",
+                  institution:
+                    "Galgotias College of Engineering and Technology",
+                  location: "Noida",
+                  details: [
+                    "Part of various Technical Clubs, core member of Loop, the Coding Club",
+                    "B.Tech in Computer Science + Artificial Intelligence",
+                  ],
+                },
+              ].map((education, index) => (
+                <li class="mb-10 ml-4">
+                  <div style="">
+                    <div class="absolute w-3 h-3 bg-card rounded-full mt-1.5 -left-1.5 border border-border" />
+                    <time class="mb-1  font-normal leading-none text-muted-foreground">
+                      {education.date}
+                    </time>
+                    <div class="grid gap-1">
+                      <h3 class="text-lg font-semibold text-foreground">
+                        {education.institution}
+                      </h3>
+                      <p class="font-normal  text-muted-foreground">
+                        {education.location}
+                      </p>
+                      {education.details.map((detail, idx) => (
+                        <ul class="">
+                          <li>
+                            <p class=" font-normal text-muted-foreground">
+                              - {detail}
+                            </p>
+                          </li>
+                        </ul>
+                      ))}
+                    </div>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <!-- Skills Bento Grid -->
+        <div class="grid gap-3">
+          <h2
+            class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"
+          >
+            Skills
+          </h2>
+          <div class="grid auto-rows-[192px] grid-cols-3 gap-4">
+            {
+              [...Array(4)].map((_, i) => (
+                <div
+                  class={cn(
+                    "row-span-1 rounded-xl border-2 border-border/60 p-4 bg-card text-foreground",
+                    i === 1 && "col-span-2",
+                    i === 2 && "col-span-2",
+                    "hover:border-primary transition-all duration-300 ease-in-out cursor-pointer"
+                  )}
+                >
+                  {
+                    <p class="text-base font-medium text-foreground">
+                      {
+                        [
+                          {
+                            title: "Mobile",
+                          },
+                          {
+                            title: "Frontend",
+                          },
+                          {
+                            title: "Backend",
+                          },
+                          {
+                            title: "DevOps",
+                          },
+                        ].find((_, idx) => idx === i)?.title
+                      }
+                    </p>
+                  }
+                </div>
+              ))
+            }
+          </div>
+          <div class="grid gap-3 mt-5">
+            <h2
+              class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"
+            >
+              Skills
+            </h2>
+            <SkillAccordion client:load />
+          </div>
+        </div>
+      </div>
+    </div>
+  </Layout>
+</html>

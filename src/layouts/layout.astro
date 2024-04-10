@@ -1,0 +1,50 @@
+---
+import NavigationBar from "../components/NavigationBar";
+import { ThemeToggle } from "../components/ui";
+import "@fontsource/inter";
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+import BaseHead from "../components/BaseHead.astro";
+import { ViewTransitions } from "astro:transitions";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ViewTransitions />
+    <BaseHead title={title} description={description} />
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+      window.localStorage.setItem("theme", theme);
+    </script>
+  </head>
+  <body class="bg-background mb-[80px]">
+    <div class="">
+      <ThemeToggle client:load />
+      <main
+        class="bg-background flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10"
+      >
+        <slot />
+      </main>
+      <NavigationBar path={currentPath} />
+    </div>
+  </body>
+</html>

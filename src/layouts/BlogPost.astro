@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { ThemeToggle } from "../components/ui";
+import "@fontsource/inter";
+import Layout from "./layout.astro";
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, category, tags, pubDate, updatedDate, heroImage } =
+  Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <Layout>
+    <div
+      class="font-sans grid gap-2 container md:mx-auto px-6 md:px-6 w-full md:max-w-2xl"
+    >
+      <article>
+        <header>
+          <h1 class="text-3xl font-bold mt-4 mb-4 text-foreground">{title}</h1>
+          <p class="text-muted-foreground">{description}</p>
+          <p
+            class="text-primary w-fit mt-3 bg-primary/20 dark:bg-primary/20 px-1.5 py-1 rounded font-medium text-xs"
+          >
+            {category}
+          </p>
+          <div class="flex justify-between items-center">
+            <div class="flex items-center text-sm mt-5 text-muted-foreground">
+              <FormattedDate date={pubDate} />
+              {
+                updatedDate && (
+                  <span class="text-gray-500 ml-2">
+                    Updated: <FormattedDate date={updatedDate} />
+                  </span>
+                )
+              }
+            </div>
+            <ThemeToggle />
+          </div>
+        </header>
+        <img
+          src={heroImage}
+          alt={heroImage}
+          class="w-full h-64 object-cover rounded-lg mt-4"
+        />
+        <div class="prose dark:prose-invert mt-8 text-foreground/90">
+          <slot />
+        </div>
+      </article>
+      <Footer />
+    </div>
+  </Layout>
+</html>

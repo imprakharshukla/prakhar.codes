@@ -1,0 +1,28 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import Layout from "../../layouts/layout.astro";
+import PostFeed from "../../components/PostFeed";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <Layout>
+    <div
+      class="font-sans grid gap-2 container md: md:mx-auto px-6 md:px-6 w-full md:max-w-2xl"
+    >
+      <h1 class="text-foreground font-semibold text-5xl my-5">Blog</h1>
+      <div class="grid gap-3">
+        <p class="text-muted-foreground text-lg">
+          Welcome to my blog! Here you'll find a collection of my thoughts and
+          musings on a variety of topics. I hope you enjoy reading them as much
+          as I enjoy writing them.
+        </p>
+      </div>
+      <PostFeed searchEnabled client:load />
+    </div>
+  </Layout>
+</html>
