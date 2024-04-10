@@ -22,9 +22,6 @@ dependencies:
   '@fontsource-variable/dm-sans':
     specifier: ^5.0.5
     version: 5.0.5
-  '@fontsource/inter':
-    specifier: ^5.0.17
-    version: 5.0.17
   '@formkit/auto-animate':
     specifier: ^0.8.1
     version: 0.8.1
@@ -1114,10 +1111,6 @@ packages:
 
   /@fontsource-variable/dm-sans@5.0.5:
     resolution: {integrity: sha512-mkDBK4Yg0zc8aa8h04JqnNJfMOkC1JQa8q8Sm3hjGNkvAYjq5dX0vP4zcB6wQugaB2kzHrdMxaCUrm+/HQtC+g==}
-    dev: false
-
-  /@fontsource/inter@5.0.17:
-    resolution: {integrity: sha512-2meBGx1kt7u5LwzGc5Sz5rka6ZDrydg6nT3x6Wkt310vHXUchIywrO8pooWMzZdHYcyFY/cv4lEpJZgMD94bCg==}
     dev: false
 
   /@formkit/auto-animate@0.8.1:

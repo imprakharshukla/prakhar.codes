@@ -17,7 +17,6 @@
     "@astrojs/sitemap": "^3.1.2",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/dm-sans": "^5.0.5",
-    "@fontsource/inter": "^5.0.17",
     "@formkit/auto-animate": "^0.8.1",
     "@hookform/resolvers": "^3.3.4",
     "@nanostores/react": "^0.7.2",
