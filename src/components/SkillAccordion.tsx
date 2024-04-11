@@ -2,8 +2,8 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./
 
 export default function SkillAccordion() {
     return (
-        <div>
-            <Accordion type="single" collapsible className="w-full">
+        <div className="max-w-md">
+            <Accordion type="multiple" className="w-full">
                 <AccordionItem value="item-1">
                     <AccordionTrigger className="text-foreground/90 text-lg border-border/40">Languages</AccordionTrigger>
                     <AccordionContent className="text-muted-foreground text-base">
@@ -12,6 +12,7 @@ export default function SkillAccordion() {
                                 [
                                     "Typescript",
                                     "Javascript",
+                                    "Kotlin",
                                     "Java",
                                     "C++",
                                     "C",
@@ -32,7 +33,7 @@ export default function SkillAccordion() {
                         <div>
                             {
 
-                                [
+                                ["Android",
                                     "React",
                                     "NextJS",
                                     "Express",
@@ -68,6 +69,29 @@ export default function SkillAccordion() {
                                 ].map((db, index) => (
                                     <ul className="grid gap-1">
                                         <li className="text-lg text-muted-foreground">- {db}</li>
+                                    </ul>
+                                ))
+                            }
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                    <AccordionTrigger className="text-foreground/90 text-lg border-border/40">Tools</AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground text-base">
+                        <div>
+
+                            {
+                                [
+                                    //tools
+                                    "Git",
+                                    "Docker",
+                                    "Virtualization",
+                                    "CI/CD",
+                                    "Jenkins",
+                                    "Github Actions",
+                                ].map((tool, index) => (
+                                    <ul className="grid gap-1">
+                                        <li className="text-lg text-muted-foreground">- {tool}</li>
                                     </ul>
                                 ))
                             }

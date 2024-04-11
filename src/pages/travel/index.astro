@@ -1,0 +1,34 @@
+---
+import { cn } from "../../lib/utils";
+import BaseHead from "../../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import Layout from "../../layouts/layout.astro";
+import SkillAccordion from "../../components/SkillAccordion";
+
+import TravelLogGlobe from "../../components/TravelLogGlobe";
+import TravelFeed from "../../components/TravelFeed";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <Layout>
+    <div class="grid gap-4 md:max-w-2xl mt-6">
+      <h1 class="h2-heading">Travel Log</h1>
+      <div class="grid gap-3">
+        <p class="description">
+          I love to travel, hike and explore new places. I find mountains to be
+          the most peaceful places on earth. I have been to many places in the
+          time I have been alive. Here's a gist.
+        </p>
+      </div>
+    </div>
+    <div class="grid gap-3">
+      <TravelLogGlobe client:only />
+      <h2 class="h2-heading mt-6 mb-4">Places I've been to</h2>
+      <TravelFeed client:load />
+    </div>
+  </Layout>
+</html>

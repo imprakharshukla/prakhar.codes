@@ -73,11 +73,11 @@ export default function PostFeed({
     <>
       <div className={cn("flex w-full items-center justify-between")}>
         {headingVisible &&
-          <h1 className="text-foreground font-semibold text-lg">
+          <h1 className="h3-heading">
             Latest Articles
           </h1>
         }
-        <div className={cn("flex items-center gap-1 my-5", searchEnabled && "w-full")}>
+        <div className={cn("flex items-center gap-3 my-5", searchEnabled && "w-full")}>
           {searchEnabled &&
             <Input value={query} onChange={handleOnSearch} placeholder="Search articles" className="text-base text-muted-foreground" />
           }
@@ -176,6 +176,7 @@ const Post = ({
           <div className="flex flex-col gap-4 justify-start">
             <div className="rounded-sm w-full h-full">
               <img
+                style={getTransitionId(id)}
                 className="object-cover rounded-sm group-hover:border border-primary"
                 src={heroImage}
                 alt=""
@@ -183,15 +184,15 @@ const Post = ({
             </div>
             <div className="flex items-center justify-between w-full">
               <div className="w-full gap-y-2 flex flex-col ">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-foreground text-lg font-medium">
+                <div className="flex items-baseline gap-3">
+                  <h3 className="h5-heading">
                     {title}
                   </h3>
-                  <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium text-sm">
+                  <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium md:text-sm text-xs">
                     {category}
                   </p>
                 </div>
-                <p className="group-hover:text-foreground line-clamp-1 md:max-w-lg">
+                <p className="group-hover:text-foreground s-description line-clamp-1 md:max-w-lg">
                   {description}
                 </p>
               </div>
@@ -201,4 +202,9 @@ const Post = ({
       </a>
     </li>
   )
+}
+const getTransitionId = (id: string) => {
+  return {
+    viewTransitionName: id.replace(/[^a-z0-9]/gi, '')
+  }
 }

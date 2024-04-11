@@ -57,4 +57,23 @@ const project = defineCollection({
   }),
 });
 
-export const collections = { blog, project };
+const travel = defineCollection({
+  type: "content",
+  schema: z.object({
+    place: z.string(),
+    tags: z.array(z.string()).optional(),
+    date: z.coerce.date(),
+    pubDate: z.coerce.date(),
+    publish: z.boolean().default(false),
+    updatedDate: z.coerce.date().optional(),
+    heroImage: z.string().optional(),
+    state: z.string(),
+    country: z.string(),
+    description: z.string(),
+    location: z.array(z.number()).length(2),
+    size: z.number().optional(),
+  }),
+});
+
+
+export const collections = { blog, project, travel };

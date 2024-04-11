@@ -6,10 +6,11 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { ThemeToggle } from "../components/ui";
 import Layout from "./layout.astro";
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">;
 
 const { title, description, category, tags, pubDate, updatedDate, heroImage } =
-  Astro.props;
+  Astro.props.data;
+const { id } = Astro.props;
 ---
 
 <html lang="en">
@@ -18,9 +19,7 @@ const { title, description, category, tags, pubDate, updatedDate, heroImage } =
   </head>
 
   <Layout>
-    <div
-      class="font-sans grid gap-2 container md:mx-auto px-6 md:px-6 w-full md:max-w-2xl"
-    >
+    <div class="grid gap-4 md:max-w-2xl mt-6">
       <article>
         <header>
           <h1 class="text-3xl font-bold mt-4 mb-4 text-foreground">{title}</h1>
@@ -41,19 +40,19 @@ const { title, description, category, tags, pubDate, updatedDate, heroImage } =
                 )
               }
             </div>
-            <ThemeToggle />
           </div>
         </header>
         <img
+          transition:name={id.replace(/[^a-z0-9]/gi, "")}
           src={heroImage}
           alt={heroImage}
           class="w-full h-64 object-cover rounded-lg mt-4"
         />
+
         <div class="prose dark:prose-invert mt-8 text-foreground/90">
           <slot />
         </div>
       </article>
-      <Footer />
     </div>
   </Layout>
 </html>
