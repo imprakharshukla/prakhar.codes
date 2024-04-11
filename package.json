@@ -49,6 +49,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.23",
+    "@vercel/speed-insights": "^1.0.10",
     "astro": "^4.5.14",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
