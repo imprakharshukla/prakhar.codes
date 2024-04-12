@@ -1,17 +1,15 @@
 ---
 import NavigationBar from "../components/NavigationBar";
-import { ThemeToggle } from "../components/ui";
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname;
 import BaseHead from "../components/BaseHead.astro";
 import { ViewTransitions } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
-import Themes from "astro-themes";
+import { ThemeToggle } from "../components/ui";
 ---
 
 <html lang="en">
   <head>
-    <Themes defaultTheme="dark" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <ViewTransitions fallback="animate" />
@@ -38,13 +36,15 @@ import Themes from "astro-themes";
       window.localStorage.setItem("theme", theme);
     </script>
   </head>
-  <body class="max-w-7xl mx-auto bg-background">
+  <body class="max-w-7xl mx-auto bg-background relative">
     <SpeedInsights />
+    <div class="w-full justify-end">
+      <ThemeToggle client:load />
+    </div>
     <div class="min-h-screen flex">
       <NavigationBar client:load path={currentPath} />
-      <!-- <ThemeToggle client:load /> -->
       <main
-        class="bg-background flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow overflow-hidden px-6 pb-20"
+        class="bg-background w-screen overflow-x-hidden mt-12 lg:mt-0 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow overflow-hidden px-6 pb-20"
       >
         <div class="w-full h-full max-w-[1072px] mx-auto flex flex-col">
           <slot />

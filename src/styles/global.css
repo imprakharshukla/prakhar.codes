@@ -12,7 +12,7 @@
     @apply text-foreground font-semibold text-2xl md:text-3xl lg:text-4xl;
   }
   .h3-heading {
-    @apply text-foreground font-medium lg:text-2xl md:text-xl text-lg;
+    @apply text-foreground font-semibold lg:text-2xl md:text-xl text-lg;
   }
   .h5-heading {
     @apply text-foreground font-medium lg:text-xl md:text-lg text-base;
@@ -26,8 +26,17 @@
   .xs-description {
     @apply text-xs md:text-sm text-muted-foreground;
   }
+  .polka-dots {
+    background-color: (var(--primary));
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.06' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  }
 }
+
 @layer base {
+  .polka-dots {
+    background-color: #dfdbe5;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;

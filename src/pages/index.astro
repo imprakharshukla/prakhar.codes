@@ -22,7 +22,6 @@ const blogPosts = await getCollection("blog");
     <div class="grid gap-2 md:max-w-2xl mt-6">
       <div class="">
         <img
-          fetchpriority="high"
           width="1500"
           height="500"
           class="rounded-2xl shadow-lg mb-8 -rotate-1"
@@ -111,13 +110,13 @@ const blogPosts = await getCollection("blog");
         >
       </div>
 
-      <hr class="border-border/50 mt-4" />
+      <hr class="dark:border-border/50 border-border mt-4" />
       <div>
         <PostFeed headingVisible client:load />
       </div>
-      <hr class="border-border/50 my-8" />
+      <hr class="dark:border-border/50 border-border my-8" />
       <ProjectFeed headingVisible client:load />
-      <hr class="border-border/50 my-8" />
+      <hr class="dark:border-border/50 border-border my-8" />
       <GitHubStatsBentoGrid headingVisible client:load />
     </div>
   </Layout>

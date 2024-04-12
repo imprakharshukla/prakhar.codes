@@ -39,16 +39,19 @@ export function ThemeToggle() {
   }
 
   return (
-    <div className="bg-background">
+    <div className="bg-background lg:fixed absolute top-3 right-3">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="h-8 w-8 px-0">
-            <SunIcon className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <MoonIcon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <Button variant="ghost" size="sm" className="py-1 px-2 w-fit border-border border-dashed transform duration-200 hover:text-primary text-muted-foreground hover:bg-primary/10 flex gap-2 items-center group border rounded-md bg-card cursor-pointer">
+            {theme === "light" ?
+              <SunIcon className="h-4 w-4 text-muted-foreground group-hover:text-primary" /> :
+              <MoonIcon className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+            }
+            <span className="text-foreground description text-base capitalize">{theme}</span>
             <span className="sr-only">Toggle theme</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="dark:border-border/40">
           <DropdownMenuItem onClick={() => setTheme("light")}>
             <SunIcon className="mr-2 h-4 w-4" />
             <span>Light</span>

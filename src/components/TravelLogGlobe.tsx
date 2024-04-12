@@ -95,7 +95,7 @@ export default function TravelLogGlobe() {
         };
     }, []);
     return (
-        <div className="font-sans grid gap-2 container md:md:mx-auto px-6 md:px-6 w-full md:max-w-2xl">
+        <div className="font-sans grid gap-2 px-6 md:px-6 w-full md:max-w-2xl">
             <canvas
                 // @ts-ignore
                 ref={canvasRef}
