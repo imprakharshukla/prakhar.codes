@@ -6,11 +6,12 @@ const currentPath = Astro.url.pathname;
 import BaseHead from "../components/BaseHead.astro";
 import { ViewTransitions } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Themes from "astro-themes";
 ---
 
 <html lang="en">
   <head>
-    <SpeedInsights />
+    <Themes defaultTheme="dark" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <ViewTransitions fallback="animate" />
@@ -40,7 +41,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
   <body class="max-w-7xl mx-auto bg-background">
     <SpeedInsights />
     <div class="min-h-screen flex">
-      <NavigationBar path={currentPath} />
+      <NavigationBar client:load path={currentPath} />
       <!-- <ThemeToggle client:load /> -->
       <main
         class="bg-background flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow overflow-hidden px-6 pb-20"
