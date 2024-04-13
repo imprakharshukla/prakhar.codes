@@ -99,7 +99,7 @@ export default function TravelLogGlobe() {
             <canvas
                 // @ts-ignore
                 ref={canvasRef}
-                className="w-[600px] h-[400px] md:h-[600px]"
+                className="w-[600px] h-[600px]"
                 style={{ maxWidth: "100%", aspectRatio: 1 }}
                 onPointerDown={(e) => {
                     // @ts-ignore

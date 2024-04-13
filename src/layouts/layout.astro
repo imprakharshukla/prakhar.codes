@@ -6,6 +6,7 @@ import BaseHead from "../components/BaseHead.astro";
 import { ViewTransitions } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import { ThemeToggle } from "../components/ui";
+import { TailwindIndicator } from "../components/TailwindIndicator";
 ---
 
 <html lang="en">
@@ -51,5 +52,6 @@ import { ThemeToggle } from "../components/ui";
         </div>
       </main>
     </div>
+    <TailwindIndicator client:only />
   </body>
 </html>
