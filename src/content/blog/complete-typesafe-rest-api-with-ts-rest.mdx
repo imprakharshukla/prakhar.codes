@@ -1,0 +1,43 @@
+---
+title: "Complete Typesafe REST APIs with TS-rest"
+description: "Let's not depend on TRPC clients and build our own typesafe REST API with TypeScript."
+category: "Tutorials"
+tags: ["Backend", "TypeScript", "REST API", "NodeJS", "Express"]
+pubDate: "Apr 13 2024"
+publish: false
+heroImage: "/blog-placeholder-3.jpg"
+---
+
+In this tutorial, we will learn how to build a complete typesafe REST API using [TS-rest](https://ts-rest.com). We will build a simple REST API for a blog application that will have CRUD operations for posts.
+
+## What is TS-rest?
+
+As per the official documentation,
+
+> ts-rest offers a simple way to define a contract for your API, which can be both consumed and implemented by your application, giving you end to end type safety without the hassle or code generation.
+
+In simple words, we define a shared contract for our API that can be used by both the client and the server. This contract is defined using zod which is also used for runtime validation of the request and response automatically.
+
+## Pre-requisites
+
+TS-rest works best within a **monorepo** setup since it requires the shared contract to be available to both the client and the server.
+
+While you can also setup and publish a separate package for the shared contract, this might become a hassle as each change will require a new version to be published.
+
+Hence in this tutorial, we will be using a monorepo setup using [TurboRepo](https://turbo.build) and [pnpm workspaces](https://pnpm.io/workspaces).
+
+## Setting up the project
+
+1. We can start by creating a new project using TurboRepo.
+
+```bash
+npx create-turbo@latest
+```
+
+2. Select `pnpm-workspaces` as the template and provide the project name.
+3. Once the project is created, navigate to the project directory and install the required dependencies.
+
+```bash
+cd {project} && pnpm install
+```
+

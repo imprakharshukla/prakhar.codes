@@ -35,6 +35,10 @@ import { TailwindIndicator } from "../components/TailwindIndicator";
         document.documentElement.classList.add("dark");
       }
       window.localStorage.setItem("theme", theme);
+      document.addEventListener('astro:after-swap', function () {
+        if (localStorage.getItem("theme") === 'dark')
+            document.documentElement.classList.toggle('dark', true);
+    });
     </script>
   </head>
   <body class="max-w-7xl mx-auto bg-background relative">

@@ -111,7 +111,7 @@ export default function PostFeed({
           </DropdownMenu>
         </div>
       </div>
-      <ul ref={parent} className="grid">
+      <ul ref={parent} className="grid gap-6">
         {
 
           query.length > 0 ? searchResults.map((post) => {
