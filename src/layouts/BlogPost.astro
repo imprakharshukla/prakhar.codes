@@ -5,11 +5,23 @@ import Header from "../components/Header";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./layout.astro";
+import IconButton from "../components/IconButton.astro";
+import { ArrowUpRight } from "lucide-react";
 type Props = CollectionEntry<"blog">;
 
-const { title, description, category, tags, pubDate, updatedDate, heroImage } =
-  Astro.props.data;
-const { id } = Astro.props;
+const {
+  title,
+  description,
+  category,
+  tags,
+  pubDate,
+  linkTitle,
+  updatedDate,
+  heroImage,
+  link,
+} = Astro.props.data;
+const { id, body, render } = Astro.props;
+const { remarkPluginFrontmatter } = await render();
 ---
 
 <html lang="en">
@@ -18,10 +30,24 @@ const { id } = Astro.props;
   </head>
 
   <Layout>
-    <div class="grid gap-4 md:max-w-2xl mt-6">
+    <div class="gap-4 md:max-w-2xl mt-6 flex flex-col">
       <article>
         <header>
+          <p class="text-muted-foreground mb-1">
+            {remarkPluginFrontmatter.minutesRead}
+          </p>
           <h1 class="text-3xl font-bold mt-4 mb-4 text-foreground">{title}</h1>
+          <div class="flex gap-3">
+            {
+              link && (
+                <div class="my-4">
+                  <IconButton title={linkTitle} link={link}>
+                    <ArrowUpRight size={20} />
+                  </IconButton>
+                </div>
+              )
+            }
+          </div>
           <p class="text-muted-foreground">{description}</p>
           <p
             class="text-primary w-fit mt-3 bg-primary/20 dark:bg-primary/20 px-1.5 py-1 rounded font-medium text-xs"

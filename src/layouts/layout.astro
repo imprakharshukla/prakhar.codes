@@ -35,10 +35,10 @@ import { TailwindIndicator } from "../components/TailwindIndicator";
         document.documentElement.classList.add("dark");
       }
       window.localStorage.setItem("theme", theme);
-      document.addEventListener('astro:after-swap', function () {
-        if (localStorage.getItem("theme") === 'dark')
-            document.documentElement.classList.toggle('dark', true);
-    });
+      document.addEventListener("astro:after-swap", function () {
+        if (localStorage.getItem("theme") === "dark")
+          document.documentElement.classList.toggle("dark", true);
+      });
     </script>
   </head>
   <body class="max-w-7xl mx-auto bg-background relative">
@@ -49,7 +49,7 @@ import { TailwindIndicator } from "../components/TailwindIndicator";
     <div class="min-h-screen flex">
       <NavigationBar client:load path={currentPath} />
       <main
-        class="bg-background w-screen overflow-x-hidden mt-12 lg:mt-0 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow overflow-hidden px-6 pb-20"
+        class="bg-background w-screen overflow-x-auto mt-12 lg:mt-0 flex min-h-[calc(100vh-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow overflow-hidden px-6 pb-20"
       >
         <div class="w-full h-full max-w-[1072px] mx-auto flex flex-col">
           <slot />

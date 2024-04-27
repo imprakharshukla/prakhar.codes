@@ -6,12 +6,16 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./layout.astro";
 type Props = CollectionEntry<"project">["data"];
+import IconButton from "../components/IconButton.astro";
+import { ArrowUpRight, Github } from "lucide-react";
 
 const {
   title,
   description,
   languages,
+  link,
   frameworks,
+  github,
   tags,
   type,
   status,
@@ -31,9 +35,38 @@ const {
       <article>
         <header>
           <h1 class="text-5xl font-bold mt-4 mb-4 text-foreground">{title}</h1>
+          <!-- <div
+            class="text-primary my-3 text-sm hover:bg-primary/100 hover:dark:bg-primary duration-200 ease-in-out transform
+             hover:cursor-pointer w-fit mt-3 hover:text-white hover:scale-[1.02] bg-primary/40 dark:bg-primary/40 px-1.5 py-1 rounded font-medium flex gap-1 items-center"
+          >
+            <p class="">Website</p>
+            <span>
+              <ArrowUpRight size={20} />
+            </span>
+          </div> -->
+          <div class="flex gap-3">
+            {
+              link && (
+                <div class="my-4">
+                  <IconButton title="Website" link={link}>
+                    <ArrowUpRight size={20} />
+                  </IconButton>
+                </div>
+              )
+            }
+            {
+              github && (
+                <div class="my-4">
+                  <IconButton title="GitHub" link={github}>
+                    <Github size={20} />
+                  </IconButton>
+                </div>
+              )
+            }
+          </div>
           <p class="text-muted-foreground">{description}</p>
           <p
-            class="text-primary w-fit mt-3 bg-primary/20 dark:bg-primary/20 px-1.5 py-1 rounded font-medium"
+            class="text-primary text-sm w-fit mt-3 bg-primary/20 dark:bg-primary/20 px-1.5 py-1 rounded font-medium"
           >
             {type}
           </p>
