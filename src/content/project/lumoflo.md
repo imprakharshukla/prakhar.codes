@@ -3,6 +3,8 @@ title: "Lumoflo"
 description: "Lumoflo aims to make e-commerce easy and acessible for small sellers."
 tags: ["React", "Express", "NextJS", "E-Commerce"]
 pubDate: "Apr 04 2024"
+link: https://lumoflo.com
+github: "https://github.com/imprakharshukla/lumoflo"
 heroImage: "/images/projects/gramflow_pro_banner.png"
 status: "In Progress"
 publish: true

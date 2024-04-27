@@ -3,6 +3,8 @@ title: "Andronix"
 description: "Andronix helps you install Linux distros on Android without root."
 tags: ["Android", "ExpressJS", "Kotlin"]
 pubDate: "Apr 04 2024"
+link: "https://andronix.app"
+github: "https://andronix.app/git"
 heroImage: "/images/projects/andronix_app_banner.png"
 status: "Completed"
 publish: true
