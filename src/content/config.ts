@@ -31,6 +31,8 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     publish: z.boolean().default(false),
+    link: z.string().url().optional(),
+    linkTitle: z.string().optional(),
     description: z.string(),
     tags: z.array(z.string()).optional(),
     category: z.nativeEnum(Category).optional(),
@@ -44,6 +46,8 @@ const project = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    link: z.string().url().optional(),
+    github: z.string().url().optional(),
     tags: z.array(z.string()).optional(),
     pubDate: z.coerce.date(),
     publish: z.boolean().default(false),

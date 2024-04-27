@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { cn } from "../lib/utils";
 import Fuse from 'fuse.js';
+import { getReadingTimeDynamic } from "../plugins/reading-time-dynamic"
 
 
 const blogPosts = await getCollection("blog");
@@ -118,6 +119,7 @@ export default function PostFeed({
             return (
               <Post
                 id={post.id}
+                body={post.body}
                 title={post.data.title}
                 description={post.data.description}
                 category={post.data.category}
@@ -129,6 +131,7 @@ export default function PostFeed({
             posts.slice(0, numberOfPost).map((post) => {
               return (
                 <Post
+                  body={post.body}
                   id={post.id}
                   title={post.data.title}
                   description={post.data.description}
@@ -159,11 +162,13 @@ const Post = ({
   title,
   description,
   category,
+  body,
   heroImage,
   slug
 }: {
   id: string,
   title: string,
+  body: string,
   description: string,
   category?: string,
   heroImage?: string,
@@ -195,6 +200,9 @@ const Post = ({
                 <p className="group-hover:text-foreground s-description line-clamp-1 md:max-w-lg">
                   {description}
                 </p>
+                <p className="group-hover:text-foreground s-description line-clamp-1 md:max-w-lg">{
+                  getReadingTimeDynamic(body)
+                }</p>
               </div>
             </div>
           </div>
