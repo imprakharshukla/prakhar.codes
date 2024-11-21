@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { cn } from "../lib/utils";
+import GitHubCalendar from "react-github-calendar";
 import { z } from "astro/zod";
 import { GitBranch, GitFork, Sparkle, Star, WrapText } from "lucide-react";
 
@@ -43,6 +44,7 @@ export default function GitHubStatsBentoGrid({
 }) {
     const [stats, setStats] = useState<z.infer<typeof StatZodSchema>>();
     const statsURL = "https://raw.githubusercontent.com/imprakharshukla/github-stats/master/generated/overview.json";
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const fetchStats = async () => {
         const res = await fetch(statsURL);
@@ -54,8 +56,25 @@ export default function GitHubStatsBentoGrid({
         fetchStats();
     }, []);
 
+    useEffect(() => {
+        // Initial scroll
+        const scrollToEnd = () => {
+            if (containerRef.current) {
+                containerRef.current.scrollLeft = containerRef.current.scrollWidth;
+            }
+        };
+
+        // Try immediately
+        scrollToEnd();
+
+        // Also try after a short delay to ensure content is rendered
+        const timeoutId = setTimeout(scrollToEnd, 100);
+
+        return () => clearTimeout(timeoutId);
+    }, [stats]); // Depend on stats to re-run when data loads
+
     return (
-        <div>
+        <div className="overflow-x-scroll">
             {headingVisible &&
                 <div className="flex gap-3">
 
@@ -72,6 +91,27 @@ export default function GitHubStatsBentoGrid({
                     </div>
                 </div>
             }
+            <div 
+                ref={containerRef}
+                className="max-w-full overflow-auto hidden-scrollbar" 
+                style={{ overflow: 'auto hidden' }}
+            >
+                <div style={{ width: 'max-content', maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <GitHubCalendar
+                        theme={{
+                            light: ["#ebedf0", "#0366d6", "#053061", "#042f4e", "#022c2c"],
+                            dark: ["#161b22", "#0366d6", "#053061", "#042f4e", "#022c2c"]
+                        }}
+                        username="imprakharshukla"
+                        hideColorLegend
+                        transformData={(contributions) => {
+                            // Get only the last 6 months of data
+                            const last6Months = contributions.slice(-183);
+                            return last6Months;
+                        }}
+                    />
+                </div>
+            </div>
             {stats &&
                 <div>
                     <div className="grid gap-3 mt-5">
