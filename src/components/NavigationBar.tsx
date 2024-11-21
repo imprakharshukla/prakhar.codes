@@ -44,7 +44,7 @@ export default function NavigationBar({
     console.log({ path })
     return (
         <div id="bottomNav" className={cn(className, "block")}>
-            <div className="fixed border-t lg:border-t-0 dark:border-border/30 bg-background/80 shadow w-full md:sticky bottom-0 md:top-0 h-16 md:w-24 shrink-0 md:h-screen overflow-y-auto no-scrollbar lg:border-r z-50 backdrop-blur">
+            <div className="fixed border-t lg:border-t-0 dark:border-border/30 bg-background/80 shadow md:shadow-none w-full md:sticky bottom-0 md:top-0 h-16 md:w-24 shrink-0 md:h-screen overflow-y-auto no-scrollbar lg:border-r z-50 backdrop-blur">
                 <div className="h-full w-full flex flex-row md:flex-col pt-3 justify-between after:flex-1 after:mt-auto">
                     <div className="hidden md:block md:flex-1"></div>
                     <TooltipProvider>

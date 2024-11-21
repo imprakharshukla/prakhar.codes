@@ -5,9 +5,9 @@ import { getCollection } from "astro:content";
 import PostFeed from "../components/PostFeed";
 import ProjectFeed from "../components/ProjectFeed";
 import Layout from "../layouts/layout.astro";
-import { cn } from "../lib/utils";
 import GitHubStatsBentoGrid from "../components/GithubStatsBentoGrid";
 import IconButton from "../components/IconButton.astro";
+import FilterDropdown from "../components/FilterDropdown";
 const currentPath = Astro.url.pathname;
 
 const blogPosts = await getCollection("blog");

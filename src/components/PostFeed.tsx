@@ -1,4 +1,3 @@
-import FilterMenu from "./FilterMenu";
 import { Category, collections } from "../content/config";
 import type { z } from "astro/zod";
 import { getCollection } from 'astro:content';
@@ -7,8 +6,9 @@ import { ArrowRight, ListFilter, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { cn } from "../lib/utils";
-import Fuse from 'fuse.js';
+import * as Fuse from 'fuse.js';
 import { getReadingTimeDynamic } from "../plugins/reading-time-dynamic"
+import FilterDropdown from "./FilterDropdown";
 
 
 const blogPosts = await getCollection("blog");
@@ -36,7 +36,7 @@ export default function PostFeed({
     return post.data.publish === true;
   });
 
-  const fuse = new Fuse(searchList, fuseOptions);
+  const fuse = new Fuse.default(searchList, fuseOptions);
 
   const searchResults = fuse.search(query).map((result) => result.item)
     .slice(0, 5);
@@ -82,34 +82,7 @@ export default function PostFeed({
           {searchEnabled &&
             <Input value={query} onChange={handleOnSearch} placeholder="Search articles" className="text-base text-muted-foreground" />
           }
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button variant={"outline"} className="text-foreground">
-                Filter
-                <ListFilter size={20} className="ml-2" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="border border-border/50">
-              {
-                Object.values(Category).map((category) => (
-                  <DropdownMenuItem onClick={() => {
-                    setCategory(category)
-                  }} key={category}>
-                    {category}
-                  </DropdownMenuItem>
-
-                ))
-
-              }
-              <DropdownMenuItem onClick={() => {
-                setCategory("All")
-              }} key={"all"}>
-                {/* <button className="text-muted-foreground text-sm"> */}
-                All
-                {/* </button> */}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <FilterDropdown setCategory={setCategory} />
         </div>
       </div>
       <ul ref={parent} className="grid gap-6">
