@@ -24,14 +24,14 @@ export function ThemeToggle() {
   }, []);
 
   useEffect(() => {
-    // if (isMounted && typeof localStorage !== "undefined") {
-    //   if (theme === "dark") {
-    //     document.documentElement.classList.add("dark");
-    //   } else {
-    //     document.documentElement.classList.remove("dark");
-    //   }
-    //   localStorage.setItem("theme", theme);
-    // }
+    if (isMounted && typeof localStorage !== "undefined") {
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      localStorage.setItem("theme", theme);
+    }
   }, [theme, isMounted]);
 
   if (!isMounted) {
