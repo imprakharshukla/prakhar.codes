@@ -1,10 +1,12 @@
 import { getCollection } from 'astro:content';
 import { Button } from "./ui";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import FormattedDate from './FormattedDate.astro';
 
 
 const travels = await getCollection("travel");
+const sortedTravels = [...travels].sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 
 export default function TravelFeed({
   numberOfPost = 100
@@ -18,7 +20,7 @@ export default function TravelFeed({
       <div className="">
         <ul ref={parent} className="grid gap-6 lg:grid-cols-2 grid-cols-1">
           {
-            travels.slice(0, numberOfPost).map((travel) => {
+            sortedTravels.slice(0, numberOfPost).map((travel) => {
               return (
                 <li key={travel.id}>
                   <a href={`/travel/${travel.slug}`} className="cursor-pointer">

@@ -55,23 +55,43 @@ import IconButton from "../../components/IconButton.astro";
             {
               [
                 {
-                  date: "2019 - Present",
-                  company: "Andronix App",
-                  designation: "Lead Software Engineer",
+                  date: "July 2024 - Oct 2024",
+                  company: "CaseCraft (NUS Singapore)",
+                  designation:
+                    "Software Engineering Intern - Full-Stack Development & AI Integration",
                   details: [
-                    "Developed and maintained the world's most popular Linux on Android app.",
-                    "Single-handedly managed the development of the app, including the backend, frontend, and infrastructure.",
+                    "Frontend Development: Engineered the entire frontend using React with Tanstack Router, styled with TailwindCSS, resulting in a responsive and intuitive user interface. Significantly enhanced the design and user experience for educators and students.",
+                    "Backend Architecture: Developed a comprehensive backend using TypeScript and Ts-Rest, implementing robust authentication and achieving end-to-end type safety. Migrated the entire application to PostgreSQL, utilizing auto-generated Zod schemas for complete type safety.",
+                    "Codebase Optimization: Led the migration from JavaScript to TypeScript, resulting in a 24% reduction in application failure and error rates, significantly improving overall system reliability.",
+                    "AI Integration: Designed and implemented AI pipelines leveraging OpenAI, enhancing the application's capabilities and user engagement.",
                   ],
                 },
                 {
-                  date: "2023 - Present",
-                  company: "Lumuflo",
-                  designation: "Lead Software Engineer",
+                  date: "April 2024 - Present",
+                  company: "Lumoflo",
+                  designation:
+                    "Lead Developer - Full-Stack & Mobile Multi-Tenant E-commerce Platform",
                   details: [
-                    "Lumoflo aims to provide a platform for small businesses to manage their inventory and sales.",
-                    "Developed the entire platform from scratch, including the backend, frontend, and infrastructure.",
-                    "Created a fully typed Rest API using Typescript, TsRest, and Express.",
-                    "NextJS powers the frontend, with TailwindCSS for styling.",
+                    "Backend Architecture: Engineered robust backend using Express.js and ts-rest, implementing end-to-end type safety. Designed sophisticated monorepo structure, reducing build times by 56% (15 min to 6.6 min).",
+                    "Advanced Features: Developed complex account synchronization for carts and queues. Implemented high-performance job queuing system using bull-mq, Redis and Trigger.dev for efficient task processing.",
+                    "Mobile Development: Developing a React Native application for merchants that utilizes the common backend contracts and the aforementioned APIs.",
+                    "Frontend Development: Led frontend development with Next.js, creating a centralized design library of reusable components. Optimized dev environment, reducing server startup times from 5.12 minutes to under 10 seconds.",
+                    "Automated Testing: Wrote over 40 end-to-end tests for core modules, automating API endpoint testing using Docker, Superagent, Prisma, and Jest, significantly enhancing code reliability.",
+                    "Tech Stack: Backend: Express.js, TypeScript, Postgres, Redis, Ts-Rest, Agenda, Jest, Jupa | Frontend: Next.js 14, React Server Components, TailwindCSS | Infrastructure: Docker containers, Fly.io, Cloudflare Images, Vercel Platform",
+                  ],
+                },
+                {
+                  date: "April 2019 - Present",
+                  company: "Andronix",
+                  designation:
+                    'Lead Developer - Ranks No. 1 on Google Play Store for "Linux" keyword, Over 1.7M+ downloads',
+                  details: [
+                    "Android App: Developed the entire Android App using Kotlin with MVVM architecture. Implemented Retrofit & OkHttp for Rest API calls & caching, LiveData & Coroutines for async operations.",
+                    "Backend Development: Developed scalable backend architecture:",
+                    "TypeScript Migration: Refactored codebase to TypeScript, increasing test coverage to over 80%",
+                    "Testing Infrastructure: Implemented Firebase emulators, boosting integration test coverage from 0% to 78%",
+                    "Microservices Architecture: Modularized into Internal, Commerce, and Product APIs, significantly reducing maintenance overhead",
+                    "Frontend Development: Built website using NuxtJS and VueJS, styled with TailwindCSS. Implemented comprehensive end-to-end testing using CypressJS.",
                   ],
                 },
               ].map((work, index) => (
@@ -117,15 +137,6 @@ import IconButton from "../../components/IconButton.astro";
             {
               [
                 {
-                  date: "2019 - 2020",
-                  institution: "Spring Dale College",
-                  location: "Lucknow",
-                  details: [
-                    "President of the Computer Science and Mathematics Club",
-                    "Senior Year in PCM + Computer Science",
-                  ],
-                },
-                {
                   date: "2021 - 2025",
                   institution:
                     "Galgotias College of Engineering and Technology",
@@ -133,6 +144,15 @@ import IconButton from "../../components/IconButton.astro";
                   details: [
                     "Part of various Technical Clubs, core member of Loop, the Coding Club",
                     "B.Tech in Computer Science + Artificial Intelligence",
+                  ],
+                },
+                {
+                  date: "2019 - 2020",
+                  institution: "Spring Dale College",
+                  location: "Lucknow",
+                  details: [
+                    "President of the Computer Science and Mathematics Club",
+                    "Senior Year in PCM + Computer Science",
                   ],
                 },
               ].map((education, index) => (
