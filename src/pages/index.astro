@@ -7,7 +7,6 @@ import ProjectFeed from "../components/ProjectFeed";
 import Layout from "../layouts/layout.astro";
 import GitHubStatsBentoGrid from "../components/GithubStatsBentoGrid";
 import IconButton from "../components/IconButton.astro";
-import FilterDropdown from "../components/FilterDropdown";
 const currentPath = Astro.url.pathname;
 
 const blogPosts = await getCollection("blog");
@@ -138,7 +137,7 @@ const blogPosts = await getCollection("blog");
       <hr class="dark:border-border/50 border-border my-8" />
       <ProjectFeed headingVisible client:load />
       <hr class="dark:border-border/50 border-border my-8" />
-      <GitHubStatsBentoGrid headingVisible client:load />
+      <GitHubStatsBentoGrid headingVisible client:only="react" />
     </div>
   </Layout>
 </html>
