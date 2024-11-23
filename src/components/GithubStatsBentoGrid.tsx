@@ -128,19 +128,19 @@ const GitHubStatsBentoGrid: React.FC<{ headingVisible?: boolean }> = ({
                     </div>
                 </div>
             }
-            <div 
+            <div
                 ref={containerRef}
-                className="max-w-full overflow-auto hidden-scrollbar" 
+                className="max-w-full overflow-auto hidden-scrollbar"
                 style={{ overflow: 'auto hidden' }}
             >
-                <div style={{ width: 'max-content', maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div className="w-max max-w-full flex flex-col gap-2 mt-8 mb-4 text-foreground">
                     <GitHubCalendar
                         theme={{
                             light: ["#ebedf0", "#0366d6", "#053061", "#042f4e", "#022c2c"],
                             dark: ["#161b22", "#0366d6", "#053061", "#042f4e", "#022c2c"]
                         }}
+
                         username="imprakharshukla"
-                        hideColorLegend
                         transformData={(contributions) => {
                             // Get only the last 6 months of data
                             const last6Months = contributions.slice(-183);
