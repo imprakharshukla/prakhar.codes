@@ -1,6 +1,6 @@
 ---
 title: "Lumoflo"
-description: "Lumoflo aims to make e-commerce easy and acessible for small sellers"
+description: "Multi-tenant e-commerce SaaS platform with automated billing, shipping, and inventory management. Built with Next.js 14, TypeScript, and end-to-end type safety for Instagram sellers and small businesses."
 tags: ["React", "Express", "NextJS", "E-Commerce"]
 pubDate: "Apr 04 2024"
 link: https://lumoflo.com

@@ -1,6 +1,6 @@
 ---
 title: "Andronix"
-description: "Andronix helps you install Linux distros on Android without root."
+description: "#1 on Google Play for 'Linux' with 2.5M+ downloads and $100K+ revenue. Install full Linux distributions on Android without root using PRoot technology."
 tags: ["Android", "ExpressJS", "Kotlin"]
 pubDate: "Apr 04 2024"
 link: "https://andronix.app"

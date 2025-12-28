@@ -1,6 +1,6 @@
 ---
 title: "Rapid"
-description: "Rapid a starter kit to jumpstart your typeful apps within a Turborepo with NextJS, ExpressJS, Prisma, Shadcn/UI, NextAuth and much more"
+description: "Production-ready monorepo starter for building full-stack SaaS products. Features end-to-end type safety with TS-Rest, Turborepo structure, and includes Next.js, Express, Prisma, Shadcn/UI, and NextAuth."
 tags: ["React", "Express", "NextJS", "Monorepo", "Turbo", "Prisma", "NextAuth"]
 pubDate: "Apr 25 2024"
 heroImage: "/images/projects/rapid_banner.png"
