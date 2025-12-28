@@ -1,0 +1,74 @@
+name: Deploy Resume to Cloudflare R2
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'resume.tex'
+  workflow_dispatch:
+
+jobs:
+  compile-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX to PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume.tex
+
+      - name: Generate timestamp and metadata
+        id: metadata
+        run: |
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          FILENAME="Prakhar_Resume_${TIMESTAMP}.pdf"
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "filename=$FILENAME" >> $GITHUB_OUTPUT
+
+          # Rename compiled PDF
+          mv resume.pdf "$FILENAME"
+
+          # Create latest.json with metadata
+          cat > latest.json <<EOF
+          {
+            "url": "https://resume-cdn.prakhar.codes/${FILENAME}",
+            "filename": "${FILENAME}",
+            "timestamp": "${TIMESTAMP}",
+            "updatedAt": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          }
+          EOF
+
+      - name: Upload to Cloudflare R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
+          BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+        run: |
+          # Install AWS CLI
+          pip install awscli
+
+          # Upload the timestamped PDF
+          aws s3 cp "${{ steps.metadata.outputs.filename }}" \
+            s3://${BUCKET_NAME}/${{ steps.metadata.outputs.filename }} \
+            --endpoint-url ${AWS_ENDPOINT_URL} \
+            --content-type application/pdf \
+            --cache-control "public, max-age=31536000, immutable"
+
+          # Upload latest.json (this will be read by Astro action)
+          aws s3 cp latest.json \
+            s3://${BUCKET_NAME}/latest.json \
+            --endpoint-url ${AWS_ENDPOINT_URL} \
+            --content-type application/json \
+            --cache-control "no-cache"
+
+      - name: Summary
+        run: |
+          echo "Resume compiled and uploaded successfully!"
+          echo "Filename: ${{ steps.metadata.outputs.filename }}"
+          echo "URL: https://resume-cdn.prakhar.codes/${{ steps.metadata.outputs.filename }}"

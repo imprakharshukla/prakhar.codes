@@ -26,7 +26,7 @@ import IconButton from "../../components/IconButton.astro";
       </div>
       <IconButton
         title={"Resume"}
-        link={"/resume/Prakhar_Resume_2024_Updated.pdf"}
+        link={"/resume/latest"}
       >
         <svg
           class="text-current h-4 w-4"
@@ -55,10 +55,36 @@ import IconButton from "../../components/IconButton.astro";
             {
               [
                 {
+                  date: "May 2025 - Dec 2025",
+                  company: "Yobr (yobr.io) - Oslo, Norway",
+                  designation: "Founding Engineer (Full-Time)",
+                  type: "Full-time",
+                  details: [
+                    "Tech Stack Migration: Led comprehensive migration to modern architecture using Next.js, Fastify, and Trigger.dev for async job orchestration. Implemented end-to-end type safety with tRPC for shared RPC contracts between frontend and backend.",
+                    "AI Agent Development: Architected and deployed sophisticated AI agents with 100+ tools using Vercel AI SDK and Mastra.ai, significantly enhancing the job posting workflow and user experience.",
+                    "Async Task Orchestration: Designed complex asynchronous workflows using Trigger.dev to manage multi-party job interactions, automating communication workflows between employers, candidates, and recruiters.",
+                    "DevOps & Database Architecture: Executed production database migration to PostgreSQL. Engineered custom application-layer Row Level Security (RLS) alternative, improving performance and maintainability by moving away from native PostgreSQL RLS.",
+                    "Product Design Contribution: Collaborated on UX/UI design and wireframing, contributing to the overall product vision and user experience strategy.",
+                  ],
+                },
+                {
+                  date: "April 2025 - May 2025",
+                  company: "Yobr (yobr.io) - Oslo, Norway",
+                  designation: "Software Engineering Intern",
+                  type: "Internship",
+                  details: [
+                    "Flagship Job Planner: Designed flagship Job Planner with nested AI-powered steps and streaming capabilities, enhancing workflow efficiency.",
+                    "Design System Overhaul: Overhauled design system, creating unified component library that improved development velocity and UX consistency.",
+                    "Platform Rework: Led comprehensive rework of company and student platforms, modernizing architecture and UI for enhanced performance.",
+                    "Organizations & Team Management: Architected organizations and team management system with Row Level Security for secure multi-tenant access.",
+                  ],
+                },
+                {
                   date: "July 2024 - Oct 2024",
                   company: "CaseCraft (NUS Singapore)",
                   designation:
                     "Software Engineering Intern - Full-Stack Development & AI Integration",
+                  type: "Internship",
                   details: [
                     "Frontend Development: Engineered the entire frontend using React with Tanstack Router, styled with TailwindCSS, resulting in a responsive and intuitive user interface. Significantly enhanced the design and user experience for educators and students.",
                     "Backend Architecture: Developed a comprehensive backend using TypeScript and Ts-Rest, implementing robust authentication and achieving end-to-end type safety. Migrated the entire application to PostgreSQL, utilizing auto-generated Zod schemas for complete type safety.",
@@ -71,6 +97,7 @@ import IconButton from "../../components/IconButton.astro";
                   company: "Lumoflo",
                   designation:
                     "Lead Developer - Full-Stack & Mobile Multi-Tenant E-commerce Platform",
+                  type: "Personal Project",
                   details: [
                     "Backend Architecture: Engineered robust backend using Express.js and ts-rest, implementing end-to-end type safety. Designed sophisticated monorepo structure, reducing build times by 56% (15 min to 6.6 min).",
                     "Advanced Features: Developed complex account synchronization for carts and queues. Implemented high-performance job queuing system using bull-mq, Redis and Trigger.dev for efficient task processing.",
@@ -85,6 +112,7 @@ import IconButton from "../../components/IconButton.astro";
                   company: "Andronix",
                   designation:
                     'Lead Developer - Ranks No. 1 on Google Play Store for "Linux" keyword, Over 1.7M+ downloads',
+                  type: "Personal Project",
                   details: [
                     "Android App: Developed the entire Android App using Kotlin with MVVM architecture. Implemented Retrofit & OkHttp for Rest API calls & caching, LiveData & Coroutines for async operations.",
                     "Backend Development: Developed scalable backend architecture:",
@@ -102,21 +130,51 @@ import IconButton from "../../components/IconButton.astro";
                       {work.date}
                     </time>
                     <div class="grid gap-1">
-                      <h3 class="text-lg font-semibold text-foreground">
+                      <h3 class="text-lg font-semibold text-foreground flex items-center gap-2 flex-wrap">
                         {work.company}
+                        <span
+                          class={cn(
+                            "inline-flex items-center rounded-md px-1.5 py-0.5 font-medium text-xs/5 forced-colors:outline w-fit",
+                            work.type === "Full-time" &&
+                              "bg-blue-500/15 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
+                            work.type === "Internship" &&
+                              "bg-purple-500/15 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
+                            work.type === "Personal Project" &&
+                              "bg-orange-500/15 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400"
+                          )}
+                        >
+                          {work.type}
+                        </span>
                       </h3>
-                      <p class="font-normal  text-muted-foreground">
+                      <p class="font-normal text-muted-foreground">
                         {work.designation}
                       </p>
-                      {work.details.map((detail, idx) => (
-                        <ul class="">
-                          <li>
-                            <p class=" font-normal text-muted-foreground">
-                              - {detail}
-                            </p>
-                          </li>
-                        </ul>
-                      ))}
+                      <ul class="mt-3 space-y-2">
+                        {work.details.map((detail, idx) => {
+                          const colonIndex = detail.indexOf(":");
+                          const hasLabel = colonIndex !== -1;
+                          const label = hasLabel
+                            ? detail.substring(0, colonIndex)
+                            : null;
+                          const text = hasLabel
+                            ? detail.substring(colonIndex + 1).trim()
+                            : detail;
+
+                          return (
+                            <li class="flex gap-2 text-sm leading-relaxed">
+                              <span class="text-muted-foreground mt-1.5">•</span>
+                              <span class="flex-1">
+                                {hasLabel && (
+                                  <span class="font-semibold text-foreground">
+                                    {label}:
+                                  </span>
+                                )}{" "}
+                                <span class="text-muted-foreground">{text}</span>
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
                     </div>
                   </div>
                 </li>

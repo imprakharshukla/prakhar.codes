@@ -1,0 +1,22 @@
+---
+export const prerender = false;
+
+import { actions } from "astro:actions";
+
+// Fetch the latest resume URL from the action using Astro.callAction()
+const { data, error } = await Astro.callAction(actions.getLatestResume, {});
+
+if (error) {
+  console.error("Error fetching latest resume:", error);
+  // Fallback to old static resume
+  return Astro.redirect("/resume/Prakhar_Resume_2024_Updated.pdf");
+}
+
+// Redirect to the latest resume URL
+if (data?.url) {
+  return Astro.redirect(data.url);
+}
+
+// Fallback if no data
+return Astro.redirect("/resume/Prakhar_Resume_2024_Updated.pdf");
+---

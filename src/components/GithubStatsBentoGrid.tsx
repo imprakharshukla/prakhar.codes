@@ -111,7 +111,7 @@ const GitHubStatsBentoGrid: React.FC<{ headingVisible?: boolean }> = ({
     }, [stats]); // Depend on stats to re-run when data loads
 
     return (
-        <div className="overflow-x-scroll">
+        <div className="overflow-x-scroll scrollbar-hide">
             {headingVisible &&
                 <div className="flex gap-3">
 

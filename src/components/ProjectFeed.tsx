@@ -1,6 +1,7 @@
 import { getCollection } from 'astro:content';
 import { Button } from "./ui";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
+import TechBadge from './TechBadge';
 
 
 const projects = await getCollection("project");
@@ -58,6 +59,17 @@ export default function ProjectFeed({
                             <p className="group-hover:text-foreground s-description line-clamp-1 md:max-w-2xl">
                               {project.data.description}
                             </p>
+                            {/* Tech Stack Badges */}
+                            {(project.data.languages || project.data.frameworks) && (
+                              <div className="flex flex-wrap gap-1.5 mt-2">
+                                {project.data.languages?.slice(0, 4).map((lang) => (
+                                  <TechBadge key={lang} tech={lang} size="sm" />
+                                ))}
+                                {project.data.frameworks?.slice(0, 3).map((framework) => (
+                                  <TechBadge key={framework} tech={framework} size="sm" />
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>

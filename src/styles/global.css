@@ -4,6 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  /* Hide scrollbar but keep scroll functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
 @layer components {
   .h1-heading {
     @apply text-foreground font-semibold text-2xl md:text-3xl lg:text-5xl;
@@ -97,4 +109,16 @@
     --input: 240 2% 18%;
     --ring: 233 78% 40%;
   }
+}
+
+/* Fix Radix UI scrollbar removal bug - prevents layout shift when dropdowns/dialogs open */
+[data-scroll-locked] {
+  overflow: scroll !important;
+  padding-right: 0 !important;
+}
+
+html[data-scroll-locked],
+body[data-scroll-locked] {
+  overflow: scroll !important;
+  padding-right: 0 !important;
 }
