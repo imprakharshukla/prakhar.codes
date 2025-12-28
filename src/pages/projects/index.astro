@@ -7,6 +7,8 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Layout from "../../layouts/layout.astro";
 import ProjectFeed from "../../components/ProjectFeed";
+
+const projects = await getCollection("project");
 ---
 
 <!doctype html>
@@ -26,7 +28,7 @@ import ProjectFeed from "../../components/ProjectFeed";
           as a developer.
         </p>
       </div>
-      <ProjectFeed />
+      <ProjectFeed projects={projects} client:load />
     </div>
   </Layout>
 </html>

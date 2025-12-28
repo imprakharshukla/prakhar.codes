@@ -1,4 +1,4 @@
-import { BookAIcon, Briefcase, FolderGit2, Globe, HomeIcon, MailIcon } from "lucide-react"
+import { House, ArticleMedium, FloppyDisk, BriefcaseMetal, GlobeHemisphereEast } from "@phosphor-icons/react"
 import { cn } from "../lib/utils"
 import { Button, ThemeToggle } from "./ui"
 import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
@@ -7,27 +7,27 @@ import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "./ui/t
 const navigationItems = [
     {
         path: "/",
-        icon: <HomeIcon size={24} />,
+        icon: <House size={24} weight="duotone" />,
         label: "Home",
     },
     {
         path: "/blog",
-        icon: <BookAIcon size={24} />,
+        icon: <ArticleMedium size={24} weight="duotone" />,
         label: "Blog",
     },
     {
         path: "/projects",
-        icon: <FolderGit2 size={24} />,
+        icon: <FloppyDisk size={24} weight="duotone" />,
         label: "Projects",
     },
     {
         path: "/resume",
-        icon: <Briefcase size={24} />,
+        icon: <BriefcaseMetal size={24} weight="duotone" />,
         label: "Resume",
     },
     {
         path: "/travel",
-        icon: <Globe size={24} />,
+        icon: <GlobeHemisphereEast size={24} weight="duotone" />,
         label: "Travel",
     },
 ];

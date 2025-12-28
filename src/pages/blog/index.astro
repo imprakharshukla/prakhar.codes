@@ -3,6 +3,9 @@ import BaseHead from "../../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Layout from "../../layouts/layout.astro";
 import PostFeed from "../../components/PostFeed";
+import { getCollection } from "astro:content";
+
+const blogPosts = await getCollection("blog");
 ---
 
 <!doctype html>
@@ -20,7 +23,7 @@ import PostFeed from "../../components/PostFeed";
           as I enjoy writing them.
         </p>
       </div>
-      <PostFeed searchEnabled client:load />
+      <PostFeed searchEnabled posts={blogPosts} client:load />
     </div>
   </Layout>
 </html>

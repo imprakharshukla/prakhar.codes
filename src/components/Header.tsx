@@ -6,14 +6,19 @@ import {
   ThemeToggle,
 } from "../components/ui";
 import { cn } from "../lib/utils";
-import { Menu, Search, Sheet } from "lucide-react";
+import {
+  House,
+  ArticleMedium,
+  BriefcaseMetal,
+  GlobeHemisphereEast
+} from "@phosphor-icons/react";
 
 export default function Header() {
   const navigationLinks = [
-    { title: "home", href: "/" },
-    { title: "blog", href: "/blog" },
-    { title: "projects", href: "/projects" },
-    { title: "about", href: "/about" },
+    { title: "home", href: "/", icon: House },
+    { title: "blog", href: "/blog", icon: ArticleMedium },
+    { title: "projects", href: "/projects", icon: BriefcaseMetal },
+    { title: "about", href: "/about", icon: GlobeHemisphereEast },
   ];
 
   const activeTab = ["home", "blog", "projects", "about"];
@@ -24,6 +29,7 @@ export default function Header() {
           <header className="sticky top-0 flex h-16 items-center gap-4 bg-background">
             <nav className="flex items-center gap-3 text-sm">
               {navigationLinks.map((link) => {
+                const Icon = link.icon;
                 return (
                   <a
                     href={link.href}
@@ -32,9 +38,10 @@ export default function Header() {
                       activeTab.includes(link.title.toLowerCase())
                         ? "text-foreground"
                         : "text-muted-foreground",
-                      "transition-colors hover:text-foreground"
+                      "transition-colors hover:text-foreground flex items-center gap-1.5"
                     )}
                   >
+                    <Icon size={18} weight="duotone" />
                     {link.title}
                   </a>
                 );

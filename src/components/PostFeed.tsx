@@ -1,6 +1,6 @@
 import { Category, collections } from "../content/config";
 import type { z } from "astro/zod";
-import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -17,8 +17,6 @@ import * as Fuse from "fuse.js";
 import { getReadingTimeDynamic } from "../plugins/reading-time-dynamic";
 import FilterDropdown from "./FilterDropdown";
 
-const blogPosts = await getCollection("blog");
-
 const fuseOptions = {
   keys: ["data.title", "data.description", "slug"],
   includeMatches: true,
@@ -31,12 +29,16 @@ export default function PostFeed(
     searchEnabled?: boolean;
     headingVisible?: boolean;
     numberOfPost?: number;
-  } = {}
+    posts: CollectionEntry<"blog">[];
+    compact?: boolean;
+  }
 ) {
   const {
     searchEnabled = false,
     headingVisible = false,
     numberOfPost = 4,
+    posts: blogPosts,
+    compact = false,
   } = props;
 
   const [query, setQuery] = useState("");
@@ -120,6 +122,7 @@ export default function PostFeed(
                   category={post.data.category}
                   heroImage={post.data.heroImage}
                   slug={post.slug}
+                  compact={compact}
                 />
               );
             })
@@ -133,6 +136,7 @@ export default function PostFeed(
                   category={post.data.category}
                   heroImage={post.data.heroImage}
                   slug={post.slug}
+                  compact={compact}
                 />
               );
             })}
@@ -158,6 +162,7 @@ const Post = ({
   body,
   heroImage,
   slug,
+  compact = false,
 }: {
   id: string;
   title: string;
@@ -166,32 +171,68 @@ const Post = ({
   category?: string;
   heroImage?: string;
   slug: string;
+  compact?: boolean;
 }) => {
+  if (compact) {
+    return (
+      <li key={id}>
+        <a href={`/blog/${slug}`} className="cursor-pointer">
+          <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.01] border-transparent">
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <div className="rounded-sm flex-shrink-0 w-full sm:w-32 h-48 sm:h-24">
+                <img
+                  style={getTransitionId(id)}
+                  className="object-cover rounded-sm w-full h-full group-hover:border border-primary"
+                  src={heroImage}
+                  alt=""
+                />
+              </div>
+              <div className="flex-1 gap-y-2 flex flex-col min-w-0">
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <h3 className="h5-heading">{title}</h3>
+                  <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium text-xs">
+                    {category}
+                  </p>
+                </div>
+                <p className="group-hover:text-foreground s-description line-clamp-2">
+                  {description}
+                </p>
+                <p className="group-hover:text-foreground s-description text-xs">
+                  {getReadingTimeDynamic(body)}
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </li>
+    );
+  }
+
   return (
     <li key={id}>
       <a href={`/blog/${slug}`} className="cursor-pointer">
         <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.02] border-transparent">
-          <div className="flex flex-col gap-4 justify-start">
-            <div className="rounded-sm w-full h-full">
+          <div className="flex flex-col sm:flex-row gap-4 justify-start">
+            <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden">
               <img
                 style={getTransitionId(id)}
-                className="object-cover rounded-sm group-hover:border border-primary"
+                className="object-cover rounded-sm w-full h-48 sm:h-32 group-hover:border border-primary"
                 src={heroImage}
                 alt=""
               />
             </div>
-            <div className="flex items-center justify-between w-full">
-              <div className="w-full gap-y-2 flex flex-col ">
-                <div className="flex items-baseline gap-3">
+            <div className="flex items-center justify-between w-full sm:flex-1">
+              <div className="w-full gap-y-2 flex flex-col">
+                <div className="flex items-baseline gap-3 flex-wrap">
                   <h3 className="h5-heading">{title}</h3>
                   <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium md:text-sm text-xs">
                     {category}
                   </p>
                 </div>
-                <p className="group-hover:text-foreground s-description line-clamp-1 md:max-w-lg">
+                <p className="group-hover:text-foreground s-description line-clamp-2 md:max-w-lg">
                   {description}
                 </p>
-                <p className="group-hover:text-foreground s-description line-clamp-1 md:max-w-lg">
+                <p className="group-hover:text-foreground s-description md:max-w-lg">
                   {getReadingTimeDynamic(body)}
                 </p>
               </div>
