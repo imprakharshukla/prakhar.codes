@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = "Prakhar Shukla";
 export const SITE_DESCRIPTION =
-  "Welcome to my portfolio! I'm a software engineer based in India. I love building things for the web, mobile and desktop.";
+  "Serial founder and software engineer. Former Founding Engineer at Yobr (Norway). Built products with 2.5M+ downloads and $100K+ revenue. Specializing in TypeScript, React, Node.js, and AI/ML (Vercel AI SDK, Mastra).";

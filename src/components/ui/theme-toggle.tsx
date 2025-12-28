@@ -40,7 +40,7 @@ export function ThemeToggle() {
 
   return (
     <div className="bg-background lg:fixed absolute top-3 right-3 z-50">
-      <DropdownMenu modal={false}>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
