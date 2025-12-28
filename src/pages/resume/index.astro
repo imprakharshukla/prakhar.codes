@@ -5,6 +5,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Layout from "../../layouts/layout.astro";
 import SkillAccordion from "../../components/SkillAccordion";
 import IconButton from "../../components/IconButton.astro";
+import ResumeButton from "../../components/ResumeButton";
 ---
 
 <!doctype html>
@@ -27,10 +28,7 @@ import IconButton from "../../components/IconButton.astro";
           as a developer.
         </p>
       </div>
-      <IconButton
-        title={"Resume"}
-        link={"/resume/latest"}
-      >
+      <ResumeButton title={"Resume"} client:load>
         <svg
           class="text-current h-4 w-4"
           role="img"
@@ -46,7 +44,7 @@ import IconButton from "../../components/IconButton.astro";
           ></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"
           ></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg
         >
-      </IconButton>
+      </ResumeButton>
       <div class="grid gap-3">
         <h2
           class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"

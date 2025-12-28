@@ -7,6 +7,7 @@ import ProjectFeed from "../components/ProjectFeed";
 import Layout from "../layouts/layout.astro";
 import GitHubStatsBentoGrid from "../components/GithubStatsBentoGrid";
 import IconButton from "../components/IconButton.astro";
+import ResumeButton from "../components/ResumeButton";
 import LocalTimePill from "../components/LocalTimePill";
 import LocationPill from "../components/LocationPill";
 import ProfileAvatar from "../components/ProfileAvatar";
@@ -105,9 +106,9 @@ const projects = await getCollection("project");
       </p>
 
       <div class="flex items-center gap-2 mt-3 flex-wrap">
-        <IconButton title={"Resume"} link={"/resume/latest"}>
+        <ResumeButton title={"Resume"} client:load>
           <FilePdfIcon client:load />
-        </IconButton>
+        </ResumeButton>
 
         <CalEmbed client:load>
           <IconButton title={"Schedule a call"} link={"#"}>
