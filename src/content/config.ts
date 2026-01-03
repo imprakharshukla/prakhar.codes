@@ -7,6 +7,12 @@ export enum Category {
   TIL = "TIL",
   Reviews = "Reviews",
   Opinion = "Opinion",
+  AIAgents = "AI Agents",
+  AI = "AI",  
+  Automation = "Automation",
+  Productivity = "Productivity",
+  Efficiency = "Efficiency",
+  Leadership = "Leadership",  
 }
 
 export enum ProjectStatus {

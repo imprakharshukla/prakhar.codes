@@ -18,10 +18,15 @@ import CalendarIcon from "../components/icons/CalendarIcon";
 import GithubLogoIcon from "../components/icons/GithubLogoIcon";
 import XLogoIcon from "../components/icons/XLogoIcon";
 import LinkedinLogoIcon from "../components/icons/LinkedinLogoIcon";
-const currentPath = Astro.url.pathname;
 
 const blogPosts = await getCollection("blog");
 const projects = await getCollection("project");
+
+blogPosts.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
 ---
 
 <!doctype html>
