@@ -18,6 +18,7 @@ import CalendarIcon from "../components/icons/CalendarIcon";
 import GithubLogoIcon from "../components/icons/GithubLogoIcon";
 import XLogoIcon from "../components/icons/XLogoIcon";
 import LinkedinLogoIcon from "../components/icons/LinkedinLogoIcon";
+import MoreTechChip from "../components/MoreTechChip";
 
 const blogPosts = await getCollection("blog");
 const projects = await getCollection("project");
@@ -341,6 +342,8 @@ blogPosts.sort(
           >
           Kotlin
         </span>
+        <!-- More -->
+        <MoreTechChip client:load />
       </div>
 
       <hr class="dark:border-border/50 border-border mt-4" />

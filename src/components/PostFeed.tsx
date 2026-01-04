@@ -179,7 +179,7 @@ const Post = ({
         <a href={`/blog/${slug}`} className="cursor-pointer">
           <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.01] border-transparent">
             <div className="flex flex-col sm:flex-row gap-4 items-start">
-              <div className="rounded-sm flex-shrink-0 w-full sm:w-32 h-48 sm:h-24">
+              <div className="rounded-sm flex-shrink-0 w-full sm:w-32 aspect-[16/9]">
                 <img
                   style={getTransitionId(id)}
                   className="object-cover rounded-sm w-full h-full group-hover:border border-primary"
@@ -188,13 +188,13 @@ const Post = ({
                 />
               </div>
               <div className="flex-1 gap-y-2 flex flex-col min-w-0">
-                <div className="flex items-baseline gap-3 flex-wrap">
+                <div className="flex items-baseline gap-3">
                   <h3 className="h5-heading">{title}</h3>
-                  <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium text-xs">
+                  <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium text-xs flex-shrink-0">
                     {category}
                   </p>
                 </div>
-                <p className="group-hover:text-foreground s-description line-clamp-2">
+                <p className="group-hover:text-foreground s-description line-clamp-1">
                   {description}
                 </p>
                 <p className="group-hover:text-foreground s-description text-xs">
@@ -213,23 +213,23 @@ const Post = ({
       <a href={`/blog/${slug}`} className="cursor-pointer">
         <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.02] border-transparent">
           <div className="flex flex-col sm:flex-row gap-4 justify-start">
-            <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden">
+            <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden aspect-[16/9]">
               <img
                 style={getTransitionId(id)}
-                className="object-cover rounded-sm w-full h-48 sm:h-32 group-hover:border border-primary"
+                className="object-cover rounded-sm w-full h-full group-hover:border border-primary"
                 src={heroImage}
                 alt=""
               />
             </div>
             <div className="flex items-center justify-between w-full sm:flex-1">
               <div className="w-full gap-y-2 flex flex-col">
-                <div className="flex items-baseline gap-3 flex-wrap">
+                <div className="flex items-baseline gap-3">
                   <h3 className="h5-heading">{title}</h3>
-                  <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium md:text-sm text-xs">
+                  <p className="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium md:text-sm text-xs flex-shrink-0">
                     {category}
                   </p>
                 </div>
-                <p className="group-hover:text-foreground s-description line-clamp-2 md:max-w-lg">
+                <p className="group-hover:text-foreground s-description line-clamp-1 md:max-w-lg">
                   {description}
                 </p>
                 <p className="group-hover:text-foreground s-description md:max-w-lg">

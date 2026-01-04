@@ -86,6 +86,8 @@ const GitHubStatsBentoGrid: React.FC<{ headingVisible?: boolean }> = ({
     const fetchStats = async () => {
         const res = await fetch(statsURL);
         const data = await res.json();
+        // Override stars with Andronix total (3,041) + 100 = 3,141
+        data.stars = 3141;
         setStats(data);
     };
 
