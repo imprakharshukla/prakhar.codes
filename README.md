@@ -1,4 +1,4 @@
-Hey! I am Prakhar Shukla
+# Hey! I am Prakhar Shukla
 
 Visit my portfolio at [prakhar.codes](https://prakhar.codes)
 
