@@ -6,7 +6,6 @@ import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import remarkToc from "remark-toc";
 import { remarkReadingTime } from "./src/plugins/reading-time.mjs";
-import { transformerNotationDiff, transformerNotationHighlight, transformerNotationFocus } from '@shikijs/transformers';
 
 // https://astro.build/config
 export default defineConfig({
