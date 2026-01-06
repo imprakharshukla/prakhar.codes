@@ -2,9 +2,18 @@
 import BaseHead from "../../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Layout from "../../layouts/layout.astro";
+import { getCollection } from "astro:content";
 
 import TravelLogMap from "../../components/TravelLogMap";
 import TravelFeed from "../../components/TravelFeed";
+
+// Fetch travel data server-side
+const travels = await getCollection("travel");
+const locationCoordinates = travels.map((travel) => ({
+  lat: travel.data.location[1],  // latitude is second in [lng, lat] format
+  lng: travel.data.location[0],  // longitude is first
+  label: travel.data.place
+}));
 ---
 
 <!doctype html>
@@ -27,13 +36,13 @@ import TravelFeed from "../../components/TravelFeed";
       </div>
     </div>
     <div class="grid gap-3">
-      <TravelLogMap client:only="react">
+      <TravelLogMap locations={locationCoordinates} client:only="react">
         <div slot="fallback" class="font-sans mt-3 grid gap-2 w-full transition-opacity duration-300">
           <div class="w-full aspect-[2/1] rounded-md bg-muted animate-pulse"></div>
         </div>
       </TravelLogMap>
       <h2 class="h2-heading mt-6 mb-4">Places I've been to</h2>
-      <TravelFeed client:load />
+      <TravelFeed travels={travels} client:load />
     </div>
   </Layout>
 </html>

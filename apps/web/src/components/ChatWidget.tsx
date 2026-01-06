@@ -14,7 +14,17 @@ declare global {
   }
 }
 
-const CHAT_URL = import.meta.env.PUBLIC_CHAT_URL || "http://localhost:3001";
+// Ensure CHAT_URL always has a protocol
+const getChatUrl = () => {
+  const url = import.meta.env.PUBLIC_CHAT_URL || "http://localhost:3001";
+  // If URL doesn't start with http:// or https://, add https://
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    return `https://${url}`;
+  }
+  return url;
+};
+
+const CHAT_URL = getChatUrl();
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);

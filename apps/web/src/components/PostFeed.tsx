@@ -1,4 +1,4 @@
-import { Category } from "../content/config";
+import { Category } from "../types";
 import type { CollectionEntry } from "astro:content";
 import { Button, Input } from "@prakhar/ui";
 import { useEffect, useState } from "react";
@@ -105,12 +105,12 @@ export default function PostFeed(props: {
               return (
                 <Post
                   id={post.id}
-                  body={post.body}
+                  body={post.body || ""}
                   title={post.data.title}
                   description={post.data.description}
                   category={post.data.category}
                   heroImage={post.data.heroImage}
-                  slug={post.slug}
+                  slug={post.id}
                   compact={compact}
                 />
               );
@@ -118,13 +118,13 @@ export default function PostFeed(props: {
           : posts.slice(0, numberOfPost).map((post) => {
               return (
                 <Post
-                  body={post.body}
+                  body={post.body || ""}
                   id={post.id}
                   title={post.data.title}
                   description={post.data.description}
                   category={post.data.category}
                   heroImage={post.data.heroImage}
-                  slug={post.slug}
+                  slug={post.id}
                   compact={compact}
                 />
               );

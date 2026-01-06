@@ -1,39 +1,9 @@
 import { defineCollection, z } from "astro:content";
-
-export enum Category {
-  Coding = "Coding",
-  Stories = "Stories",
-  Tutorials = "Tutorials",
-  TIL = "TIL",
-  Reviews = "Reviews",
-  Opinion = "Opinion",
-  AIAgents = "AI Agents",
-  AI = "AI",  
-  Automation = "Automation",
-  Productivity = "Productivity",
-  Efficiency = "Efficiency",
-  Leadership = "Leadership",  
-}
-
-export enum ProjectStatus {
-  InProgress = "In Progress",
-  Completed = "Completed",
-  Abandoned = "Abandoned",
-}
-
-export enum ProjectType {
-  OpenSource = "Open Source",
-  Personal = "Personal",
-  Commercial = "Commercial",
-  Community = "Community",
-  Educational = "Educational",
-  Research = "Research",
-  Other = "Other",
-}
+import { glob } from "astro/loaders";
+import { Category, ProjectStatus, ProjectType } from "./types";
 
 const blog = defineCollection({
-  type: "content",
-  // Type-check frontmatter using a schema
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     publish: z.boolean().default(false),
@@ -47,8 +17,9 @@ const blog = defineCollection({
     heroImage: z.string().optional(),
   }),
 });
+
 const project = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/project" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -63,12 +34,11 @@ const project = defineCollection({
     type: z.nativeEnum(ProjectType).optional(),
     languages: z.array(z.string()).optional(),
     frameworks: z.array(z.string()).optional(),
-
   }),
 });
 
 const travel = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/travel" }),
   schema: z.object({
     place: z.string(),
     tags: z.array(z.string()).optional(),
@@ -84,6 +54,5 @@ const travel = defineCollection({
     size: z.number().optional(),
   }),
 });
-
 
 export const collections = { blog, project, travel };

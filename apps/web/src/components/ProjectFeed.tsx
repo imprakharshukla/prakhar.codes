@@ -31,7 +31,7 @@ export default function ProjectFeed({
     if (typeof window !== 'undefined' && window.posthog) {
       window.posthog.capture('project_clicked', {
         project_name: project.data.title,
-        project_slug: project.slug,
+        project_slug: project.id,
         status: project.data.status,
         type: project.data.type,
         source_page: window.location.pathname,
@@ -55,7 +55,7 @@ export default function ProjectFeed({
               if (compact) {
                 return (
                   <li key={project.id}>
-                    <a href={`/projects/${project.slug}`} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
+                    <a href={`/projects/${project.id}`} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
                       <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.01] border-transparent">
                         <div className="flex flex-col sm:flex-row gap-4 items-start">
                           <div className="rounded-sm flex-shrink-0 w-full sm:w-32 overflow-hidden">
@@ -102,7 +102,7 @@ export default function ProjectFeed({
 
               return (
                 <li key={project.id}>
-                  <a href={`/projects/${project.slug}`} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
+                  <a href={`/projects/${project.id}`} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
                     <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.02] border-transparent">
                       <div className="flex flex-col sm:flex-row gap-4 justify-start">
                         <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden">

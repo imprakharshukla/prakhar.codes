@@ -7,7 +7,10 @@ import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./layout.astro";
 import IconButton from "../components/IconButton.astro";
 import { ArrowUpRight } from "lucide-react";
-type Props = CollectionEntry<"blog">;
+
+type Props = CollectionEntry<"blog"> & {
+  remarkPluginFrontmatter?: any;
+};
 
 const {
   title,
@@ -20,8 +23,7 @@ const {
   heroImage,
   link,
 } = Astro.props.data;
-const { id, body, render } = Astro.props;
-const { remarkPluginFrontmatter } = await render();
+const { id, remarkPluginFrontmatter } = Astro.props;
 ---
 
 <html lang="en">

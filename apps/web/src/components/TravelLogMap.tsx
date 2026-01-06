@@ -2,19 +2,19 @@
 
 import { useRef, useEffect, useState } from "react";
 import DottedMap from "dotted-map";
-import { getCollection } from "astro:content";
 import { motion } from "motion/react";
 
-// Fetch travel data at build time
-const travels = await getCollection("travel");
+type Location = {
+  lat: number;
+  lng: number;
+  label: string;
+};
 
-const locationCoordinates = travels.map((travel) => ({
-  lat: travel.data.location[1],  // latitude is second in [lng, lat] format
-  lng: travel.data.location[0],  // longitude is first
-  label: travel.data.place
-}));
+type TravelLogMapProps = {
+  locations: Location[];
+};
 
-export default function TravelLogMap() {
+export default function TravelLogMap({ locations }: TravelLogMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [isDark, setIsDark] = useState(false);
   const [svgMap, setSvgMap] = useState<string>("");
@@ -77,7 +77,7 @@ export default function TravelLogMap() {
           viewBox="0 0 800 400"
           className="w-full h-full absolute inset-0 pointer-events-none select-none"
         >
-          {locationCoordinates.map((location, i) => {
+          {locations.map((location, i) => {
             const point = projectPoint(location.lat, location.lng);
             return (
               <g key={`location-${i}`}>

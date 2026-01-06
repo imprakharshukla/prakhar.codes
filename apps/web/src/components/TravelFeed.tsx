@@ -1,18 +1,17 @@
-import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { Button } from "@prakhar/ui";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
-
-const travels = await getCollection("travel");
-const sortedTravels = [...travels].sort((a, b) => 
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-
 export default function TravelFeed({
-  numberOfPost = 100
+  numberOfPost = 100,
+  travels
 }: {
-  numberOfPost?: number
+  numberOfPost?: number;
+  travels: CollectionEntry<"travel">[];
 }) {
+  const sortedTravels = [...travels].sort((a, b) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
 
   const [parent] = useAutoAnimate()
   return (
@@ -23,7 +22,7 @@ export default function TravelFeed({
             sortedTravels.slice(0, numberOfPost).map((travel) => {
               return (
                 <li key={travel.id}>
-                  <a href={`/travel/${travel.slug}`} className="cursor-pointer">
+                  <a href={`/travel/${travel.id}`} className="cursor-pointer">
                     <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.02] border-transparent">
                       <div className="flex flex-col gap-4 justify-start">
                         <div className="rounded-sm w-full h-full">

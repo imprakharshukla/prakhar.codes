@@ -3,7 +3,7 @@ import NavigationBar from "../components/NavigationBar";
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname;
 import BaseHead from "../components/BaseHead.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { TailwindIndicator } from "../components/TailwindIndicator";
@@ -15,7 +15,7 @@ import PostHog from "../components/posthog.astro";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <ViewTransitions fallback="animate" />
+    <ClientRouter fallback="animate" />
     <BaseHead title={title} description={description} />
     <PostHog />
     <script is:inline>

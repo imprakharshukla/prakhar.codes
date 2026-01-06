@@ -6,7 +6,7 @@ import {
     Button
   } from "@prakhar/ui";
   import { ListFilter } from "lucide-react";
-  import { Category } from "../content/config";
+  import { Category } from "../types";
   
   type FilterDropdownProps = {
     setCategory: (category: Category | "All") => void;
