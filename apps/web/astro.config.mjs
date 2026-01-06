@@ -12,7 +12,9 @@ import { remarkReadingTime } from "./src/plugins/reading-time.mjs";
 export default defineConfig({
   site: "https://prakhar.codes",
   output: "hybrid", // Most pages static, opt-in to server rendering
-  adapter: vercel(),
+  adapter: vercel({
+    functionPerRoute: false,
+  }),
   markdown: {
     remarkPlugins: [
       [
