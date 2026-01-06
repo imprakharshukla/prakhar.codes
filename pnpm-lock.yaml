@@ -161,7 +161,7 @@ importers:
         version: 4.3.2(react@19.2.0)
       '@sentry/nextjs':
         specifier: ^10.25.0
-        version: 10.32.1(@opentelemetry/context-async-hooks@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(next@15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(webpack@5.104.1)
+        version: 10.32.1(@opentelemetry/context-async-hooks@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(next@15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(webpack@5.104.1(esbuild@0.25.12))
       '@tanstack/react-form':
         specifier: ^1.12.3
         version: 1.27.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -224,7 +224,7 @@ importers:
         version: 5.1.6
       next:
         specifier: ^15.1.6
-        version: 15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -329,8 +329,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.5(astro@4.16.19(@types/node@20.19.27)(lightningcss@1.30.2)(rollup@4.54.0)(terser@5.44.1)(typescript@5.9.3))(tailwindcss@3.4.19(tsx@4.21.0)(yaml@2.8.2))
       '@astrojs/vercel':
-        specifier: ^7.8.2
-        version: 7.8.2(astro@4.16.19(@types/node@20.19.27)(lightningcss@1.30.2)(rollup@4.54.0)(terser@5.44.1)(typescript@5.9.3))(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(rollup@4.54.0)
+        specifier: ^8.0.0
+        version: 8.2.11(@aws-sdk/credential-provider-web-identity@3.958.0)(astro@4.16.19(@types/node@20.19.27)(lightningcss@1.30.2)(rollup@4.54.0)(terser@5.44.1)(typescript@5.9.3))(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(rollup@4.54.0)
       '@calcom/embed-react':
         specifier: ^1.5.3
         version: 1.5.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -460,7 +460,7 @@ importers:
         version: 3.962.0
       '@clerk/nextjs':
         specifier: ^6.31.5
-        version: 6.36.5(next@15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react@19.2.0))(react@19.2.0)
+        version: 6.36.5(next@15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mastra/braintrust':
         specifier: ^0.2.3
         version: 0.2.4(@aws-sdk/credential-provider-web-identity@3.958.0)(@mastra/core@0.24.9(openapi-types@12.1.3)(react@19.2.0)(zod@3.25.76))(zod@3.25.76)
@@ -487,10 +487,10 @@ importers:
         version: link:../db
       '@react-email/components':
         specifier: ^1.0.1
-        version: 1.0.3(react@19.2.0)
+        version: 1.0.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@react-email/render':
         specifier: ^2.0.0
-        version: 2.0.1(react@19.2.0)
+        version: 2.0.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@react-email/tailwind':
         specifier: ^2.0.1
         version: 2.0.3(@react-email/body@0.2.1(react@19.2.0))(@react-email/button@0.2.1(react@19.2.0))(@react-email/code-block@0.2.1(react@19.2.0))(@react-email/code-inline@0.0.6(react@19.2.0))(@react-email/container@0.0.16(react@19.2.0))(@react-email/heading@0.0.16(react@19.2.0))(@react-email/hr@0.0.12(react@19.2.0))(@react-email/img@0.0.12(react@19.2.0))(@react-email/link@0.0.13(react@19.2.0))(@react-email/preview@0.0.14(react@19.2.0))(@react-email/text@0.1.6(react@19.2.0))(react@19.2.0)
@@ -517,7 +517,7 @@ importers:
         version: 5.1.6
       next:
         specifier: ^15.1.6
-        version: 15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react@19.2.0)
+        version: 15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -529,7 +529,7 @@ importers:
         version: 5.1.1
       resend:
         specifier: ^4.0.0
-        version: 4.8.0(react@19.2.0)
+        version: 4.8.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -542,7 +542,7 @@ importers:
     devDependencies:
       '@react-email/preview-server':
         specifier: 5.0.3
-        version: 5.0.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react@19.2.0)
+        version: 5.0.3(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@types/react':
         specifier: ^19.2.2
         version: 19.2.2
@@ -907,6 +907,9 @@ packages:
   '@astrojs/internal-helpers@0.4.1':
     resolution: {integrity: sha512-bMf9jFihO8YP940uD70SI/RDzIhUHJAolWVcO1v5PUivxGKvfLZTLTVVxEYzGYyPsA3ivdLNqMnL5VgmQySa+g==}
 
+  '@astrojs/internal-helpers@0.7.4':
+    resolution: {integrity: sha512-lDA9MqE8WGi7T/t2BMi+EAXhs4Vcvr94Gqx3q15cFEz8oFZMO4/SFBqYr/UcmNlvW+35alowkVj+w9VhLvs5Cw==}
+
   '@astrojs/language-server@2.16.2':
     resolution: {integrity: sha512-J3hVx/mFi3FwEzKf8ExYXQNERogD6RXswtbU+TyrxoXRBiQoBO5ooo7/lRWJ+rlUKUd7+rziMPI9jYB7TRlh0w==}
     hasBin: true
@@ -964,10 +967,10 @@ packages:
     resolution: {integrity: sha512-/ca/+D8MIKEC8/A9cSaPUqQNZm+Es/ZinRv0ZAzvu2ios7POQSsVD+VOj7/hypWNsNM3T7RpfgNq7H2TU1KEHA==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
 
-  '@astrojs/vercel@7.8.2':
-    resolution: {integrity: sha512-U2JsfN0LzFMX5CPrcb+5bAAyqyYURP6Dk/mUIXX87r5x4baQy+juU+ntvf926YA0tR7u6jPRXHymE2axQ/l3NQ==}
+  '@astrojs/vercel@8.2.11':
+    resolution: {integrity: sha512-PGtWHvHYMkT8ftSR3yuR7oyf/oPvOv8AfhCFlSQg318hfpalSEPND9mjbdQGpMeZz3KtvvOnHyYwqmu5V8MSHg==}
     peerDependencies:
-      astro: ^4.2.0
+      astro: ^5.0.0
 
   '@astrojs/yaml2ts@0.2.2':
     resolution: {integrity: sha512-GOfvSr5Nqy2z5XiwqTouBBpy5FyI6DEe+/g/Mk5am9SjILN1S5fOEvYK0GuWHg98yS/dobP4m8qyqw/URW35fQ==}
@@ -5492,9 +5495,6 @@ packages:
       vue-router:
         optional: true
 
-  '@vercel/edge@1.2.2':
-    resolution: {integrity: sha512-1+y+f6rk0Yc9ss9bRDgz/gdpLimwoRteKHhrcgHvEpjbP1nyT3ByqEMWm2BTcpIO5UtDmIFXc8zdq4LR190PDA==}
-
   '@vercel/functions@1.6.0':
     resolution: {integrity: sha512-R6FKQrYT5MZs5IE1SqeCJWxMuBdHawFcCZboKKw8p7s+6/mcd55Gx6tWmyKnQTyrSEA04NH73Tc9CbqpEle8RA==}
     engines: {node: '>= 16'}
@@ -5504,10 +5504,23 @@ packages:
       '@aws-sdk/credential-provider-web-identity':
         optional: true
 
-  '@vercel/nft@0.27.10':
-    resolution: {integrity: sha512-zbaF9Wp/NsZtKLE4uVmL3FyfFwlpDyuymQM1kPbeT0mVOHKDQQNjnnfslB3REg3oZprmNFJuh3pkHBk2qAaizg==}
-    engines: {node: '>=16'}
+  '@vercel/functions@2.2.13':
+    resolution: {integrity: sha512-14ArBSIIcOBx9nrEgaJb4Bw+en1gl6eSoJWh8qjifLl5G3E4dRXCFOT8HP+w66vb9Wqyd1lAQBrmRhRwOj9X9A==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@aws-sdk/credential-provider-web-identity': '*'
+    peerDependenciesMeta:
+      '@aws-sdk/credential-provider-web-identity':
+        optional: true
+
+  '@vercel/nft@0.30.3':
+    resolution: {integrity: sha512-UEq+eF0ocEf9WQCV1gktxKhha36KDs7jln5qii6UpPf5clMqDc0p3E7d9l2Smx0i9Pm1qpq4S4lLfNl97bbv6w==}
+    engines: {node: '>=18'}
     hasBin: true
+
+  '@vercel/oidc@2.0.2':
+    resolution: {integrity: sha512-59PBFx3T+k5hLTEWa3ggiMpGRz1OVvl9eN8SUai+A43IsqiOuAe7qPBf+cray/Fj6mkgnxm/D7IAtjc8zSHi7g==}
+    engines: {node: '>= 18'}
 
   '@vercel/oidc@3.0.5':
     resolution: {integrity: sha512-fnYhv671l+eTTp48gB4zEsTW/YtRgRPnkI2nT7x6qw5rkI1Lq2hTmQIpHPgyThI0znLK+vX2n9XxKdXZ7BUbbw==}
@@ -5516,6 +5529,9 @@ packages:
   '@vercel/oidc@3.1.0':
     resolution: {integrity: sha512-Fw28YZpRnA3cAHHDlkt7xQHiJ0fcL+NRcIqsocZQUSmbzeIKRpwttJjik5ZGanXP+vlA4SbTg+AbA3bP363l+w==}
     engines: {node: '>= 20'}
+
+  '@vercel/routing-utils@5.3.1':
+    resolution: {integrity: sha512-HlqFRdB6Dm20xgEWtEatchf9X28NifweXPdDoEGyj5ItngaiqpywtkgkuiAk3xK9eAu2oXM36wEJbDDTxMblUg==}
 
   '@vercel/speed-insights@1.3.1':
     resolution: {integrity: sha512-PbEr7FrMkUrGYvlcLHGkXdCkxnylCWePx7lPxxq36DNdfo9mcUjLOmqOyPDHAOgnfqgGGdmE3XI9L/4+5fr+vQ==}
@@ -5739,6 +5755,9 @@ packages:
     resolution: {integrity: sha512-YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw==}
     peerDependencies:
       ajv: ^8.8.2
+
+  ajv@6.12.6:
+    resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
 
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
@@ -6912,6 +6931,9 @@ packages:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
 
+  fast-json-stable-stringify@2.1.0:
+    resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
+
   fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
@@ -7542,6 +7564,9 @@ packages:
   json-schema-to-zod@2.7.0:
     resolution: {integrity: sha512-eW59l3NQ6sa3HcB+Ahf7pP6iGU7MY4we5JsPqXQ2ZcIPF8QxSg/lkY8lN0Js/AG0NjMbk+nZGUfHlceiHF+bwQ==}
     hasBin: true
+
+  json-schema-traverse@0.4.1:
+    resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
 
   json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
@@ -8436,6 +8461,12 @@ packages:
   path-to-regexp@0.1.12:
     resolution: {integrity: sha512-RA1GjUVMnvYFxuqovrEqZoxxW5NUZqbwKtYz/Tt7nXerk0LbLblQmrsgdeOxV5SFHf0UDggjS/bSeOZwt1pmEQ==}
 
+  path-to-regexp@6.1.0:
+    resolution: {integrity: sha512-h9DqehX3zZZDCEm+xbfU0ZmwCGFCAAraPJWMXJ4+v32NjZJilVg3k1TcKsRgIb8IQ/izZSaydDc1OhJCZvs2Dw==}
+
+  path-to-regexp@6.3.0:
+    resolution: {integrity: sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==}
+
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
 
@@ -8722,6 +8753,10 @@ packages:
 
   pump@3.0.3:
     resolution: {integrity: sha512-todwxLMY7/heScKmntwQG8CXVkWUOdYxIvY2s0VWAAMh/nd8SoYiRaKjlr7+iCs984f2P8zvrfWcDDYVb73NfA==}
+
+  punycode@2.3.1:
+    resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
+    engines: {node: '>=6'}
 
   qs@6.14.1:
     resolution: {integrity: sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==}
@@ -9856,6 +9891,9 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
+  uri-js@4.4.1:
+    resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
+
   use-callback-ref@1.3.3:
     resolution: {integrity: sha512-jQL3lRnocaFtu3V00JToYz/4QkNWswxijDaCVNZRiRTO3HQDLsdu1ZtmIUvV4yPp+rvWm5j0y0TG/S61cuijTg==}
     engines: {node: '>=10'}
@@ -10114,9 +10152,6 @@ packages:
   web-streams-polyfill@4.0.0-beta.3:
     resolution: {integrity: sha512-QW95TCTaHmsYfHDybGMwO5IJIM93I/6vTRk+daHTWFPhwh+C8Cg7j7XyKrwrj8Ib6vYXe0ocYNrmzY4xAAN6ug==}
     engines: {node: '>= 14'}
-
-  web-vitals@3.5.2:
-    resolution: {integrity: sha512-c0rhqNcHXRkY/ogGDJQxZ9Im9D19hDihbzSQJrsioex+KnFgmMzBiy57Z1EjkhX/+OjyBpclDCzz2ITtjokFmg==}
 
   web-vitals@4.2.4:
     resolution: {integrity: sha512-r4DIlprAGwJ7YM11VZp4R884m0Vmgr6EAKe3P+kO0PPj3Unqyvv59rczf6UiGcb9Z8QxZVcqKNwv/g0WNdWwsw==}
@@ -10597,6 +10632,8 @@ snapshots:
 
   '@astrojs/internal-helpers@0.4.1': {}
 
+  '@astrojs/internal-helpers@0.7.4': {}
+
   '@astrojs/language-server@2.16.2(prettier-plugin-astro@0.13.0)(prettier@3.7.4)(typescript@5.9.3)':
     dependencies:
       '@astrojs/compiler': 2.13.0
@@ -10754,17 +10791,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vercel@7.8.2(astro@4.16.19(@types/node@20.19.27)(lightningcss@1.30.2)(rollup@4.54.0)(terser@5.44.1)(typescript@5.9.3))(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(rollup@4.54.0)':
+  '@astrojs/vercel@8.2.11(@aws-sdk/credential-provider-web-identity@3.958.0)(astro@4.16.19(@types/node@20.19.27)(lightningcss@1.30.2)(rollup@4.54.0)(terser@5.44.1)(typescript@5.9.3))(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(rollup@4.54.0)':
     dependencies:
-      '@astrojs/internal-helpers': 0.4.1
+      '@astrojs/internal-helpers': 0.7.4
       '@vercel/analytics': 1.6.1(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
-      '@vercel/edge': 1.2.2
-      '@vercel/nft': 0.27.10(rollup@4.54.0)
+      '@vercel/functions': 2.2.13(@aws-sdk/credential-provider-web-identity@3.958.0)
+      '@vercel/nft': 0.30.3(rollup@4.54.0)
+      '@vercel/routing-utils': 5.3.1
       astro: 4.16.19(@types/node@20.19.27)(lightningcss@1.30.2)(rollup@4.54.0)(terser@5.44.1)(typescript@5.9.3)
-      esbuild: 0.21.5
-      fast-glob: 3.3.3
-      web-vitals: 3.5.2
+      esbuild: 0.25.12
+      tinyglobby: 0.2.15
     transitivePeerDependencies:
+      - '@aws-sdk/credential-provider-web-identity'
       - '@remix-run/react'
       - '@sveltejs/kit'
       - encoding
@@ -11553,24 +11591,13 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
       tslib: 2.8.1
 
-  '@clerk/nextjs@6.36.5(next@15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@clerk/backend': 2.29.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@clerk/clerk-react': 5.59.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@clerk/shared': 3.41.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@clerk/types': 4.101.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      next: 15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react@19.2.0)
-      react: 19.2.0
-      server-only: 0.0.1
-      tslib: 2.8.1
-
   '@clerk/nextjs@6.36.5(next@15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@clerk/backend': 2.29.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@clerk/clerk-react': 5.59.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@clerk/shared': 3.41.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@clerk/types': 4.101.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      next: 15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      next: 15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       server-only: 0.0.1
@@ -14479,7 +14506,7 @@ snapshots:
     dependencies:
       react: 19.2.0
 
-  '@react-email/components@1.0.3(react@19.2.0)':
+  '@react-email/components@1.0.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@react-email/body': 0.2.1(react@19.2.0)
       '@react-email/button': 0.2.1(react@19.2.0)
@@ -14496,7 +14523,7 @@ snapshots:
       '@react-email/link': 0.0.13(react@19.2.0)
       '@react-email/markdown': 0.0.18(react@19.2.0)
       '@react-email/preview': 0.0.14(react@19.2.0)
-      '@react-email/render': 2.0.1(react@19.2.0)
+      '@react-email/render': 2.0.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@react-email/row': 0.0.13(react@19.2.0)
       '@react-email/section': 0.0.17(react@19.2.0)
       '@react-email/tailwind': 2.0.3(@react-email/body@0.2.1(react@19.2.0))(@react-email/button@0.2.1(react@19.2.0))(@react-email/code-block@0.2.1(react@19.2.0))(@react-email/code-inline@0.0.6(react@19.2.0))(@react-email/container@0.0.16(react@19.2.0))(@react-email/heading@0.0.16(react@19.2.0))(@react-email/hr@0.0.12(react@19.2.0))(@react-email/img@0.0.12(react@19.2.0))(@react-email/link@0.0.13(react@19.2.0))(@react-email/preview@0.0.14(react@19.2.0))(@react-email/text@0.1.6(react@19.2.0))(react@19.2.0)
@@ -14542,7 +14569,7 @@ snapshots:
       marked: 15.0.12
       react: 19.2.0
 
-  '@react-email/preview-server@5.0.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react@19.2.0)':
+  '@react-email/preview-server@5.0.3(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       next: 16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     transitivePeerDependencies:
@@ -14559,18 +14586,20 @@ snapshots:
     dependencies:
       react: 19.2.0
 
-  '@react-email/render@1.1.2(react@19.2.0)':
+  '@react-email/render@1.1.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       html-to-text: 9.0.5
       prettier: 3.7.4
       react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
       react-promise-suspense: 0.3.4
 
-  '@react-email/render@2.0.1(react@19.2.0)':
+  '@react-email/render@2.0.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       html-to-text: 9.0.5
       prettier: 3.7.4
       react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
 
   '@react-email/row@0.0.13(react@19.2.0)':
     dependencies:
@@ -15062,7 +15091,7 @@ snapshots:
 
   '@sentry/core@10.32.1': {}
 
-  '@sentry/nextjs@10.32.1(@opentelemetry/context-async-hooks@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(next@15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(webpack@5.104.1)':
+  '@sentry/nextjs@10.32.1(@opentelemetry/context-async-hooks@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(next@15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(webpack@5.104.1(esbuild@0.25.12))':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/semantic-conventions': 1.38.0
@@ -15074,8 +15103,8 @@ snapshots:
       '@sentry/opentelemetry': 10.32.1(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.38.0)
       '@sentry/react': 10.32.1(react@19.2.0)
       '@sentry/vercel-edge': 10.32.1
-      '@sentry/webpack-plugin': 4.6.1(webpack@5.104.1)
-      next: 15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@sentry/webpack-plugin': 4.6.1(webpack@5.104.1(esbuild@0.25.12))
+      next: 15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       resolve: 1.22.8
       rollup: 4.54.0
       stacktrace-parser: 0.1.11
@@ -15166,12 +15195,12 @@ snapshots:
       '@opentelemetry/resources': 2.2.0(@opentelemetry/api@1.9.0)
       '@sentry/core': 10.32.1
 
-  '@sentry/webpack-plugin@4.6.1(webpack@5.104.1)':
+  '@sentry/webpack-plugin@4.6.1(webpack@5.104.1(esbuild@0.25.12))':
     dependencies:
       '@sentry/bundler-plugin-core': 4.6.1
       unplugin: 1.0.1
       uuid: 9.0.1
-      webpack: 5.104.1
+      webpack: 5.104.1(esbuild@0.25.12)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -16061,13 +16090,17 @@ snapshots:
       next: 16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react: 19.2.0
 
-  '@vercel/edge@1.2.2': {}
-
   '@vercel/functions@1.6.0(@aws-sdk/credential-provider-web-identity@3.958.0)':
     optionalDependencies:
       '@aws-sdk/credential-provider-web-identity': 3.958.0
 
-  '@vercel/nft@0.27.10(rollup@4.54.0)':
+  '@vercel/functions@2.2.13(@aws-sdk/credential-provider-web-identity@3.958.0)':
+    dependencies:
+      '@vercel/oidc': 2.0.2
+    optionalDependencies:
+      '@aws-sdk/credential-provider-web-identity': 3.958.0
+
+  '@vercel/nft@0.30.3(rollup@4.54.0)':
     dependencies:
       '@mapbox/node-pre-gyp': 2.0.3
       '@rollup/pluginutils': 5.3.0(rollup@4.54.0)
@@ -16076,7 +16109,7 @@ snapshots:
       async-sema: 3.1.1
       bindings: 1.5.0
       estree-walker: 2.0.2
-      glob: 7.2.3
+      glob: 10.5.0
       graceful-fs: 4.2.11
       node-gyp-build: 4.8.4
       picomatch: 4.0.3
@@ -16086,9 +16119,21 @@ snapshots:
       - rollup
       - supports-color
 
+  '@vercel/oidc@2.0.2':
+    dependencies:
+      '@types/ms': 2.1.0
+      ms: 2.1.3
+
   '@vercel/oidc@3.0.5': {}
 
   '@vercel/oidc@3.1.0': {}
+
+  '@vercel/routing-utils@5.3.1':
+    dependencies:
+      path-to-regexp: 6.1.0
+      path-to-regexp-updated: path-to-regexp@6.3.0
+    optionalDependencies:
+      ajv: 6.12.6
 
   '@vercel/speed-insights@1.3.1(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)':
     optionalDependencies:
@@ -16373,6 +16418,14 @@ snapshots:
     dependencies:
       ajv: 8.17.1
       fast-deep-equal: 3.1.3
+
+  ajv@6.12.6:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      fast-json-stable-stringify: 2.1.0
+      json-schema-traverse: 0.4.1
+      uri-js: 4.4.1
+    optional: true
 
   ajv@8.17.1:
     dependencies:
@@ -17663,6 +17716,9 @@ snapshots:
       merge2: 1.4.1
       micromatch: 4.0.8
 
+  fast-json-stable-stringify@2.1.0:
+    optional: true
+
   fast-safe-stringify@2.1.1: {}
 
   fast-sha256@1.3.0: {}
@@ -18338,6 +18394,9 @@ snapshots:
   json-parse-even-better-errors@2.3.1: {}
 
   json-schema-to-zod@2.7.0: {}
+
+  json-schema-traverse@0.4.1:
+    optional: true
 
   json-schema-traverse@1.0.0: {}
 
@@ -19226,31 +19285,7 @@ snapshots:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-  next@15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react@19.2.0):
-    dependencies:
-      '@next/env': 15.5.9
-      '@swc/helpers': 0.5.15
-      caniuse-lite: 1.0.30001762
-      postcss: 8.4.31
-      react: 19.2.0
-      styled-jsx: 5.1.6(@babel/core@7.28.5)(react@19.2.0)
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 15.5.7
-      '@next/swc-darwin-x64': 15.5.7
-      '@next/swc-linux-arm64-gnu': 15.5.7
-      '@next/swc-linux-arm64-musl': 15.5.7
-      '@next/swc-linux-x64-gnu': 15.5.7
-      '@next/swc-linux-x64-musl': 15.5.7
-      '@next/swc-win32-arm64-msvc': 15.5.7
-      '@next/swc-win32-x64-msvc': 15.5.7
-      '@opentelemetry/api': 1.9.0
-      babel-plugin-react-compiler: 1.0.0
-      sharp: 0.34.5
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-
-  next@15.5.9(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  next@15.5.9(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       '@next/env': 15.5.9
       '@swc/helpers': 0.5.15
@@ -19522,6 +19557,10 @@ snapshots:
       minipass: 7.1.2
 
   path-to-regexp@0.1.12: {}
+
+  path-to-regexp@6.1.0: {}
+
+  path-to-regexp@6.3.0: {}
 
   pathe@2.0.3: {}
 
@@ -19832,6 +19871,9 @@ snapshots:
     dependencies:
       end-of-stream: 1.4.5
       once: 1.4.0
+
+  punycode@2.3.1:
+    optional: true
 
   qs@6.14.1:
     dependencies:
@@ -20283,9 +20325,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  resend@4.8.0(react@19.2.0):
+  resend@4.8.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
-      '@react-email/render': 1.1.2(react@19.2.0)
+      '@react-email/render': 1.1.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -21015,14 +21057,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  terser-webpack-plugin@5.3.16(webpack@5.104.1):
+  terser-webpack-plugin@5.3.16(esbuild@0.25.12)(webpack@5.104.1(esbuild@0.25.12)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       serialize-javascript: 6.0.2
       terser: 5.44.1
-      webpack: 5.104.1
+      webpack: 5.104.1(esbuild@0.25.12)
+    optionalDependencies:
+      esbuild: 0.25.12
 
   terser@5.44.1:
     dependencies:
@@ -21351,6 +21395,11 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
+  uri-js@4.4.1:
+    dependencies:
+      punycode: 2.3.1
+    optional: true
+
   use-callback-ref@1.3.3(@types/react@19.2.2)(react@19.2.0):
     dependencies:
       react: 19.2.0
@@ -21566,8 +21615,6 @@ snapshots:
 
   web-streams-polyfill@4.0.0-beta.3: {}
 
-  web-vitals@3.5.2: {}
-
   web-vitals@4.2.4: {}
 
   webidl-conversions@3.0.1: {}
@@ -21576,7 +21623,7 @@ snapshots:
 
   webpack-virtual-modules@0.5.0: {}
 
-  webpack@5.104.1:
+  webpack@5.104.1(esbuild@0.25.12):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -21600,7 +21647,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.16(webpack@5.104.1)
+      terser-webpack-plugin: 5.3.16(esbuild@0.25.12)(webpack@5.104.1(esbuild@0.25.12))
       watchpack: 2.5.0
       webpack-sources: 3.3.3
     transitivePeerDependencies:
