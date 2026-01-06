@@ -16,3 +16,6 @@ backup-old
 .env
 .env.local
 packages/api/.mastra/
+
+# Root markdown files
+/*.md
