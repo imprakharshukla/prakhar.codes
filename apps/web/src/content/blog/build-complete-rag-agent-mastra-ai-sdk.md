@@ -1,18 +1,18 @@
 ---
 title: "How to Build a Complete RAG Agent with Mastra and AI SDK"
 description: "A practical guide to building a production RAG system with internal knowledge search, external fallback, conversation history, and streaming responses. Featuring a real implementation: AI chat for my portfolio."
-pubDate: "Jan 05 2026"
-heroImage: "/images/blogs/build_complete_rag_agent.jpg"
+pubDate: "Jan 08 2026"
+heroImage: "/images/blogs/build_complete_rag_agent.png"
 tags: ["AI", "Mastra", "AI SDK", "RAG", "TypeScript", "Agents"]
 category: "Tutorials"
-publish: false
+publish: true
 ---
 
-**TL;DR**: Build a complete RAG agent that searches your internal docs first, falls back to web search when needed, maintains conversation history across sessions, streams responses in real-time, and orchestrates multiple tools intelligently. I'll show you how I built AI chat for my portfolio as a practical example.
+**TL;DR**: Build a complete RAG agent that searches your internal docs first, falls back to web search when needed, maintains conversation history across sessions, streams responses in real-time, and orchestrates multiple tools intelligently. I built this for my portfolio and it's running on this site right now.
 
 ---
 
-## Who This Is For
+## Who this is for
 
 This guide is for developers who want to build **complete RAG systems**, not just proof-of-concepts.
 
@@ -30,7 +30,7 @@ Not for: Simple Q&A demos or single-document retrieval.
 
 ---
 
-## What We're Building
+## What we're building
 
 I built an AI chat for my portfolio website that:
 
@@ -40,33 +40,21 @@ I built an AI chat for my portfolio website that:
 - **Streams responses**: Real-time typing effect with database persistence
 - **Orchestrates tools**: Internal search → External search → Custom tools
 
-**Live demo**: [chat.prakhar.codes](https://chat.prakhar.codes) (hypothetical - replace with your actual URL)
+**Try it live**: Look for the chat bubble in the bottom-right corner of this website. Click it to ask questions about my projects, blog posts, or experience.
 
-This is a real production system, not a tutorial toy. The patterns here scale to any domain - customer support, internal knowledge bases, documentation assistants, etc.
+**Full source code**: [GitHub Repository](https://github.com/imprakharshukla/prakhar.codes/blob/master/apps/chat)
+
+> This is a **real production system**, not a tutorial toy. It's running on this site right now, handling real queries. The patterns here scale to any domain - customer support, internal knowledge bases, documentation assistants, etc.
 
 ---
 
-## The Complete Architecture
+## The complete architecture
 
 Here's how all the pieces fit together:
 
-```
-User Query
-    ↓
-Knowledge Agent (Mastra)
-    ↓
-Runtime Context (filters by domain/tenant)
-    ↓
-Internal Search Tool (PgVector)
-    ↓
-Has results? ──Yes──> Stream Response
-    ↓ No                     ↓
-External Search (Perplexity) → Database Chunks
-    ↓                           ↓
-Stream Response ────────────> Frontend Updates
-```
+![RAG Agent Architecture](https://kroki.io/mermaid/svg/eNp1kVFrwjAQx9_3KQ72LCKzMMdwqK1ax8amczCCD7G91LKYlCRllrnvvpg2jDwsb-F3v_9dLlAoWh3gLb4CdyZkq1HBa42q2UGvN4YpeRTyi2NeIEwKFOZ-r_rjJ6qNorvOmrrKGVnXwpRHhJkUBk9tJSu5QaVh30Auj7QUfYOCCuPdmXNjklpFCcphg1RldiQpuQt4Kd4xM1J5IXZC8r2kGhTqmhv98NOx5MLOH6jPMCcbo5AeYY26kkLjLqh5lmdYkOQUNG37oao4nkrTeGPhOi7_C5w7nJKYGrqn2j7_UItP7cIq-_RSG7Cz2t2hogZz7y1br7ul7rYic3VZnshhW-W2uo2xfXnPrTYvdcWpHa3TtGm4_Riwa-Z31zhgEWMBmnaIMTbEQYBib92yCEcBWngrwyFmAUr-AkfZMECpRzcYsShAq2DCX63au3w)
 
-**Tech Stack:**
+**Tech stack:**
 
 - **Mastra 0.1.x**: Agent framework with tool orchestration
 - **Vercel AI SDK 5.0**: Streaming and tool calling
@@ -75,7 +63,7 @@ Stream Response ────────────> Frontend Updates
 - **Perplexity Sonar Pro**: External knowledge via web search
 - **tRPC or Next.js API Routes**: Type-safe API layer
 
-**Why this stack?**
+**Why this stack:**
 
 - Mastra handles agent logic and memory
 - AI SDK handles streaming elegantly
@@ -85,9 +73,9 @@ Stream Response ────────────> Frontend Updates
 
 ---
 
-## Setting Up Internal Knowledge (RAG)
+## Setting up internal knowledge (RAG)
 
-### The Database Schema
+### The database schema
 
 First, create your vector storage table:
 
@@ -121,7 +109,7 @@ export const knowledgeVectors = pgTable("knowledge_vectors", {
 // CREATE INDEX ON knowledge_vectors USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
 ```
 
-### Document Ingestion
+### Document ingestion
 
 Ingest your content (blog posts, projects, etc.):
 
@@ -189,74 +177,114 @@ await ingestDocument(blogPostContent, {
 });
 ```
 
-### The Internal Search Tool
+**Live implementation**: [Ingestion script](https://github.com/imprakharshukla/prakhar.codes/blob/master/apps/chat/scripts/ingest-portfolio-content.ts)
+
+**Pro tip**: I also generate **synthetic content** for the homepage that emphasizes availability for hire, key skills, and contact information. This ensures critical info is always findable even if it's not in a specific blog post.
+
+### The internal search tool
 
 Create a Mastra tool for searching your internal knowledge:
 
 ```typescript
 // tools/internal-search.ts
-import { createTool } from "@mastra/core";
+import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
-import { openai } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { embed } from "ai";
-import { db } from "../db";
-import { knowledgeVectors } from "../schema";
-import { sql } from "drizzle-orm";
+import { PgVector } from "@mastra/pg";
 
-export const internalSearchTool = createTool({
-  id: "internal_search",
+// Use OpenAI SDK with OpenRouter endpoint
+const openrouter = createOpenAI({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
+});
+
+export const internalKnowledgeSearchTool = createTool({
+  id: "internal_knowledge_search",
   description:
-    "Search internal knowledge base (blog posts, projects, experience)",
+    "Search internal knowledge base. Use for questions about projects, blog posts, experience, or skills.",
   inputSchema: z.object({
-    query: z.string().describe("The search query"),
-    topK: z.number().default(5).describe("Number of results to return"),
+    queryText: z.string().describe("The search query"),
+    topK: z
+      .number()
+      .optional()
+      .default(10)
+      .describe("Number of results to return"),
   }),
   outputSchema: z.object({
-    results: z.array(
+    relevantContext: z.array(
       z.object({
-        content: z.string(),
+        text: z.string(),
         source: z.string(),
-        title: z.string(),
-        url: z.string(),
+        category: z.string(),
+        pathPrefix: z.string().optional(),
         score: z.number(),
       })
     ),
+    sources: z.array(
+      z.object({
+        id: z.string(),
+        score: z.number(),
+        metadata: z.record(z.string(), z.any()),
+      })
+    ),
   }),
-  execute: async ({ context, input }) => {
-    // 1. Generate query embedding
+  execute: async ({ context, runtimeContext }) => {
+    const { queryText, topK } = context;
+
+    // Read pathPrefix from RuntimeContext for multi-tenancy
+    const pathPrefix = runtimeContext?.get("pathPrefix") as string | undefined;
+
+    // Generate embedding for the query
     const { embedding } = await embed({
-      model: openai.embedding("text-embedding-3-small"),
-      value: input.query,
+      model: openrouter.embedding("text-embedding-3-small"),
+      value: queryText,
     });
 
-    // 2. Vector similarity search
-    const results = await db.execute(sql`
-      SELECT
-        content,
-        metadata,
-        1 - (embedding <=> ${embedding}::vector) as score
-      FROM knowledge_vectors
-      ORDER BY embedding <=> ${embedding}::vector
-      LIMIT ${input.topK}
-    `);
+    // Initialize PgVector
+    const pgVector = new PgVector({
+      connectionString: process.env.DATABASE_URL!,
+    });
 
-    // 3. Format results
+    // Build filter for multi-tenancy
+    const filter = pathPrefix ? { pathPrefix } : undefined;
+
+    // Query vector store
+    const results = await pgVector.query({
+      indexName: "portfolio_knowledge",
+      queryVector: embedding,
+      topK: topK || 10,
+      filter,
+    });
+
+    // Format results
+    const relevantContext = results.map((result) => ({
+      text: (result.metadata?.text as string) || "",
+      source: (result.metadata?.source as string) || "unknown",
+      category: (result.metadata?.category as string) || "",
+      pathPrefix: result.metadata?.pathPrefix as string | undefined,
+      score: result.score,
+    }));
+
+    const sources = results.map((result) => ({
+      id: result.id,
+      score: result.score,
+      metadata: result.metadata || {},
+    }));
+
     return {
-      results: results.rows.map((row: any) => ({
-        content: row.content,
-        source: row.metadata.source,
-        title: row.metadata.title,
-        url: row.metadata.url,
-        score: row.score,
-      })),
+      relevantContext,
+      sources,
     };
   },
 });
 ```
 
+**Live implementation**: [Internal search tool](https://github.com/imprakharshukla/prakhar.codes/blob/master/packages/api/src/mastra/tools/knowledge/internal-search.ts)
+
 ---
 
-## Adding External Knowledge Fallback
+## Adding external knowledge fallback
 
 Your agent shouldn't be limited to only what's in your docs. Add Perplexity for web search:
 
@@ -304,7 +332,7 @@ function extractUrls(text: string): string[] {
 }
 ```
 
-### The Decision Logic
+### The decision logic
 
 **Critical**: Your agent must search internal knowledge **first**, only falling back to external when needed.
 
@@ -316,15 +344,15 @@ export const AGENT_INSTRUCTIONS = `
 You are a portfolio assistant with access to internal knowledge and web search.
 
 CRITICAL RULES:
-1. ALWAYS use internal_search FIRST for every query
-2. ONLY use external_search if internal_search returns NO results or insufficient results
+1. ALWAYS use internal_knowledge_search FIRST for every query
+2. ONLY use external_search if internal_knowledge_search returns NO results or insufficient results
 3. NEVER use both tools for the same query
 4. After calling a tool, generate a natural response in the user's language
 
 WORKFLOW:
-- User asks about projects/blog/experience → internal_search → Answer from results
-- User asks general question → internal_search → If empty → external_search → Answer
-- User asks recent/external info → internal_search → If empty → external_search → Answer
+- User asks about projects/blog/experience → internal_knowledge_search → Answer from results
+- User asks general question → internal_knowledge_search → If empty → external_search → Answer
+- User asks recent/external info → internal_knowledge_search → If empty → external_search → Answer
 
 When answering:
 - Cite your sources (blog post title, project name, URL)
@@ -336,9 +364,9 @@ When answering:
 
 ---
 
-## Conversation Memory & Threads
+## Conversation memory and threads
 
-### Database Schema for Threads
+### Database schema for threads
 
 Users expect conversations to persist. Don't reset on every page refresh.
 
@@ -379,7 +407,7 @@ export const messageChunks = pgTable("message_chunks", {
 });
 ```
 
-### Creating and Loading Threads
+### Creating and loading threads
 
 ```typescript
 // api/threads.ts
@@ -432,9 +460,9 @@ export async function saveMessage(
 
 ---
 
-## Streaming Responses
+## Streaming responses
 
-### Why Database-Backed Streaming?
+### Why database-backed streaming?
 
 Traditional streaming sends chunks over HTTP. If the user refreshes, the stream is lost.
 
@@ -468,7 +496,7 @@ export async function streamChatResponse(
     model: openrouter("anthropic/claude-3-haiku"),
     messages,
     tools: {
-      internal_search: internalSearchTool,
+      internal_knowledge_search: internalKnowledgeSearchTool,
       external_search: externalSearchTool,
     },
   });
@@ -543,9 +571,9 @@ async function reconstructMessage(messageId: string) {
 
 ---
 
-## Tool Orchestration
+## Tool orchestration
 
-### Building the Agent
+### Building the agent
 
 Now combine everything into a Mastra agent:
 
@@ -553,7 +581,7 @@ Now combine everything into a Mastra agent:
 // agent.ts
 import { Agent } from "@mastra/core";
 import { PostgresStore } from "@mastra/postgres";
-import { internalSearchTool } from "./tools/internal-search";
+import { internalKnowledgeSearchTool } from "./tools/internal-search";
 import { externalSearchTool } from "./tools/external-search";
 
 export const knowledgeAgent = new Agent({
@@ -565,13 +593,15 @@ export const knowledgeAgent = new Agent({
     toolChoice: "auto",
   },
   tools: {
-    internal_search: internalSearchTool,
+    internal_knowledge_search: internalKnowledgeSearchTool,
     external_search: externalSearchTool,
   },
 });
 ```
 
-### Runtime Context (Optional)
+**Live implementation**: [Knowledge agent](https://github.com/imprakharshukla/prakhar.codes/blob/master/packages/api/src/mastra/agents/knowledge-agent.ts)
+
+### Runtime context (optional)
 
 If you need multi-tenancy (e.g., different knowledge bases per user/organization):
 
@@ -589,7 +619,7 @@ export const knowledgeAgent = new Agent({
     }
 
     CRITICAL RULES:
-    1. ALWAYS use internal_search FIRST
+    1. ALWAYS use internal_knowledge_search FIRST
     2. ONLY use external_search if internal returns NO results
     ...
     `;
@@ -599,7 +629,7 @@ export const knowledgeAgent = new Agent({
     name: "anthropic/claude-3-haiku",
   },
   tools: {
-    internal_search: internalSearchTool,
+    internal_knowledge_search: internalKnowledgeSearchTool,
     external_search: externalSearchTool,
   },
 });
@@ -615,9 +645,23 @@ const response = await knowledgeAgent.generate(messages, {
 
 ---
 
-## Building the Frontend
+## Building the frontend
 
-### Chat Component
+### AI elements
+
+The frontend uses **[AI Elements](https://ai-sdk.dev/elements)** - pre-built React components from Vercel specifically designed for AI chat interfaces. These components handle common patterns like:
+
+- Message rendering with streaming support
+- Markdown formatting with code highlighting
+- Auto-scrolling conversation containers
+- Input components with file attachments
+- Loading states and indicators
+
+AI Elements integrates seamlessly with the AI SDK's `useChat` hook and provides a polished UI out of the box. Instead of building chat components from scratch, you get production-ready components that handle edge cases like scroll anchoring, streaming text display, and accessibility.
+
+**Bonus**: my implementation includes custom enhancements like source extraction, contextual suggestions, and tool-aware loading states built on top of AI Elements.
+
+### Chat component
 
 ```tsx
 // components/chat.tsx
@@ -714,7 +758,7 @@ export function Chat({ threadId }: { threadId?: string }) {
 }
 ```
 
-### Thread Sidebar
+### Thread sidebar
 
 ```tsx
 // components/thread-sidebar.tsx
@@ -769,199 +813,51 @@ export function ThreadSidebar({
 
 ---
 
-## Putting It All Together: Portfolio Chat Demo
+## What I learned
 
-Here's how it works in practice:
+### 1. Internal-first prevents hallucinations
 
-### Example 1: Internal Knowledge Query
+Always search your own content before hitting the web. This prevents outdated information, contradictions with your documented positions, and missed opportunities to cite your own content.
 
-**User**: "What projects have you built with AI?"
+**Pattern**: `internal_knowledge_search` → check results → if empty → `external_search`
 
-**Agent Flow**:
+### 2. Tool orchestration requires clear decision logic
 
-1. Receives query
-2. Calls `internal_search` with query: "projects built with AI"
-3. PgVector returns relevant chunks from my projects
-4. Agent synthesizes answer with citations:
+Don't leave tool selection to chance. Explicit instructions prevent using both internal and external search for the same query (wasteful), skipping internal knowledge search (defeats RAG purpose), and infinite tool loops.
 
-**Response**:
+**Solution**: Write explicit rules in agent instructions, validate in testing.
 
-> I've built several AI-powered projects:
->
-> **Lumoflo** - An AI agent platform for industrial operations. Uses Mastra + AI SDK for tool orchestration and RAG capabilities. [Read more](/projects/lumoflo)
->
-> **AI Planner** - An intelligent project planning assistant that asks clarifying questions and generates execution-ready plans. Built with Convex and Vercel AI SDK. [Read more](/blog/ai-planner)
+### 3. Rate limiting and observability are essential
 
-**Tool calls logged**: `internal_search` → 5 results found → No external search needed
+Production RAG systems need rate limiting (10 req/10sec per user with Upstash Redis), cost tracking (embedding API costs add up), tool analytics (which tools are called, success rates), and error alerting (failed embeddings, search errors).
 
 ---
 
-### Example 2: External Knowledge Fallback
+## Try it yourself
 
-**User**: "What's the latest version of Next.js?"
+The chat widget is embedded on this site. **Click the chat bubble in the bottom-right corner** to try it live. Ask about:
 
-**Agent Flow**:
+- "What projects have you built with AI?"
+- "Tell me about your blog on Mastra"
+- "What's your experience with TypeScript?"
+- "Where have you traveled?"
 
-1. Receives query
-2. Calls `internal_search` with query: "latest version of Next.js"
-3. PgVector returns 0 relevant results (I haven't written about Next.js versions recently)
-4. Agent detects empty results, calls `external_search`
-5. Perplexity searches web, returns answer with sources
-
-**Response**:
-
-> According to recent sources, the latest stable version of Next.js is **15.1.0** released in December 2024. Key features include improved Turbopack stability, React 19 support, and enhanced Server Actions.
->
-> Sources:
->
-> - https://nextjs.org/blog/next-15-1
-> - https://github.com/vercel/next.js/releases
-
-**Tool calls logged**: `internal_search` → 0 results → `external_search` → Web search executed
+Watch how it searches internal content first, shows sources, and generates contextual follow-up suggestions.
 
 ---
 
-### Example 3: Conversation Continuity
+## Source code
 
-**User**: "Tell me about your blog on Mastra"
+**Full implementation**: [GitHub Repository](https://github.com/imprakharshukla/prakhar.codes/blob/master/apps/chat)
 
-**Agent**: [Responds with summary of "Why I Love Mastra" blog post]
+Key files:
 
-**User refreshes page**
-
-**Agent**: [Conversation thread loads from database, full history preserved]
-
-**User**: "Can you explain the runtime context part in more detail?"
-
-**Agent**: [Knows "runtime context" refers to previous blog discussion, provides detailed explanation]
-
-**Thread persistence enables**:
-
-- Context continuity across sessions
-- Multi-device access (same thread ID)
-- Conversation history review
-- Deep linking to specific conversations
+- [Knowledge Agent](https://github.com/imprakharshukla/prakhar.codes/blob/master/packages/api/src/mastra/agents/knowledge-agent.ts)
+- [Internal Search Tool](https://github.com/imprakharshukla/prakhar.codes/blob/master/packages/api/src/mastra/tools/knowledge/internal-search.ts)
+- [Ingestion Script](https://github.com/imprakharshukla/prakhar.codes/blob/master/apps/chat/scripts/ingest-portfolio-content.ts)
+- [Chat API Route](https://github.com/imprakharshukla/prakhar.codes/blob/master/apps/chat/src/app/api/chat/route.ts)
+- [Chat Widget](https://github.com/imprakharshukla/prakhar.codes/blob/master/apps/web/src/components/ChatWidget.tsx)
 
 ---
 
-## What I Learned
-
-### 1. Internal-First Prevents Hallucinations
-
-Always search your own content before hitting the web. This prevents:
-
-- Outdated information from web search
-- Contradicting your own documented positions
-- Missing opportunities to cite your own content
-
-**Pattern**: `internal_search` → Check results → If empty → `external_search`
-
-### 2. Conversation History Is Non-Negotiable
-
-Users expect conversations to persist. Ephemeral chat feels broken in 2026.
-
-**Minimum viable**:
-
-- Thread ID in URL (`?threadId=xyz`)
-- Messages stored in database
-- Load thread on page mount
-- Thread sidebar for navigation
-
-### 3. Streaming with Persistence Is Worth the Complexity
-
-Database-backed streaming adds complexity but the UX wins are massive:
-
-- Users can refresh without losing responses
-- Collaborative viewing (multiple users watching same stream)
-- Error recovery (failed requests don't lose partial responses)
-
-**Implementation cost**: ~100 lines of buffer/chunk logic
-**UX benefit**: Passes the "F5 test" - refresh doesn't break anything
-
-### 4. Tool Orchestration Requires Clear Decision Logic
-
-Don't leave tool selection to chance. Explicit instructions prevent:
-
-- Using both internal and external search for same query (wasteful)
-- Skipping internal search (defeats the purpose of RAG)
-- Infinite tool loops (tool calls another tool calls another...)
-
-**Solution**: Write explicit rules in agent instructions, validate in testing
-
-### 5. Runtime Context Is Elegant for Multi-Tenancy
-
-Instead of complex row-level security, use metadata filtering:
-
-- Store `pathPrefix` or `tenantId` in vector metadata
-- Pass via runtime context to agent
-- Filter at query time
-
-**Benefits**: Simple, flexible, works across any database
-
-### 6. Rate Limiting and Observability Are Essential
-
-Production RAG systems need:
-
-- **Rate limiting**: 10 req/10sec per user (Upstash Redis)
-- **Cost tracking**: Monitor embedding API costs (they add up)
-- **Tool analytics**: Which tools are called, success rates
-- **Error alerting**: Failed embeddings, search errors
-
-**Tools I use**: Upstash for rate limiting, Braintrust for observability
-
----
-
-## Conclusion & Next Steps
-
-### What You Built
-
-You now have a **complete RAG agent** with:
-
-- ✅ Internal knowledge search (your content prioritized)
-- ✅ External knowledge fallback (web search when needed)
-- ✅ Persistent conversation threads (history across sessions)
-- ✅ Streaming responses (real-time UX with refresh tolerance)
-- ✅ Tool orchestration (intelligent decision-making)
-- ✅ Production patterns (rate limiting, error handling, observability)
-
-This architecture scales from portfolio chat to customer support, internal knowledge bases, documentation assistants, and more.
-
-### Complete Code
-
-Full implementation available at: **[GitHub Repo Link]** (add your actual repo)
-
-Includes:
-
-- Database schema and migrations
-- Agent configuration with tools
-- API routes for chat and threads
-- Frontend components (chat, sidebar)
-- Docker compose for local development
-- Deployment guides (Vercel, Railway, etc.)
-
-### Next Steps
-
-**Enhance your RAG system**:
-
-1. **Semantic search across conversations**: Search your chat history, not just current thread
-2. **Conversation summarization**: Auto-generate thread titles from first message
-3. **Context window management**: Automatically summarize old messages when hitting limits
-4. **Custom tools**: Add domain-specific tools (e.g., "generate checklist", "create quiz")
-5. **Multi-modal**: Support image uploads, analyze screenshots
-6. **Feedback loops**: Let users rate responses, fine-tune with feedback
-
-**Production improvements**:
-
-1. **Embedding cache**: Cache query embeddings to reduce API costs
-2. **Hybrid search**: Combine vector search with keyword search (BM25)
-3. **Re-ranking**: Use cross-encoder to re-rank search results
-4. **Query expansion**: Rephrase queries for better retrieval
-5. **Citation tracking**: Highlight exact source paragraphs in UI
-
----
-
-**The killer feature**: This isn't just a chatbot. It's a **knowledge assistant** that knows your content, falls back to web search gracefully, remembers conversations, and streams responses smoothly.
-
-Ship it to production. Your users will love it.
-
-**Questions?** Drop them in the comments or find me on [Twitter/X](https://twitter.com/imprakharshukla).
+Questions? Try the chat widget on this site or find me on [Twitter/X](https://twitter.com/imprakharshukla).

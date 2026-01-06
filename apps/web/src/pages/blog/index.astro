@@ -6,9 +6,14 @@ import PostFeed from "../../components/PostFeed";
 import { getCollection } from "astro:content";
 
 const blogPosts = await getCollection("blog");
-const filteredBlogPosts = blogPosts.filter(
-  (post) => post.data.publish === true
-);
+const filteredBlogPosts = blogPosts
+  .filter((post) =>
+    import.meta.env.MODE === "production" ? post.data.publish === true : true
+  )
+  .sort(
+    (a, b) =>
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  );
 ---
 
 <!doctype html>
