@@ -5,6 +5,15 @@ import { MessageCircle, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Skeleton } from "@prakhar/ui";
 
+// Declare PostHog type
+declare global {
+  interface Window {
+    posthog?: {
+      capture: (event: string, properties?: Record<string, any>) => void;
+    };
+  }
+}
+
 const CHAT_URL = import.meta.env.PUBLIC_CHAT_URL || "http://localhost:3001";
 
 export function ChatWidget() {
@@ -28,6 +37,17 @@ export function ChatWidget() {
     }
   }, [open]);
 
+  // Track chat widget opened
+  const handleToggleChat = (newState: boolean) => {
+    setOpen(newState);
+
+    if (newState && typeof window !== 'undefined' && window.posthog) {
+      window.posthog.capture('chat_widget_opened', {
+        page: window.location.pathname,
+      });
+    }
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -39,7 +59,7 @@ export function ChatWidget() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 bg-black/50 z-40"
-            onClick={() => setOpen(false)}
+            onClick={() => handleToggleChat(false)}
           />
         )}
 
@@ -61,7 +81,7 @@ export function ChatWidget() {
                 {/* <p className="text-sm text-muted-foreground">Ask me anything</p> */}
               </div>
               <button
-                onClick={() => setOpen(false)}
+                onClick={() => handleToggleChat(false)}
                 className="hover:bg-accent rounded-sm p-1 transition-colors"
                 aria-label="Close chat"
               >
@@ -123,7 +143,7 @@ export function ChatWidget() {
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => setOpen(!open)}
+          onClick={() => handleToggleChat(!open)}
           className="rounded-full bg-primary p-3 sm:p-4 shadow-lg"
           aria-label={open ? "Close chat" : "Open chat"}
         >

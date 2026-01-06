@@ -8,6 +8,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { TailwindIndicator } from "../components/TailwindIndicator";
 import { ChatWidget } from "../components/ChatWidget";
+import PostHog from "../components/posthog.astro";
 ---
 
 <html lang="en">
@@ -16,6 +17,7 @@ import { ChatWidget } from "../components/ChatWidget";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <ViewTransitions fallback="animate" />
     <BaseHead title={title} description={description} />
+    <PostHog />
     <script is:inline>
       const theme = (() => {
         if (

@@ -1,11 +1,43 @@
   ---
   const { link, title } = Astro.props;
+
+  // Determine the platform from the link
+  const getPlatform = (url: string) => {
+    if (url.includes('github.com')) return 'github';
+    if (url.includes('linkedin.com')) return 'linkedin';
+    if (url.includes('twitter.com') || url.includes('x.com')) return 'twitter';
+    return 'other';
+  };
+
+  const platform = getPlatform(link);
   ---
 
   <a
     href={link}
     class="py-1 px-2 w-fit border-border transform duration-200 hover:text-primary text-muted-foreground hover:bg-primary/10 items-center border rounded-md bg-card flex gap-2 cursor-pointer"
+    data-social-platform={platform}
   >
     <slot />
     <span class="text-foreground description">{title}</span>
   </a>
+
+  <script>
+    // Track social link clicks
+    document.addEventListener('DOMContentLoaded', () => {
+      const socialLinks = document.querySelectorAll('a[data-social-platform]');
+
+      socialLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const platform = (e.currentTarget as HTMLElement).getAttribute('data-social-platform');
+
+          if (typeof window !== 'undefined' && (window as any).posthog) {
+            (window as any).posthog.capture('social_link_clicked', {
+              platform: platform,
+              source_page: window.location.pathname,
+              destination: (e.currentTarget as HTMLAnchorElement).href,
+            });
+          }
+        });
+      });
+    });
+  </script>

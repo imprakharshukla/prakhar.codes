@@ -63,7 +63,7 @@ export default function NavigationBar({
                                                 )}
                                             >
                                                 <TooltipTrigger asChild>
-                                                    <Button variant={"ghost"} size={""}>
+                                                    <Button variant={"ghost"}>
                                                         {item.icon}
                                                     </Button>
                                                 </TooltipTrigger>

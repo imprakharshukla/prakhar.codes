@@ -3,6 +3,4 @@ export { mastra } from "./mastra/index";
 export {
   createKnowledgeAgent,
   createKnowledgeAgentRuntimeContext,
-  createIncidentAgent,
-  createIncidentAgentRuntimeContext,
 } from "./mastra/index";

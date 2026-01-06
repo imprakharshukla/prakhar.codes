@@ -20,7 +20,7 @@ export default function LocalTimePill() {
     // Update time every minute
     const interval = setInterval(updateTime, 60000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval as NodeJS.Timeout);
   }, []);
 
   // Prevent hydration mismatch by not rendering until mounted

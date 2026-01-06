@@ -1,6 +1,15 @@
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 
+// Declare PostHog type
+declare global {
+  interface Window {
+    posthog?: {
+      capture: (event: string, properties?: Record<string, any>) => void;
+    };
+  }
+}
+
 interface CalEmbedProps {
   children: React.ReactNode;
   calLink?: string;
@@ -26,12 +35,24 @@ export default function CalEmbed({
     })();
   }, [namespace]);
 
+  const handleClick = () => {
+    // Track schedule call click
+    if (typeof window !== 'undefined' && window.posthog) {
+      window.posthog.capture('schedule_call_clicked', {
+        source: window.location.pathname === '/' ? 'homepage' : 'other',
+        page: window.location.pathname,
+        calendar_link: calLink,
+      });
+    }
+  };
+
   return (
     <button
       data-cal-namespace={namespace}
       data-cal-link={calLink}
       data-cal-config='{"layout":"month_view"}'
       className="contents"
+      onClick={handleClick}
     >
       {children}
     </button>

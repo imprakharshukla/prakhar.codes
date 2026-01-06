@@ -143,6 +143,15 @@ export default function PostFeed(props: {
   );
 }
 
+// Declare PostHog type
+declare global {
+  interface Window {
+    posthog?: {
+      capture: (event: string, properties?: Record<string, any>) => void;
+    };
+  }
+}
+
 const Post = ({
   id,
   title,
@@ -162,10 +171,23 @@ const Post = ({
   slug: string;
   compact?: boolean;
 }) => {
+  const handleClick = () => {
+    // Track blog post click
+    if (typeof window !== 'undefined' && window.posthog) {
+      window.posthog.capture('blog_post_clicked', {
+        title: title,
+        category: category,
+        slug: slug,
+        reading_time: getReadingTimeDynamic(body),
+        source_page: window.location.pathname,
+      });
+    }
+  };
+
   if (compact) {
     return (
       <li key={id}>
-        <a href={`/blog/${slug}`} className="cursor-pointer">
+        <a href={`/blog/${slug}`} className="cursor-pointer" onClick={handleClick}>
           <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.01] border-transparent">
             <div className="flex flex-col sm:flex-row gap-4 items-start">
               <div className="rounded-sm flex-shrink-0 w-full sm:w-32 aspect-[16/9]">
@@ -199,7 +221,7 @@ const Post = ({
 
   return (
     <li key={id}>
-      <a href={`/blog/${slug}`} className="cursor-pointer">
+      <a href={`/blog/${slug}`} className="cursor-pointer" onClick={handleClick}>
         <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.02] border-transparent">
           <div className="flex flex-col sm:flex-row gap-4 justify-start">
             <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden aspect-[16/9]">

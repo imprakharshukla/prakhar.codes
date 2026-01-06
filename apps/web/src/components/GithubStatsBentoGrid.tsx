@@ -179,7 +179,7 @@ const GitHubStatsBentoGrid: React.FC<{ headingVisible?: boolean }> = ({
 }
 
 const GridElement = ({ icon, label, value, stats }: {
-    icon: JSX.Element,
+    icon: React.ReactNode,
     label: string,
     value: (stats: z.infer<typeof StatZodSchema>) => string,
     stats: z.infer<typeof StatZodSchema>
