@@ -7,7 +7,10 @@ on:
       - master
     paths:
       - 'apps/web/src/content/blog/**'
-      - 'apps/web/src/content/projects/**'
+      - 'apps/web/src/content/project/**'
+      - 'apps/web/src/content/travel/**'
+      - 'apps/web/src/data/experience.ts'
+      - 'scripts/ingest-portfolio-content.ts'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
