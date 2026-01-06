@@ -1,8 +1,13 @@
 {
   "$schema": "https://turborepo.com/schema.json",
+  "globalEnv": [
+    "DATABASE_URL",
+    "OPENROUTER_API_KEY"
+  ],
   "tasks": {
     "build": {
-      "outputs": ["dist/**", ".astro/**", ".next/**", ".vercel/**"]
+      "outputs": ["dist/**", ".astro/**", ".next/**", ".vercel/**"],
+      "env": ["DATABASE_URL", "OPENROUTER_API_KEY"]
     },
     "@prakhar/web#build": {
       "outputs": [".astro/**", ".vercel/**"]
