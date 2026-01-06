@@ -1,0 +1,440 @@
+---
+title: "Automate Your Resume Deployment with GitHub Actions, LaTeX, and Cloudflare R2"
+description: "Build a fully automated resume pipeline that compiles LaTeX to PDF and deploys to Cloudflare R2 on every git push, with versioning and metadata tracking."
+category: "Automation"
+tags: ["DevOps", "GitHub Actions", "LaTeX", "Cloudflare", "CI/CD", "Automation"]
+pubDate: "Dec 28 2025"
+publish: true
+heroImage: "/images/blogs/resume_automation.jpeg"
+---
+
+import { AlertDescription, AlertTitle, Alert } from "@prakhar/ui";
+import { InfoIcon } from "lucide-react";
+
+## Table of contents
+
+## Why Automate Your Resume?
+
+Manually exporting and uploading your resume every time you make a change creates several problems:
+
+**The Manual Workflow Problem:**
+- Export LaTeX to PDF locally
+- Upload to your website or cloud storage
+- Update links on your portfolio
+- Repeat for every typo fix or job update
+- Risk of forgetting to update, leaving stale versions live
+
+**What Automation Solves:**
+
+**Version Control**: Every resume version is tracked in git with full history. Roll back to any previous version instantly.
+
+**Always Up-to-Date**: Your website always links to the latest version automatically. No more "oops, that's the old resume" moments.
+
+**Timestamped Versions**: Keep historical versions with timestamps for tracking evolution over time.
+
+**Zero Manual Work**: Push to git, resume updates automatically. Focus on content, not deployment.
+
+**Consistent Quality**: Same compilation environment every time. No "works on my machine" LaTeX issues.
+
+**Professional Workflow**: Treat your resume like production code with CI/CD, testing, and automatic deployments.
+
+## What You'll Build
+
+In this tutorial, we'll build a complete automated resume deployment pipeline that:
+- Compiles LaTeX resume to PDF on every push
+- Uploads timestamped versions to Cloudflare R2
+- Maintains a metadata file for dynamic linking
+- Handles common LaTeX compilation errors
+
+## Architecture Overview
+
+Our pipeline consists of three main components:
+
+1. **LaTeX Resume** - Source of truth for resume content
+2. **GitHub Actions** - Compiles LaTeX and deploys on push
+3. **Cloudflare R2** - Stores PDF files and metadata
+
+```
+resume.tex (git push)
+    ↓
+GitHub Actions
+    ├── Compile LaTeX to PDF
+    ├── Generate timestamp
+    └── Upload to Cloudflare R2
+         ├── Prakhar_Resume_20241228_143000.pdf
+         └── latest.json (metadata)
+```
+
+## Setting Up Your LaTeX Resume
+
+First, let's create a clean LaTeX resume. Here's a minimal template to get started:
+
+```latex
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[pdftex,
+            colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.530in}
+\addtolength{\evensidemargin}{-0.375in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.45in}
+\addtolength{\textheight}{1in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-10pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-6pt}]
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{{\LARGE Your Name}} & Email: \href{mailto:you@email.com}{you@email.com}\\
+  \href{https://yourwebsite.com}{Portfolio: yourwebsite.com} & Mobile: +1-234-567-8900 \\
+\end{tabular*}
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+  \textbf{Your Company} \hfill \textit{Jan 2024 - Present} \\
+  \textit{Software Engineer} \\
+  - Built awesome things with TypeScript and React \\
+  - Deployed production systems handling 1M+ requests/day
+
+\end{document}
+```
+
+<Alert className="mt-5 dark:border-border/40">
+  <InfoIcon className="h-4 w-4" />
+  <AlertTitle>Common LaTeX Pitfall: Package Option Clash</AlertTitle>
+  <AlertDescription>
+    Only import `hyperref` once with all options combined. Loading it multiple times with different options will cause compilation errors. See the troubleshooting section below for details.
+  </AlertDescription>
+</Alert>
+
+Save this as `resume.tex` in your repository root.
+
+## GitHub Actions Workflow
+
+Create `.github/workflows/resume-deploy.yml`:
+
+```yaml
+name: Deploy Resume to Cloudflare R2
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'resume.tex'
+  workflow_dispatch:
+
+jobs:
+  compile-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX to PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume.tex
+          latexmk_use_lualatex: false
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: Generate timestamp and metadata
+        id: metadata
+        run: |
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          FILENAME="YourName_Resume_${TIMESTAMP}.pdf"
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "filename=$FILENAME" >> $GITHUB_OUTPUT
+
+          # Rename compiled PDF
+          mv resume.pdf "$FILENAME"
+
+          # Create latest.json with metadata
+          cat > latest.json <<EOF
+          {
+            "url": "https://resume-cdn.yourdomain.com/${FILENAME}",
+            "filename": "${FILENAME}",
+            "timestamp": "${TIMESTAMP}",
+            "updatedAt": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          }
+          EOF
+
+      - name: Upload to Cloudflare R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_ENDPOINT_URL: ${{ secrets.R2_ENDPOINT_URL }}
+          BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+        run: |
+          # Install AWS CLI
+          pip install awscli
+
+          # Upload the timestamped PDF
+          aws s3 cp "${{ steps.metadata.outputs.filename }}" \
+            s3://${BUCKET_NAME}/${{ steps.metadata.outputs.filename }} \
+            --endpoint-url ${AWS_ENDPOINT_URL} \
+            --content-type application/pdf \
+            --cache-control "public, max-age=31536000, immutable"
+
+          # Upload latest.json (this will be read by your website)
+          aws s3 cp latest.json \
+            s3://${BUCKET_NAME}/latest.json \
+            --endpoint-url ${AWS_ENDPOINT_URL} \
+            --content-type application/json \
+            --cache-control "no-cache"
+
+      - name: Summary
+        run: |
+          echo "Resume compiled and uploaded successfully!"
+          echo "Filename: ${{ steps.metadata.outputs.filename }}"
+          echo "URL: https://resume-cdn.yourdomain.com/${{ steps.metadata.outputs.filename }}"
+```
+
+### Workflow Breakdown
+
+**Triggers:**
+- Runs on push to `main` or `master` when `resume.tex` changes
+- Can be manually triggered via `workflow_dispatch`
+
+**Step 1: Compile LaTeX**
+- Uses `xu-cheng/latex-action@v3` for consistent LaTeX environment
+- `-interaction=nonstopmode` prevents hanging on errors
+- `-file-line-error` provides clear error messages
+
+**Step 2: Generate Metadata**
+- Creates timestamped filename: `YourName_Resume_20241228_143000.pdf`
+- Generates `latest.json` with URL, filename, timestamp, and ISO date
+
+**Step 3: Upload to R2**
+- Timestamped PDF gets immutable cache (1 year)
+- `latest.json` gets no-cache for dynamic updates
+
+## Configuring Cloudflare R2
+
+### 1. Create R2 Bucket
+
+1. Go to Cloudflare Dashboard to R2
+2. Click "Create bucket"
+3. Name it (e.g., `resume-storage`)
+4. Keep default settings
+
+### 2. Generate API Tokens
+
+1. In your R2 bucket, go to "Manage R2 API Tokens"
+2. Create a new API token with "Edit" permissions
+3. Save the Access Key ID and Secret Access Key
+
+### 3. Configure Custom Domain (Optional)
+
+1. In bucket settings, add custom domain (e.g., `resume-cdn.yourdomain.com`)
+2. Cloudflare will handle DNS automatically if domain is on Cloudflare
+
+### 4. Set GitHub Secrets
+
+Add these secrets to your repository (Settings to Secrets and variables to Actions):
+
+- `R2_ACCESS_KEY_ID`: Your R2 Access Key ID
+- `R2_SECRET_ACCESS_KEY`: Your R2 Secret Access Key
+- `R2_ENDPOINT_URL`: Your R2 endpoint (e.g., `https://abc123.r2.cloudflarestorage.com`)
+- `R2_BUCKET_NAME`: Your bucket name
+
+<Alert className="mt-5 dark:border-border/40">
+  <InfoIcon className="h-4 w-4" />
+  <AlertTitle>Finding Your R2 Endpoint</AlertTitle>
+  <AlertDescription>
+    The endpoint URL is shown in your bucket settings under "S3 API". It looks like `https://[account-id].r2.cloudflarestorage.com`.
+  </AlertDescription>
+</Alert>
+
+## Consuming the Resume on Your Website
+
+Now that your resume auto-deploys, let's consume it dynamically on your website.
+
+### Option 1: Astro Server Endpoint
+
+Create `src/pages/api/resume.ts`:
+
+```typescript
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = async () => {
+  try {
+    const response = await fetch('https://resume-cdn.yourdomain.com/latest.json');
+    const data = await response.json();
+
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=300' // 5 min cache
+      }
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Failed to fetch resume' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+};
+```
+
+### Option 2: Client-Side Fetch
+
+```typescript
+async function getLatestResume() {
+  const response = await fetch('https://resume-cdn.yourdomain.com/latest.json');
+  const data = await response.json();
+  return data; // { url, filename, timestamp, updatedAt }
+}
+
+// In your component
+const resumeData = await getLatestResume();
+console.log(resumeData.url); // Direct link to latest PDF
+```
+
+### Option 3: Direct Link
+
+Simply link to `latest.json` and parse it:
+
+```tsx
+<a href="https://resume-cdn.yourdomain.com/latest.json">
+  Download Resume
+</a>
+```
+
+Or fetch it and redirect:
+
+```typescript
+const data = await fetch('/api/resume').then(r => r.json());
+window.open(data.url, '_blank');
+```
+
+## Common Pitfalls and Solutions
+
+### Error: "Option clash for package hyperref"
+
+**Problem:** You're loading the `hyperref` package multiple times with different options.
+
+**Solution:** Consolidate all hyperref options into a single `\usepackage` declaration:
+
+```latex
+% Wrong - Multiple imports
+\usepackage[pdftex]{hyperref}
+\usepackage[colorlinks=true]{hyperref}
+
+% Correct - Single import with all options
+\usepackage[pdftex,
+            colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue]{hyperref}
+```
+
+### Error: "Undefined control sequence"
+
+**Problem:** You're using a command without importing the required package.
+
+**Solution:** Check which package provides the command and add `\usepackage{packagename}`.
+
+### PDF Not Updating on Website
+
+**Problem:** Browser or CDN is caching `latest.json`.
+
+**Solution:**
+1. Ensure `latest.json` has `Cache-Control: no-cache` header
+2. Add cache busting: `latest.json?t=${Date.now()}`
+3. Check Cloudflare cache settings
+
+### Workflow Not Triggering
+
+**Problem:** Pushing to git but workflow doesn't run.
+
+**Solution:**
+1. Check if you're pushing to `main` or `master` branch
+2. Ensure `resume.tex` actually changed
+3. Check Actions tab for error messages
+4. Verify workflow file is in `.github/workflows/`
+
+## Advanced: Version History
+
+Want to keep track of all resume versions? Extend the workflow:
+
+```yaml
+- name: Update versions.json
+  run: |
+    # Download existing versions
+    aws s3 cp s3://${BUCKET_NAME}/versions.json versions.json \
+      --endpoint-url ${AWS_ENDPOINT_URL} || echo '{"versions":[]}' > versions.json
+
+    # Add new version
+    cat versions.json | jq --arg url "https://resume-cdn.yourdomain.com/${{ steps.metadata.outputs.filename }}" \
+      --arg ts "${{ steps.metadata.outputs.timestamp }}" \
+      '.versions += [{"url": $url, "timestamp": $ts}]' > updated-versions.json
+
+    # Upload updated versions
+    aws s3 cp updated-versions.json s3://${BUCKET_NAME}/versions.json \
+      --endpoint-url ${AWS_ENDPOINT_URL} \
+      --content-type application/json \
+      --cache-control "no-cache"
+```
+
+This creates a `versions.json` file tracking all resume versions:
+
+```json
+{
+  "versions": [
+    {
+      "url": "https://resume-cdn.yourdomain.com/YourName_Resume_20241201_120000.pdf",
+      "timestamp": "20241201_120000"
+    },
+    {
+      "url": "https://resume-cdn.yourdomain.com/YourName_Resume_20241228_143000.pdf",
+      "timestamp": "20241228_143000"
+    }
+  ]
+}
+```
+
+## Performance Considerations
+
+### Caching Strategy
+
+- **Timestamped PDFs**: Immutable, cache for 1 year (`max-age=31536000`)
+- **latest.json**: No cache (`no-cache`) for immediate updates
+- **versions.json**: Short cache (5 mins) for balance
+
+## Conclusion
+
+You now have a fully automated resume pipeline that:
+- Compiles LaTeX to PDF on every push
+- Deploys to Cloudflare R2 with versioning
+- Maintains metadata for dynamic linking
+- Handles common compilation errors
+
+Every time you update your resume in git, it automatically compiles, uploads, and updates your website. No manual exports, no stale downloads, no broken links.
+
+### Next Steps
+
+1. Customize the LaTeX template to match your style
+2. Add more metadata (skills, experience years, etc.)
+3. Build a resume dashboard showing version history
+4. Add PDF thumbnails for visual preview
+
+The complete workflow is available in my portfolio repository: [github.com/imprakharshukla/prakhar.codes](https://github.com/imprakharshukla/prakhar.codes)
+
+Happy automating!

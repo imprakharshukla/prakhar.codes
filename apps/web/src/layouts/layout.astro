@@ -1,0 +1,67 @@
+---
+import NavigationBar from "../components/NavigationBar";
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+import BaseHead from "../components/BaseHead.astro";
+import { ViewTransitions } from "astro:transitions";
+import SpeedInsights from "@vercel/speed-insights/astro";
+import { ThemeToggle } from "../components/ThemeToggle";
+import { TailwindIndicator } from "../components/TailwindIndicator";
+import { ChatWidget } from "../components/ChatWidget";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ViewTransitions fallback="animate" />
+    <BaseHead title={title} description={description} />
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+      window.localStorage.setItem("theme", theme);
+      document.addEventListener("astro:after-swap", function () {
+        if (localStorage.getItem("theme") === "dark")
+          document.documentElement.classList.toggle("dark", true);
+      });
+    </script>
+  </head>
+  <body class="bg-background relative">
+    <div class="max-w-7xl mx-auto">
+      <SpeedInsights />
+      <div class="w-full flex justify-end">
+        <ThemeToggle client:load />
+      </div>
+      <div class="min-h-screen flex">
+        <NavigationBar client:load path={currentPath} />
+        <main
+          class="w-screen overflow-x-auto mt-12 lg:mt-0 flex min-h-[calc(100vh-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow px-6 pb-20"
+        >
+          <div class="w-full h-full max-w-[1072px] mx-auto flex flex-col">
+            <slot />
+          </div>
+        </main>
+      </div>
+      <TailwindIndicator client:only />
+
+      <!-- Chat Widget - available on all pages -->
+      <ChatWidget client:load />
+    </div>
+  </body>
+</html>

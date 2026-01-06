@@ -1,0 +1,383 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+import PostFeed from "../components/PostFeed";
+import ProjectFeed from "../components/ProjectFeed";
+import Layout from "../layouts/layout.astro";
+import GitHubStatsBentoGrid from "../components/GithubStatsBentoGrid";
+import IconButton from "../components/IconButton.astro";
+import ResumeButton from "../components/ResumeButton";
+import LocalTimePill from "../components/LocalTimePill";
+import LocationPill from "../components/LocationPill";
+import ProfileAvatar from "../components/ProfileAvatar";
+import HiringPopover from "../components/HiringPopover";
+import CalEmbed from "../components/CalEmbed";
+import FilePdfIcon from "../components/icons/FilePdfIcon";
+import CalendarIcon from "../components/icons/CalendarIcon";
+import GithubLogoIcon from "../components/icons/GithubLogoIcon";
+import XLogoIcon from "../components/icons/XLogoIcon";
+import LinkedinLogoIcon from "../components/icons/LinkedinLogoIcon";
+import MoreTechChip from "../components/MoreTechChip";
+
+const blogPosts = await getCollection("blog");
+const projects = await getCollection("project");
+
+const filteredBlogPosts = blogPosts
+  .filter((post) => post.data.publish === true)
+  .sort(
+    (a, b) =>
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  );
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Prakhar Shukla - Serial Founder & Software Engineer"
+      description="Serial founder and Founding Engineer with 2.5M+ downloads and $140K+ revenue. Recently at Yobr (Norway). Building Andronix and Lumoflo. Full-stack, AI/ML, TypeScript, React, Node.js."
+    />
+  </head>
+  <Layout>
+    <div class="grid gap-2 md:max-w-2xl mt-6 animate-in fade-in duration-200">
+      <!-- Hero Image -->
+      <div class="w-full mb-8">
+        <img
+          width="1500"
+          height="500"
+          class="rounded-2xl shadow-lg w-full h-auto object-contain rotate-[1.5deg]"
+          src="https://imagedelivery.net/nW2YfjVFqxC-ok-_zXWXQw/eed88e28-99e1-46ec-2bcc-d5b098a29900/hd"
+          alt="Hero"
+        />
+      </div>
+
+      <!-- Old layered images with hover effects (commented out) -->
+      <!-- <div class="">
+        <div class="relative w-full aspect-[16/9] mb-8">
+          <img
+            width="1500"
+            height="500"
+            class="rounded-2xl shadow-lg absolute bottom-0 right-0 w-full h-full object-cover rotate-1 translate-x-2 translate-y-2 hover:scale-105 hover:rotate-3 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 hover:z-30 z-10 ease-out"
+            src="https://imagedelivery.net/nW2YfjVFqxC-ok-_zXWXQw/1f0b983a-bc79-45b1-14ea-fddac8e6cc00/feed"
+            alt=""
+          />
+          <img
+            width="1500"
+            height="500"
+            class="rounded-2xl shadow-lg absolute top-0 left-0 w-full h-full object-cover -rotate-1 hover:scale-105 hover:-rotate-3 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 hover:z-30 z-20 ease-out"
+            src="https://imagedelivery.net/nW2YfjVFqxC-ok-_zXWXQw/ec8f6a0b-f82f-4f17-391a-adee18449200/feed"
+            alt=""
+          />
+        </div>
+      </div> -->
+      <div class="flex items-start md:items-center gap-3 md:gap-3">
+        <div class="flex-shrink-0">
+          <ProfileAvatar client:load />
+        </div>
+        <div class="flex flex-col gap-2 flex-1 min-w-0">
+          <h1 class="h2-heading">hey! i am prakhar shukla.</h1>
+          <div class="flex items-center gap-2 flex-wrap">
+            <LocationPill />
+            <LocalTimePill client:load />
+          </div>
+        </div>
+      </div>
+
+      <p class="description leading-relaxed max-w-lg">
+        I am a <span class="text-foreground font-medium">serial founder</span> and
+        software engineer who just wrapped up as a <span class="text-foreground"
+          >Founding Engineer at <a
+            href="https://yobr.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
+            >Yobr</a
+          ></span
+        > in Norway. My <a
+          href="https://andronix.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground font-medium underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
+          >products</a
+        > have reached <span class="text-foreground font-medium"
+          >2.5M+ downloads</span
+        > and generated <span class="text-foreground font-medium"
+          >$140K+ in revenue</span
+        >. Now <HiringPopover client:load /> while continuing to build <a
+          href="https://lumoflo.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
+          >Lumoflo</a
+        >
+        and <a
+          href="https://andronix.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
+          >Andronix</a
+        >.
+      </p>
+      <p class="description">
+        I build for the <span class="text-foreground font-medium">web</span>, <span
+          class="text-foreground font-medium">server</span
+        >, <span class="text-foreground font-medium">mobile</span>, and <span
+          class="text-foreground font-medium">AI agents</span
+        >
+        <span class="text-muted-foreground/70"
+          >(Vercel AI SDK, Mastra, LangGraph)</span
+        >.
+      </p>
+
+      <div class="flex items-center gap-2 mt-3 flex-wrap">
+        <ResumeButton title={"Resume"} client:load>
+          <FilePdfIcon client:load />
+        </ResumeButton>
+
+        <CalEmbed client:load>
+          <IconButton title={"Schedule a call"} link={"#"}>
+            <CalendarIcon client:load />
+          </IconButton>
+        </CalEmbed>
+
+        <IconButton
+          title={"GitHub"}
+          link={"https://github.com/imprakharshukla"}
+        >
+          <GithubLogoIcon client:load />
+        </IconButton>
+
+        <IconButton title={"X"} link={"https://twitter.com/imprakharshukla"}>
+          <XLogoIcon client:load />
+        </IconButton>
+
+        <IconButton
+          title={"LinkedIn"}
+          link={"https://www.linkedin.com/in/iamprakharshukla/"}
+        >
+          <LinkedinLogoIcon client:load />
+        </IconButton>
+      </div>
+
+      <hr class="dark:border-border/50 border-border mt-4" />
+
+      <!-- Tech Stack Pills -->
+      <div class="flex items-center gap-2 mt-4 flex-wrap">
+        <!-- TypeScript -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-blue-100 text-blue-700 border border-blue-300 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"
+            ></path></svg
+          >
+          TypeScript
+        </span>
+        <!-- React -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-cyan-100 text-cyan-700 border border-cyan-300 dark:bg-cyan-500/10 dark:text-cyan-400 dark:border-cyan-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"
+            ></path></svg
+          >
+          React
+        </span>
+        <!-- Next.js -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-gray-200 text-gray-800 border border-gray-400 dark:bg-slate-100/10 dark:text-slate-200 dark:border-slate-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M11.5725 0c-.1763 0-.3098.0013-.3584.0067-.0516.0053-.2159.021-.3636.0328-3.4088.3073-6.6017 2.1463-8.624 4.9728C1.1004 6.584.3802 8.3666.1082 10.255c-.0962.659-.108.8537-.108 1.7474s.012 1.0884.108 1.7476c.652 4.506 3.8591 8.2919 8.2087 9.6945.7789.2511 1.6.4223 2.5337.5255.3636.04 1.9354.04 2.299 0 1.6117-.1783 2.9772-.577 4.3237-1.2643.2065-.1056.2464-.1337.2183-.1573-.0188-.0139-.8987-1.1938-1.9543-2.62l-1.919-2.592-2.4047-3.5583c-1.3231-1.9564-2.4117-3.556-2.4211-3.556-.0094-.0026-.0187 1.5787-.0235 3.509-.0067 3.3802-.0093 3.5162-.0516 3.596-.061.115-.108.1618-.2064.2134-.075.0374-.1408.0445-.495.0445h-.406l-.1078-.068a.4383.4383 0 01-.1572-.1712l-.0493-.1056.0053-4.703.0067-4.7054.0726-.0915c.0376-.0493.1174-.1125.1736-.143.0962-.047.1338-.0517.5396-.0517.4787 0 .5584.0187.6827.1547.0353.0377 1.3373 1.9987 2.895 4.3608a10760.433 10760.433 0 004.7344 7.1706l1.9002 2.8782.0971-.0633c.8763-.5536 1.8016-1.2862 2.6037-2.0585 1.5912-1.5306 2.6177-3.3598 3.0046-5.3568.0962-.659.108-.8537.108-1.7474s-.012-1.0884-.108-1.7476c-.652-4.506-3.8591-8.2919-8.2087-9.6945-.7672-.2487-1.5836-.42-2.4985-.5232-.169-.0176-1.0835-.0366-1.6123-.037zm4.0685 7.217c.3473 0 .4082.0053.4857.047.1127.0562.204.1642.237.2767.0186.061.0234 1.3653.0186 4.3044l-.0067 4.2175-.7436-1.14-.7461-1.14v-3.066c0-1.982.0093-3.0963.0234-3.1502.0375-.1313.1196-.2346.2323-.2955.0961-.0494.1313-.054.4997-.054z"
+            ></path></svg
+          >
+          Next.js
+        </span>
+        <!-- Node.js -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-green-100 text-green-700 border border-green-300 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"
+            ></path></svg
+          >
+          Node.js
+        </span>
+        <!-- PostgreSQL -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-blue-100 text-blue-700 border border-blue-300 dark:bg-blue-600/10 dark:text-blue-300 dark:border-blue-600/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 0 0-.0502-.0503-.1005-.1508-.0503-.1005-.0753-.2009-.0753-.3014 0-.1507.0753-.3517.2258-.5528.1003-.1004.2760-.2258.5268-.3765.8278-.5025 1.3052-.8543 1.6785-1.5316.1972-.3579.2977-.7663.2977-1.2243 0-.9045-.5025-1.6784-1.3052-2.1307-.8027-.4523-1.9045-.6784-3.3082-.6784-2.1056 0-3.1583.5025-3.8367 1.0048-1.0048.7537-1.5573 1.7332-1.8082 2.6126-.5025 1.7583-1.0048 2.7629-1.5071 3.5155-.5025.7527-1.0048 1.2552-1.5071 1.507-.5025.2517-1.0048.3771-1.5071.3771s-1.0045-.1254-1.507-.3771c-.5025-.2518-1.0048-.7543-1.5071-1.507-.5025-.7526-1.0048-1.7572-1.5071-3.5155-.2509-.8794-.8034-1.8589-1.8082-2.6126C4.7061 5.9483 3.6536 5.4458 1.5479 5.4458c-1.4036 0-2.5054.2261-3.3082.6784C-2.5630 6.5765-3.0656 7.3503-3.0656 8.2548c0 .458.1005.8664.2977 1.2243.3733.6773.8507 1.0291 1.6785 1.5316.2508.1507.4265.2761.5268.3765.1505.2011.2258.4021.2258.5528 0 .1005-.0251.2009-.0753.3014-.0503.1005-.1005.1508-.1005.1508-.2321.1503-.8723.3602-2.5256.0191-.5306-.1097-.8684-.0311-1.0074.2321a.5269.5269 0 0 0-.0563.1191c-.0814.2726-.0563.5528.0753.8029.2258.4523.6784.9045 1.3556 1.3568.9045.6029 2.0311.9045 3.3834.9045 1.3523 0 2.5557-.3016 3.5858-.9045.6784-.3771 1.2052-.8041 1.5824-1.2811.5025-.6533 1.0048-1.5578 1.5071-2.7127.5025-1.1549 1.0048-2.0593 1.5071-2.7127.5025-.6533 1.0048-1.0804 1.5071-1.2811.5025-.2007 1.0048-.3014 1.5071-.3014s1.0046.1007 1.5071.3014c.5025.2007 1.0048.6278 1.5071 1.2811.5025.6534 1.0048 1.5578 1.5071 2.7127.5025 1.1549 1.0048 2.0594 1.5071 2.7127.3772.4770.9040.9040 1.5824 1.2811 1.0301.6029 2.2335.9045 3.5858.9045 1.3523 0 2.4789-.3016 3.3834-.9045.6772-.4523 1.1298-.9045 1.3556-1.3568.1316-.2501.1567-.5303.0753-.8029z"
+            ></path></svg
+          >
+          PostgreSQL
+        </span>
+        <!-- Docker -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-sky-100 text-sky-700 border border-sky-300 dark:bg-sky-500/10 dark:text-sky-300 dark:border-sky-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="#008fe2"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M13.98 11.08h2.12a.19.19 0 0 0 .19-.19V9.01a.19.19 0 0 0-.19-.19h-2.12a.18.18 0 0 0-.18.18v1.9c0 .1.08.18.18.18m-2.95-5.43h2.12a.19.19 0 0 0 .18-.19V3.57a.19.19 0 0 0-.18-.18h-2.12a.18.18 0 0 0-.19.18v1.9c0 .1.09.18.19.18m0 2.71h2.12a.19.19 0 0 0 .18-.18V6.29a.19.19 0 0 0-.18-.18h-2.12a.18.18 0 0 0-.19.18v1.89c0 .1.09.18.19.18m-2.93 0h2.12a.19.19 0 0 0 .18-.18V6.29a.18.18 0 0 0-.18-.18H8.1a.18.18 0 0 0-.18.18v1.89c0 .1.08.18.18.18m-2.96 0h2.11a.19.19 0 0 0 .19-.18V6.29a.18.18 0 0 0-.19-.18H5.14a.19.19 0 0 0-.19.18v1.89c0 .1.08.18.19.18m5.89 2.72h2.12a.19.19 0 0 0 .18-.19V9.01a.19.19 0 0 0-.18-.19h-2.12a.18.18 0 0 0-.19.18v1.9c0 .1.09.18.19.18m-2.93 0h2.12a.18.18 0 0 0 .18-.19V9.01a.18.18 0 0 0-.18-.19H8.1a.18.18 0 0 0-.18.18v1.9c0 .1.08.18.18.18m-2.96 0h2.11a.18.18 0 0 0 .19-.19V9.01a.18.18 0 0 0-.18-.19H5.14a.19.19 0 0 0-.19.19v1.88c0 .1.08.19.19.19m-2.92 0h2.12a.18.18 0 0 0 .18-.19V9.01a.18.18 0 0 0-.18-.19H2.22a.18.18 0 0 0-.19.18v1.9c0 .1.08.18.19.18m21.54-1.19c-.06-.05-.67-.51-1.95-.51-.34 0-.68.03-1.01.09a3.77 3.77 0 0 0-1.72-2.57l-.34-.2-.23.33a4.6 4.6 0 0 0-.6 1.43c-.24.97-.1 1.88.4 2.66a4.7 4.7 0 0 1-1.75.42H.76a.75.75 0 0 0-.76.75 11.38 11.38 0 0 0 .7 4.06 6.03 6.03 0 0 0 2.4 3.12c1.18.73 3.1 1.14 5.28 1.14.98 0 1.96-.08 2.93-.26a12.25 12.25 0 0 0 3.82-1.4 10.5 10.5 0 0 0 2.61-2.13c1.25-1.42 2-3 2.55-4.4h.23c1.37 0 2.21-.55 2.68-1 .3-.3.55-.66.7-1.06l.1-.28Z"
+            ></path></svg
+          >
+          Docker
+        </span>
+        <!-- Trigger.dev -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-green-100 text-green-700 border border-green-300 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            viewBox="0 0 21 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M6.33197 7.92275L10.6153 0.504761L21.2306 18.8892H0L4.28333 11.4709L7.31329 13.2202L6.06014 15.3905H15.1705L10.6153 7.50183L9.36215 9.67219L6.33197 7.92275Z"
+              fill="url(#paint11_linear_trigger)"></path><defs
+              ><linearGradient
+                id="paint11_linear_trigger"
+                x1="17.1895"
+                y1="18.8892"
+                x2="16.9913"
+                y2="5.91038"
+                gradientUnits="userSpaceOnUse"
+                ><stop stop-color="#41FF54"></stop><stop
+                  offset="1"
+                  stop-color="#E7FF52"></stop></linearGradient
+              ></defs
+            ></svg
+          >
+          Trigger.dev
+        </span>
+        <!-- Mastra -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-purple-100 text-purple-700 border border-purple-300 dark:bg-purple-500/10 dark:text-purple-300 dark:border-purple-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            viewBox="0 0 34 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              fill="currentColor"
+              d="M4.5 11.7a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9M10.4 0a4.5 4.5 0 0 1 4.4 5.5c-.3 1.4-.6 3 .2 4.2l1.3 1.8.3.2q.2 0 .3-.2l1.3-1.9c.8-1.1.5-2.7.2-4a4.5 4.5 0 1 1 8.8 0c-.3 1.3-.6 2.8 0 4l1.3 2a4.5 4.5 0 1 1-4.3 3.5c.3-1.3.6-2.8 0-4l-1.2-2h-.2L21.5 11c-.8 1.2-.5 2.8-.2 4.2a4.5 4.5 0 1 1-8.8.2q.5-2-.4-3.8l-.9-1.3q-.9-1.1-2.4-1.6A4.5 4.5 0 0 1 10.4 0"
+            ></path></svg
+          >
+          Mastra
+        </span>
+        <!-- AI SDK -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-gray-200 text-gray-800 border border-gray-400 dark:bg-slate-100/10 dark:text-slate-200 dark:border-slate-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            viewBox="0 0 311 90"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M2.97269 86L32.6687 3.64H51.1127L80.8087 86H65.0327L58.1887 66.512H25.5927L18.7487 86H2.97269ZM30.0007 53.636H53.7807L41.9487 18.836L30.0007 53.636ZM130.894 3.64V16.748H117.67V72.892H131.59V86H88.5544V72.892H102.59V16.748H89.2504V3.64H130.894Z"
+              fill="currentColor"></path><rect
+              x="153"
+              y="7.5"
+              width="154"
+              height="75"
+              rx="37.5"
+              stroke="currentColor"
+              stroke-width="8"></rect><path
+              d="M183.603 51.8472C184.393 56.468 187.677 59.508 193.088 59.508C197.222 59.508 200.019 57.8664 199.958 54.7048C199.897 51.5432 197.222 49.7192 190.473 48.0776C181.11 45.828 175.091 42.0584 175.091 35.1272C175.091 27.284 181.657 22.3592 191.507 22.3592C201.113 22.3592 207.68 28.2568 208.713 36.9512L199.472 37.4376C198.985 32.8776 195.824 30.02 191.264 30.02C187.251 30.02 184.393 32.0872 184.576 35.2488C184.697 38.8968 188.953 40.1128 193.574 41.268C203.241 43.396 209.382 47.5304 209.382 54.4008C209.382 62.6088 202.147 67.2296 192.845 67.2296C182.326 67.2296 174.909 61.3928 174.301 52.2728L183.603 51.8472ZM226.773 23.332C240.757 23.332 248.601 31.1144 248.601 44.9768C248.601 58.7784 240.879 66.5 227.138 66.5H211.877V23.332H226.773ZM221.119 58.7176H226.773C235.164 58.7176 239.177 54.2792 239.177 44.916C239.177 35.5528 235.164 31.1144 226.773 31.1144H221.119V58.7176ZM250.431 23.332H259.672V42.18L275.359 23.332H286.12L270.252 42.3624L287.093 66.5H276.575L264.172 48.564L259.672 53.7928V66.5H250.431V23.332Z"
+              fill="currentColor"></path></svg
+          >
+          Vercel AI SDK
+        </span>
+        <!-- Python -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-yellow-100 text-yellow-700 border border-yellow-300 dark:bg-yellow-500/10 dark:text-yellow-300 dark:border-yellow-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"
+            ></path></svg
+          >
+          Python
+        </span>
+        <!-- Kotlin -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-purple-100 text-purple-700 border border-purple-300 dark:bg-violet-500/10 dark:text-violet-300 dark:border-violet-500/20"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            role="img"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M0 24L12 12 24 0H0v24zm12.016-12.008L0 24h24L12.016 11.992z"
+            ></path></svg
+          >
+          Kotlin
+        </span>
+        <!-- More -->
+        <MoreTechChip client:load />
+      </div>
+
+      <hr class="dark:border-border/50 border-border mt-4" />
+      <div>
+        <PostFeed
+          headingVisible
+          compact
+          posts={filteredBlogPosts}
+          client:load
+        />
+      </div>
+      <hr class="dark:border-border/50 border-border my-8" />
+      <ProjectFeed headingVisible compact projects={projects} client:load />
+      <hr class="dark:border-border/50 border-border my-8" />
+      <GitHubStatsBentoGrid headingVisible client:only="react" />
+    </div>
+  </Layout>
+</html>

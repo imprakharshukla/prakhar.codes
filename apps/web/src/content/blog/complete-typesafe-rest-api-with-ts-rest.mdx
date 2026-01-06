@@ -1,0 +1,366 @@
+---
+title: "Complete Typesafe REST APIs with TS-rest"
+description: "Let's not depend on TRPC clients and build our own typesafe REST API with TypeScript."
+category: "Tutorials"
+tags: ["Backend", "TypeScript", "REST API", "NodeJS", "Express"]
+pubDate: "Apr 13 2024"
+link: https://rapid.prakhar.codes
+linkTitle: Rapid Website
+publish: true
+heroImage: "/images/blogs/typesafe_rest_api_tsrest.jpeg"
+---
+
+import { AlertDescription, AlertTitle, Alert } from "@prakhar/ui";
+import { InfoIcon } from "lucide-react";
+
+## Table of contents
+
+In this tutorial, we will learn how to build a complete typesafe REST API using [TS-rest](https://ts-rest.com). We will build a simple REST API for a blog application that will have CRUD operations for posts.
+
+## What is TS-rest?
+
+As per the official documentation,
+
+> ts-rest offers a simple way to define a contract for your API, which can be both consumed and implemented by your application, giving you end-to-end type safety without the hassle or code generation.
+
+In simple words, we define a shared contract for our API that can be used by both the client and the server. This contract is defined using zod, which is also used for runtime validation of the request and response automatically.
+
+## Pre-requisites
+
+TS-rest works best within a **monorepo** setup since it requires the shared contract to be available to both the client and the server.
+
+While you can also set up and publish a separate package for the shared contract, this might become a hassle as each change will require a new version to be published.
+
+Hence in this tutorial, we will be using a monorepo setup using [TurboRepo](https://turbo.build) and [pnpm workspaces](https://pnpm.io/workspaces).
+
+## Setting up the project
+
+1. We can start by cloning the **Rapid** starter made by me.
+
+   <Alert className="mt-5 dark:border-border/40">
+     <InfoIcon className="h-4 w-4" />
+     <AlertTitle>Learn more about Rapid</AlertTitle>
+     <AlertDescription>
+       Rapid is a starter developed by me that provides you with a monorepo
+       pre-configured with Next.js, Express, Turbo, and Prisma etc. Learn more
+       [here](https://rapid.prakhar.codes).
+     </AlertDescription>
+   </Alert>
+
+   ```bash
+   git clone https://github.com/imprakharshukla/rapid
+   ```
+
+2. Now we can install the dependencies using pnpm.
+
+   ```bash
+   pnpm install
+   ```
+
+3. Here is the folder structure of the project.
+
+   ```bash
+   .
+   ├── apps
+   │   ├── backend
+   │   ├── demo
+   │   └── landing
+   └── packages
+       ├── auth
+       ├── config
+       ├── contract
+       ├── db
+       └── ui
+   ```
+
+4. The `/packages/contract` folder is where we will define our shared contract. The contract will be used by both the client and the server.
+
+5. The aforementioned shared contracts package is already installed on the backend, but if you want to add more backend apps, you can install the shared contract package in any of the apps by running:
+
+   ```bash
+   pnpm install @repo/contract --filter <app-name>
+   ```
+
+## Contracts
+
+1. Here's how the contract in the Rapid starter is defined like:
+
+   ```typescript
+   import { initContract } from "@ts-rest/core";
+   import { z } from "zod";
+
+   const c = initContract();
+
+   export const helloContract = c.router({
+     getHello: {
+       method: "GET",
+       path: "/hello",
+       responses: {
+         200: z.object({
+           response: z.string(),
+         }),
+         500: z.object({
+           response: z.string(),
+         }),
+       },
+       summary: "Echo Hello",
+     },
+   });
+   ```
+
+More information on TS-Rest contracts [here](https://ts-rest.com/docs/core/).
+
+## Implementing Contracts
+
+Since we already have a contract for the `/hello` route, we can implement it in the backend.
+
+1. We have a `hello` route in the backend that will return a simple JSON response.
+
+   ```typescript
+   import { initServer } from "@ts-rest/express";
+   import Container from "typedi";
+   import { Logger } from "winston";
+   import { z } from "zod";
+
+   import { superContract } from "@repo/contract";
+
+   import HelloService from "../../services/hello";
+
+   export default (server: ReturnType<typeof initServer>) => {
+     const logger: Logger = Container.get("logger");
+     const helloServiceInstance: HelloService = Container.get(HelloService);
+
+     return server.router(superContract.hello, {
+       getHello: {
+         handler: async () => {
+           try {
+             const hello = helloServiceInstance.generateHello();
+             return {
+               status: 200,
+               body: {
+                 response: hello,
+               },
+             };
+           } catch (e) {
+             logger.error(e);
+             return {
+               status: 500,
+               body: {
+                 response: "Internal Server Error",
+               },
+             };
+           }
+         },
+       },
+     });
+   };
+   ```
+
+   <Alert className="mt-5 dark:border-border/40">
+     <InfoIcon className="h-4 w-4" />
+     <AlertTitle>About Services</AlertTitle>
+     <AlertDescription>
+       We can separate things like data fetching and other things that might
+       require any processing to a service file for each route. This promotes
+       separation of concerns.
+     </AlertDescription>
+   </Alert>
+
+2. Now we can export the implemented contract as the Express Router and add it our express app.
+
+   ```typescript
+   import { createExpressEndpoints, initServer } from "@ts-rest/express";
+   import { Request, Router } from "express";
+
+   import { superContract } from "@repo/contract";
+
+   import { adminOnlyMiddleware } from "./middleware/auth";
+   import hello from "./routes/hello";
+
+   export default () => {
+     const app = Router();
+     const s = initServer();
+     const helloRouter = hello(s);
+
+     createExpressEndpoints(superContract.hello, helloRouter, app, {
+       globalMiddleware: [],
+     });
+     return app;
+   };
+   ```
+
+3. Our endpoint is ready to be consumed now. We can visit it at `localhost:3002/api/hello` and that will return:
+
+   ```json
+   { "response": "Hello" }
+   ```
+
+## Consuming the contract on the frontend
+
+1. Finally, we can consume the contracts that we have built on the frontend. Since we have declared the contracts in the shared package, we will have to install the internal package `@repo/contract` in our frontend apps with:
+
+   ```bash
+   pnpm install @repo/contract --filter <frontend-app-name>
+   ```
+
+2. After installing the package, we can declare a universal hook and a custom client using axios instead of fetch (since fetch does not throw any errors in non-2xx status codes).
+
+   ### Custom Client:
+
+   ```typescript
+   import { InitClientArgs } from "@ts-rest/next";
+   import { InitClientReturn, initQueryClient } from "@ts-rest/react-query";
+   import axios, { Method, isAxiosError } from "axios";
+
+   import { superContract } from "@repo/contract";
+
+   export interface TokenProvider {
+     getToken: () => Promise<string>;
+   }
+
+   export class RestAPI {
+     // Uncomment to unable authorization
+     // tokenProvider: TokenProvider;
+     public client: InitClientReturn<typeof superContract, InitClientArgs>;
+
+     constructor(tokenProvider: TokenProvider) {
+       const baseUrl = "http://localhost:3002/api";
+       // Uncomment to unable authorization
+       // this.tokenProvider = tokenProvider;
+       this.client = initQueryClient<typeof superContract, InitClientArgs>(
+         superContract,
+         {
+           baseUrl: baseUrl,
+           baseHeaders: {},
+           api: async ({ path, method, headers, body }) => {
+             // Uncomment to unable authorization
+             // const token = await this.tokenProvider.getToken();
+             try {
+               const result = await axios.request({
+                 method: method as Method,
+                 url: `${path}`,
+                 headers: {
+                   ...headers,
+                   // Uncomment to unable authorization
+                   // Authorization: `Bearer ${token}`,
+                 },
+                 data: body,
+               });
+
+               const responseHeaders = new Headers();
+               Object.entries(result.headers).forEach(([key, value]) => {
+                 if (value !== undefined && typeof value === "string") {
+                   responseHeaders.append(key, value.toString());
+                 }
+               });
+
+               return {
+                 status: result.status,
+                 body: result.data,
+                 headers: responseHeaders,
+               };
+             } catch (e) {
+               if (isAxiosError(e) && e.response) {
+                 const errorHeaders = new Headers();
+                 Object.entries(e.response.headers).forEach(([key, value]) => {
+                   if (value !== undefined && typeof value === "string") {
+                     errorHeaders.append(key, value.toString());
+                   }
+                 });
+                 return {
+                   status: e.response.status,
+                   body: e.response.data,
+                   headers: errorHeaders,
+                 };
+               }
+               throw e;
+             }
+           },
+         }
+       );
+     }
+   }
+   ```
+
+   ### Custom Hook
+
+   To make it easy to consume the client, we can declare a custom hook.
+
+   ```typescript
+   import { useSession } from "next-auth/react";
+   import { useMemo } from "react";
+   import { RestAPI, TokenProvider } from "~/lib/client";
+
+   const fetchToken = async () => {
+     const response = await fetch("/api/token");
+     const data = await response.json();
+     return data.token;
+   };
+   const useRestAPI = () => {
+     const { data: session } = useSession();
+     const api = useMemo(() => {
+       const tokenProvider: TokenProvider = {
+         getToken: fetchToken,
+       };
+       const restApi = new RestAPI(tokenProvider);
+       return { restApi: restApi.client };
+     }, [session, fetchToken]);
+
+     return { client: api.restApi };
+   };
+
+   export default useRestAPI;
+   ```
+
+3. We can now use this hook to access the React Query premitives in our pages.
+
+   ```tsx
+   import useRestAPI from "./features/hooks/use-rest-client";
+   export default function Page() {
+     const { client } = useRestAPI();
+
+     const {
+       data: helloData,
+       isLoading: isHelloLoading,
+       error,
+       refetch: refetchHello,
+       isRefetching: isHelloRefetching,
+     } = client.hello.getHello.useQuery(["hello"], {});
+   }
+   ```
+
+   {" "}
+
+   <Alert className="mt-5 dark:border-border/40">
+     <InfoIcon className="h-4 w-4" />
+     <AlertTitle>Learn more React Query</AlertTitle>
+     <AlertDescription>
+       Learn what React Query exposes to be used in the [React Query
+       Documentation]().
+     </AlertDescription>
+   </Alert>
+
+4. Using the imported data and functions is as easy as it gets:
+
+   ```tsx
+   <div className="mb-4 grid gap-3 lg:max-w-md">
+     {(isHelloLoading || isHelloRefetching) && <Loader></Loader>}
+     {helloData && !isHelloLoading && !isHelloRefetching && (
+       <p>{helloData.body.response}</p>
+     )}
+     <Button
+       variant={"outline"}
+       onClick={() => {
+         refetchHello();
+       }}
+     >
+       Refetch
+     </Button>
+   </div>
+   ```
+
+## Conclusion
+
+TS-Rest provides a way to deploy an end-to-end typesafe API within minutes.
+
+You can also explore [Rapid Starter](https://rapid.prakhar.codes) to get a headstart with a Turborepo monorepo already configured with TS-Rest and Authentication.
