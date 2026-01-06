@@ -2,9 +2,9 @@
 
 import { KnowledgeChat } from "@/components/chat/knowledge-chat";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 
-export default function ChatPage() {
+function ChatPageContent() {
   const searchParams = useSearchParams();
   const isWidget = searchParams.get('widget') === 'true';
 
@@ -22,5 +22,13 @@ export default function ChatPage() {
     <div className="flex flex-col h-screen">
       <KnowledgeChat apiEndpoint="/api/chat" />
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div className="flex flex-col h-screen" />}>
+      <ChatPageContent />
+    </Suspense>
   );
 }

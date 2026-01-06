@@ -310,9 +310,7 @@ export function PromptInputAttachment({
               type="button"
               variant="ghost"
             >
-              <Button.Icon>
-                <XIcon />
-              </Button.Icon>
+              <XIcon />
               <span className="sr-only">Remove</span>
             </Button>
           </div>
@@ -943,11 +941,7 @@ export const PromptInputActionMenuTrigger = ({
 }: PromptInputActionMenuTriggerProps) => (
   <DropdownMenuTrigger asChild>
     <PromptInputButton className={className} {...props}>
-      {children ?? (
-        <Button.Icon>
-          <PlusIcon className="size-4" />
-        </Button.Icon>
-      )}
+      {children ?? <PlusIcon className="size-4" />}
     </PromptInputButton>
   </DropdownMenuTrigger>
 );
@@ -1166,9 +1160,7 @@ export const PromptInputSpeechButton = ({
       onClick={toggleListening}
       {...props}
     >
-      <Button.Icon>
-        <MicIcon className="size-4" />
-      </Button.Icon>
+      <MicIcon className="size-4" />
     </PromptInputButton>
   );
 };

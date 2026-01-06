@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { UIMessage } from "@ai-sdk/react";
-import type { SourceInfo } from "@/app/(with-sidebar)/_components/shared/types";
+import type { SourceInfo } from "@/components/chat/types";
 
 interface UseKnowledgeExtractionProps {
   messages: UIMessage[];

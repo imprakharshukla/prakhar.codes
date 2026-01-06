@@ -240,9 +240,7 @@ function PromptInputDomainFile({
               type="button"
               variant="ghost"
             >
-              <Button.Icon>
-                <ExternalLink />
-              </Button.Icon>
+              <ExternalLink />
               <span className="sr-only">View</span>
             </Button>
           </div>

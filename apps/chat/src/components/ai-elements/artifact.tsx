@@ -57,11 +57,7 @@ export const ArtifactClose = ({
     variant={variant}
     {...props}
   >
-    {children ?? (
-      <Button.Icon>
-        <XIcon className="size-4" />
-      </Button.Icon>
-    )}
+    {children ?? <XIcon className="size-4" />}
     <span className="sr-only">Close</span>
   </Button>
 );
@@ -120,13 +116,7 @@ export const ArtifactAction = ({
       variant={variant}
       {...props}
     >
-      {Icon ? (
-        <Button.Icon>
-          <Icon className="size-4" />
-        </Button.Icon>
-      ) : (
-        children
-      )}
+      {Icon ? <Icon className="size-4" /> : children}
       <span className="sr-only">{label || tooltip}</span>
     </Button>
   );
