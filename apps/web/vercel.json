@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "*.func/**": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "rewrites": [
     {
       "source": "/ph/static/:path(.*)",
