@@ -1,9 +1,0 @@
-{
-  "crons": [
-    {
-      "path": "/api/cron/sync-r2",
-      "schedule": "*/10 * * * *"
-    }
-  ]
-}
-
