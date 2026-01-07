@@ -79,7 +79,7 @@ const TestimonialsSection: React.FC<{ headingVisible?: boolean }> = ({
     <div className="grid gap-2 md:max-w-2xl">
       {headingVisible && (
         <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-4">
-          Testimonials
+          Recommendations
         </h2>
       )}
       <div className="grid gap-0">

@@ -20,7 +20,7 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { embedMany } from 'ai';
 import { experience } from '../apps/web/src/data/experience';
 
-// Testimonials data
+// Recommendations data
 const testimonials = [
   {
     name: "Jakob Erikstad",
@@ -321,14 +321,14 @@ function createTestimonialsContent(): ContentFile[] {
     path: `testimonial-${idx}.json`,
     type: 'testimonial' as const,
     frontmatter: {
-      title: `Testimonial from ${testimonial.name}`,
+      title: `Recommendation from ${testimonial.name}`,
       description: `${testimonial.role}`,
-      category: 'testimonial',
-      tags: ['testimonial', 'recommendation', testimonial.company.toLowerCase()],
+      category: 'recommendation',
+      tags: ['recommendation', 'endorsement', testimonial.company.toLowerCase()],
       pubDate: testimonial.date,
     },
     content: `
-# Testimonial from ${testimonial.name}
+# Recommendation from ${testimonial.name}
 
 **Role**: ${testimonial.role}
 **Company**: ${testimonial.company}
@@ -426,10 +426,10 @@ async function main() {
   counts.page++;
   console.log(`  ✅ Ingested ${homepageChunks.length} chunks\n`);
 
-  // Ingest testimonials
-  console.log('💬 Processing testimonials...');
+  // Ingest recommendations
+  console.log('💬 Processing recommendations...');
   const testimonialFiles = createTestimonialsContent();
-  console.log(`  Found ${testimonialFiles.length} testimonials`);
+  console.log(`  Found ${testimonialFiles.length} recommendations`);
 
   for (const file of testimonialFiles) {
     console.log(`  ⭐ Processing: ${file.frontmatter.title}`);
@@ -446,7 +446,7 @@ async function main() {
   console.log(`   - Projects: ${counts.project}`);
   console.log(`   - Travel posts: ${counts.travel}`);
   console.log(`   - Work experience: ${counts.experience}`);
-  console.log(`   - Testimonials: ${counts.testimonial}`);
+  console.log(`   - Recommendations: ${counts.testimonial}`);
   console.log(`   - Pages: ${counts.page} (homepage)`);
   console.log(`   - Total chunks: ${totalChunks}`);
   console.log(`   - Vector table: ${VECTOR_TABLE}`);
