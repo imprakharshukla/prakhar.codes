@@ -20,6 +20,37 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { embedMany } from 'ai';
 import { experience } from '../apps/web/src/data/experience';
 
+// Testimonials data
+const testimonials = [
+  {
+    name: "Jakob Erikstad",
+    role: "CEO @ Yobr",
+    company: "Yobr",
+    relationship: "Jakob managed Prakhar directly",
+    date: "January 4, 2026",
+    linkedinUrl: "https://www.linkedin.com/in/jakob-erikstad",
+    content: "I have worked with Prakhar for about a year, and he is one of the best developers I know. Despite his young age, he consistently performs at a level well above many more senior developers, combining strong technical understanding, rapid execution, and clear initiative. It has been a pleasure working with him, and I hope to do so again in the future."
+  },
+  {
+    name: "Raman Gupta",
+    role: "Training better and more doctors with CaseCraft, the AI Training Simulator for Medicine | CS + Bioinformatics @ NUS",
+    company: "CaseCraft",
+    relationship: "Raman managed Prakhar directly",
+    date: "January 5, 2026",
+    linkedinUrl: "https://www.linkedin.com/in/raman-gupta-9a40441aa",
+    content: "I had the pleasure of working with Prakhar at CaseCraft, where he was a key contributor to our medical AI platform as a full-stack engineer.\n\nPrakhar built our entire frontend using React and TanStack Router and designed a robust TypeScript backend with true end-to-end type safety, which became the foundation of the product. He also led our migration from JavaScript to TypeScript across the codebase, significantly improving reliability and reducing application errors.\n\nWhat really sets Prakhar apart is his speed of development and ownership mindset. His ability to move fast without sacrificing quality is exceptional. Beyond execution, he consistently suggested and led important architectural and infrastructure improvements, making thoughtful decisions that scaled well with the product's growth. He also led our entire deployment and setup process, taking full responsibility for shipping and maintaining a production-ready system.\n\nPrakhar implemented our AI pipelines using OpenAI and demonstrated strong technical judgment paired with solid product intuition. He deeply understands the problem, aligns with expectations quickly, and delivers solutions that are often better than initially envisioned.\n\nHe works extremely independently, has a clear can-do attitude, communicates exceptionally well, and is someone you can trust to take ambiguous problems and turn them into high-quality outcomes. Every time he took on a task, he delivered a phenomenal job.\n\nPrakhar is a real asset to any team, and I would happily work with him again. I strongly recommend him to any team looking for a fast, reliable, and thoughtful engineer."
+  },
+  {
+    name: "Harsh Agrawal",
+    role: "Founder techkareer.com | ZFellow | Ex Avalara",
+    company: "TechKareer",
+    relationship: "Prakhar was Harsh's client",
+    date: "January 5, 2026",
+    linkedinUrl: "https://www.linkedin.com/in/itsharshag",
+    content: "Prakhar is one of the most exceptional engineers I have come across. Great technical skills, communication skills, and initiative. Has a portfolio of stunning projects especially an Android app with millions of installs that he built almost single-handedly.\n\nWe got connected when he sent one of the most impressive cold DMs to explore a role at TechKareer. We were not hiring for ourselves at that time but luckily one of our hiring partners were. It was a pleasure him to refer him to them. They were also impressed by his experience and performance on the deliverables.\n\nPost that he has gone on many more amazing stints. He will be an invaluable asset to whichever org he decides to join. Godspeed!"
+  }
+];
+
 // Initialize OpenAI SDK with OpenRouter endpoint
 const openrouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
@@ -53,7 +84,7 @@ interface FrontMatter {
 
 interface ContentFile {
   path: string;
-  type: 'blog' | 'project' | 'travel' | 'experience' | 'page';
+  type: 'blog' | 'project' | 'travel' | 'experience' | 'page' | 'testimonial';
   frontmatter: FrontMatter;
   content: string;
 }
@@ -143,7 +174,7 @@ ${exp.details.map(detail => `- ${detail}`).join('\n')}
 interface ChunkWithMetadata {
   text: string;
   metadata: {
-    type: 'blog' | 'project' | 'travel' | 'experience' | 'page';
+    type: 'blog' | 'project' | 'travel' | 'experience' | 'page' | 'testimonial';
     title: string;
     description?: string;
     category?: string;
@@ -285,6 +316,33 @@ His preferred tech stack includes TypeScript, React, Node.js, and AI/ML technolo
   };
 }
 
+function createTestimonialsContent(): ContentFile[] {
+  return testimonials.map((testimonial, idx) => ({
+    path: `testimonial-${idx}.json`,
+    type: 'testimonial' as const,
+    frontmatter: {
+      title: `Testimonial from ${testimonial.name}`,
+      description: `${testimonial.role}`,
+      category: 'testimonial',
+      tags: ['testimonial', 'recommendation', testimonial.company.toLowerCase()],
+      pubDate: testimonial.date,
+    },
+    content: `
+# Testimonial from ${testimonial.name}
+
+**Role**: ${testimonial.role}
+**Company**: ${testimonial.company}
+**Relationship**: ${testimonial.relationship}
+**Date**: ${testimonial.date}
+**LinkedIn**: ${testimonial.linkedinUrl}
+
+## Recommendation:
+
+${testimonial.content}
+    `.trim(),
+  }));
+}
+
 async function main() {
   console.log('🚀 Starting portfolio content ingestion...\n');
 
@@ -300,7 +358,7 @@ async function main() {
   await initializeVectorTable();
 
   let totalChunks = 0;
-  let counts = { blog: 0, project: 0, travel: 0, experience: 0, page: 0 };
+  let counts = { blog: 0, project: 0, travel: 0, experience: 0, page: 0, testimonial: 0 };
 
   // Ingest blog posts
   console.log('📝 Processing blog posts...');
@@ -368,12 +426,27 @@ async function main() {
   counts.page++;
   console.log(`  ✅ Ingested ${homepageChunks.length} chunks\n`);
 
+  // Ingest testimonials
+  console.log('💬 Processing testimonials...');
+  const testimonialFiles = createTestimonialsContent();
+  console.log(`  Found ${testimonialFiles.length} testimonials`);
+
+  for (const file of testimonialFiles) {
+    console.log(`  ⭐ Processing: ${file.frontmatter.title}`);
+    const chunks = await chunkDocument(file);
+    await embedChunks(chunks);
+    totalChunks += chunks.length;
+    counts.testimonial++;
+    console.log(`  ✅ Ingested ${chunks.length} chunks\n`);
+  }
+
   console.log('\n🎉 Ingestion complete!');
   console.log(`📊 Summary:`);
   console.log(`   - Blog posts: ${counts.blog}`);
   console.log(`   - Projects: ${counts.project}`);
   console.log(`   - Travel posts: ${counts.travel}`);
   console.log(`   - Work experience: ${counts.experience}`);
+  console.log(`   - Testimonials: ${counts.testimonial}`);
   console.log(`   - Pages: ${counts.page} (homepage)`);
   console.log(`   - Total chunks: ${totalChunks}`);
   console.log(`   - Vector table: ${VECTOR_TABLE}`);

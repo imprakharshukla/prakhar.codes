@@ -6,6 +6,7 @@ import PostFeed from "../components/PostFeed";
 import ProjectFeed from "../components/ProjectFeed";
 import Layout from "../layouts/layout.astro";
 import GitHubStatsBentoGrid from "../components/GithubStatsBentoGrid";
+import TestimonialsSection from "../components/TestimonialsSection";
 import IconButton from "../components/IconButton.astro";
 import ResumeButton from "../components/ResumeButton";
 import LocalTimePill from "../components/LocalTimePill";
@@ -376,6 +377,8 @@ const filteredBlogPosts = blogPosts
       </div>
       <hr class="dark:border-border/50 border-border my-8" />
       <ProjectFeed headingVisible compact projects={projects} client:load />
+      <hr class="dark:border-border/50 border-border my-8" />
+      <TestimonialsSection headingVisible client:only="react" />
       <hr class="dark:border-border/50 border-border my-8" />
       <GitHubStatsBentoGrid headingVisible client:only="react" />
     </div>

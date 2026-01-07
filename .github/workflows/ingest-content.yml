@@ -10,6 +10,7 @@ on:
       - 'apps/web/src/content/project/**'
       - 'apps/web/src/content/travel/**'
       - 'apps/web/src/data/experience.ts'
+      - 'apps/web/src/components/TestimonialsSection.tsx'
       - 'scripts/ingest-portfolio-content.ts'
   workflow_dispatch: # Allow manual trigger
 
