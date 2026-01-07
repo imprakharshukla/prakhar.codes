@@ -24,7 +24,7 @@ export default function MoreTechChip() {
           </span>
         </TooltipTrigger>
         <TooltipContent>
-          <p className="max-w-xs">
+          <p className="max-w-xs text-foreground">
             I've worked with tons of different tech stacks and I love learning new things. This list is not static and never will be.
           </p>
         </TooltipContent>
