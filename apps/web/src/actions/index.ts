@@ -35,8 +35,8 @@ export const server = {
 
         // Fallback to the old static resume if latest.json fails
         return {
-          url: "/resume/Prakhar_Resume_2024_Updated.pdf",
-          filename: "Prakhar_Resume_2024_Updated.pdf",
+          url: "/resume/Prakhar_Software_Engineer_Resume_2026.pdf",
+          filename: "Prakhar_Software_Engineer_Resume_2026.pdf",
           updatedAt: new Date().toISOString(),
         };
       }

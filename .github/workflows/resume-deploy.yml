@@ -28,7 +28,7 @@ jobs:
         id: metadata
         run: |
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-          FILENAME="Prakhar_Resume_${TIMESTAMP}.pdf"
+          FILENAME="Prakhar_Shukla_Software_Engineer.pdf"
           echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
           echo "filename=$FILENAME" >> $GITHUB_OUTPUT
 
