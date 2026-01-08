@@ -1,0 +1,34 @@
+name: Resume Health Check
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Run resume health check
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          bun run scripts/check-resume-health.ts
+
+      - name: Health check completed
+        if: success()
+        run: echo "Resume health check passed ✅"
+
+      - name: Health check failed
+        if: failure()
+        run: echo "Resume health check failed ⚠️ - Discord notification sent"
