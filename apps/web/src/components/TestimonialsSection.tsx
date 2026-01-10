@@ -42,6 +42,16 @@ const testimonials: Testimonial[] = [
     image: "https://media.licdn.com/dms/image/v2/D5635AQFdrq1H8nsedw/profile-framedphoto-shrink_100_100/profile-framedphoto-shrink_100_100/0/1727731710317?e=1768374000&v=beta&t=6vJtciKZpWpj-cv7ZhKEOOr3dx4XFN-lhHg6DUfgZuw",
     linkedinUrl: "https://www.linkedin.com/in/itsharshag",
     content: "Prakhar is one of the most exceptional engineers I have come across. Great technical skills, communication skills, and initiative. Has a portfolio of stunning projects especially an Android app with millions of installs that he built almost single-handedly.\n\nWe got connected when he sent one of the most impressive cold DMs to explore a role at TechKareer. We were not hiring for ourselves at that time but luckily one of our hiring partners were. It was a pleasure him to refer him to them. They were also impressed by his experience and performance on the deliverables.\n\nPost that he has gone on many more amazing stints. He will be an invaluable asset to whichever org he decides to join. Godspeed!"
+  },
+  {
+    name: "Emma Erikstad Rutherfurd",
+    role: "Designer",
+    company: "Yobr",
+    relationship: "Emma worked with Prakhar on the same team",
+    date: "January 9, 2026",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQGPl5l1ySphOA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1709583169265?e=1769644800&v=beta&t=RFYTgp_yXzKOm-U7se1nm080Yfr_ajHVQ2DNGrkEGAc",
+    linkedinUrl: "https://www.linkedin.com/in/emmaer",
+    content: "For the last year I've worked closely with Prakhar at Yobr in a very small, fast paced startup team.\n\nPrakhar took initiative, brought in new ideas and technology, and actively contributed to product discussions and problem solving. He clearly contributed far beyond a typical developer role. He is highly skilled, has strong capacity and drive, and delivers quality, fast.\n\nPrakhar is easy to communicate with and genuinely enjoyable to work with. Together, we continuously developed how we collaborated as designer and developer in a digital setup, and managed to build things quickly as a team.\n\nI would strongly recommend Prakhar and would be very happy to work with him again!"
   }
 ];
 
