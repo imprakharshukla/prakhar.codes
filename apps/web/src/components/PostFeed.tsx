@@ -133,7 +133,10 @@ export default function PostFeed(props: {
       {posts.length > numberOfPost && (
         <div>
           <a href="/blog">
-            <Button size={"sm"} className="my-4" variant={"secondary"}>
+            <Button
+              variant={"outline"}
+              className="mt-5 text-secondary-foreground"
+            >
               View all Posts
             </Button>
           </a>
@@ -173,8 +176,8 @@ const Post = ({
 }) => {
   const handleClick = () => {
     // Track blog post click
-    if (typeof window !== 'undefined' && window.posthog) {
-      window.posthog.capture('blog_post_clicked', {
+    if (typeof window !== "undefined" && window.posthog) {
+      window.posthog.capture("blog_post_clicked", {
         title: title,
         category: category,
         slug: slug,
@@ -187,7 +190,11 @@ const Post = ({
   if (compact) {
     return (
       <li key={id}>
-        <a href={`/blog/${slug}`} className="cursor-pointer" onClick={handleClick}>
+        <a
+          href={`/blog/${slug}`}
+          className="cursor-pointer"
+          onClick={handleClick}
+        >
           <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.01] border-transparent">
             <div className="flex flex-col sm:flex-row gap-4 items-start">
               <div className="rounded-sm flex-shrink-0 w-full sm:w-32 aspect-[16/9]">
@@ -221,7 +228,11 @@ const Post = ({
 
   return (
     <li key={id}>
-      <a href={`/blog/${slug}`} className="cursor-pointer" onClick={handleClick}>
+      <a
+        href={`/blog/${slug}`}
+        className="cursor-pointer"
+        onClick={handleClick}
+      >
         <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.02] border-transparent">
           <div className="flex flex-col sm:flex-row gap-4 justify-start">
             <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden aspect-[16/9]">

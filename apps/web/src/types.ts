@@ -2,6 +2,7 @@ export enum Category {
   Coding = "Coding",
   Stories = "Stories",
   Tutorials = "Tutorials",
+  Advice = "Advice",
   TIL = "TIL",
   Reviews = "Reviews",
   Opinion = "Opinion",

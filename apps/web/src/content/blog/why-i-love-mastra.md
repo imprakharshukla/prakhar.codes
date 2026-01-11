@@ -9,19 +9,19 @@ publish: true
 ---
 
 **TL;DR**
-Mastra + AI SDK is the cleanest way I've found to build real production agents: stateful, streaming, multi-tenant, tool-heavy, and RAG-enabled—without glue code.
+Mastra + AI SDK is the cleanest way I've found to build real production agents: stateful, streaming, multi-tenant, tool-heavy, and RAG-enabled-without glue code.
 
 ---
 
 I've been building AI agents for production applications, and after trying various frameworks, I keep coming back to **Mastra**. Not because it's perfect, but because it gets the hard parts right.
 
-Mastra is **[open source](https://github.com/mastra-ai/mastra)**—no vendor lock-in, full control over your stack, and you can deploy anywhere.
+Mastra is **[open source](https://github.com/mastra-ai/mastra)**-no vendor lock-in, full control over your stack, and you can deploy anywhere.
 
 This system is **live in production**, used daily by machine shops for scheduling and capacity planning.
 
 ## Who This Is For
 
-This post is for engineers building **production** AI systems—multi-tenant, stateful, streaming agents—not demos.
+This post is for engineers building **production** AI systems-multi-tenant, stateful, streaming agents-not demos.
 
 You'll see:
 
@@ -181,11 +181,11 @@ export const getMachineAvailabilityTool = createTool({
 
 You get compile-time type safety in TypeScript, runtime validation with Zod, and auto-generated tool descriptions for LLMs. When you attach a tool to an agent, Mastra converts the Zod schema to JSON Schema, so the model knows exactly what parameters are required and what the tool returns. This is production-grade type safety from your code to the LLM and back.
 
-All my other tools (workload analysis, capacity planning, conflict detection) follow this same pattern—type-safe, validated, self-documenting.
+All my other tools (workload analysis, capacity planning, conflict detection) follow this same pattern-type-safe, validated, self-documenting.
 
 ## 3. Storage Adapters: Deploy Anywhere
 
-One of Mastra's killer features is **storage adapters**—plug-and-play persistence for your agents and memory.
+One of Mastra's killer features is **storage adapters**-plug-and-play persistence for your agents and memory.
 
 ```typescript
 // PostgreSQL
@@ -217,7 +217,7 @@ const storage = new D1Store({
 });
 ```
 
-This means no vendor lock-in—switch databases without changing agent code. Deploy anywhere: Vercel (Postgres), Cloudflare Workers (D1), AWS (Upstash), or Turso (LibSQL). For local dev, in-memory storage means zero setup. I use D1 for Cloudflare Workers in production and in-memory locally—same codebase, zero conditional logic.
+This means no vendor lock-in-switch databases without changing agent code. Deploy anywhere: Vercel (Postgres), Cloudflare Workers (D1), AWS (Upstash), or Turso (LibSQL). For local dev, in-memory storage means zero setup. I use D1 for Cloudflare Workers in production and in-memory locally-same codebase, zero conditional logic.
 
 ## 4. AI SDK Integration: Just Works™
 
@@ -248,7 +248,7 @@ const { messages, sendMessage, status } = useChat({
 
 **No glue code. No custom parsers. No stream adapters.**
 
-The Mastra stream format is perfectly compatible with AI SDK's `useChat` hook. Tool calls, streaming text, error states—everything "just works."
+The Mastra stream format is perfectly compatible with AI SDK's `useChat` hook. Tool calls, streaming text, error states-everything "just works."
 
 ## 5. Tool-Aware Loading States
 
@@ -408,7 +408,7 @@ const results = await vectorStore.query({
 });
 ```
 
-No separate vector database needed—just use PostgreSQL's pgvector extension. You get metadata filtering for multi-tenancy, rich metadata storage (source, category, pathPrefix), and production-ready performance that scales.
+No separate vector database needed-just use PostgreSQL's pgvector extension. You get metadata filtering for multi-tenancy, rich metadata storage (source, category, pathPrefix), and production-ready performance that scales.
 
 ### RAG as Tools
 
@@ -524,11 +524,11 @@ export const quizTool = createTool({
 });
 ```
 
-Tool composition at work—the RAG tool calls another RAG tool, returns structured JSON ready for UI rendering, and Zod ensures type safety. Your agent now has quiz generation powered by your knowledge base.
+Tool composition at work-the RAG tool calls another RAG tool, returns structured JSON ready for UI rendering, and Zod ensures type safety. Your agent now has quiz generation powered by your knowledge base.
 
 ## 8. Mastra Dev Studio: Test Without Building a Frontend
 
-Mastra comes with **Studio**—a local UI for building and testing agents.
+Mastra comes with **Studio**-a local UI for building and testing agents.
 
 ```bash
 mastra dev
@@ -570,4 +570,4 @@ After building these systems, here's what keeps me on Mastra:
 8. **Production-ready** - Logging, observability, error handling
 
 **The bottom line:**
-Mastra doesn't try to be everything. It focuses on **agent orchestration, memory, tools, and RAG**—and does those things really well. Combined with AI SDK for the frontend, it's the most productive stack I've found for building production AI agents.
+Mastra doesn't try to be everything. It focuses on **agent orchestration, memory, tools, and RAG**-and does those things really well. Combined with AI SDK for the frontend, it's the most productive stack I've found for building production AI agents.
