@@ -1,0 +1,152 @@
+---
+title: "Stop Spending Weeks Finding Good Domains"
+description: "How I checked 200+ domain variations in under a minute using Vercel's bulk domain availability API and parallel AI agents."
+category: "Tutorials"
+tags: ["Domains", "Vercel", "API", "AI Agents", "Productivity"]
+pubDate: "Jan 13 2026"
+heroImage: "/images/blogs/stop-spending-weeks-finding-domains.png"
+publish: false
+---
+
+## The Problem
+
+Finding a good domain name is a special kind of hell. You think of a name, type it into GoDaddy, watch the spinner, see "taken", and repeat. Fifty times. Each check takes 5-10 seconds with all the UI loading, and by the end you're questioning every naming decision you've ever made.
+
+I needed a domain for a new SaaS project. I wanted something with "sonar" in it (like the *arr apps - Sonarr, Radarr, etc). Instead of manually checking domains one by one, I used Vercel's domain API with AI agents to check 200+ variations in parallel.
+
+## The Solution: Vercel's Bulk Domain API
+
+Vercel has a simple API endpoint that accepts up to 50 domains at once and returns availability instantly:
+
+```bash
+curl -X POST "https://api.vercel.com/v1/registrar/domains/availability" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{
+    "domains": [
+      "socialsonar.com",
+      "postsonar.com",
+      "feedsonar.com",
+      "sonarpost.com",
+      "contentsonar.com"
+    ]
+  }'
+```
+
+Response:
+```json
+{
+  "results": [
+    {"domain": "socialsonar.com", "available": false},
+    {"domain": "postsonar.com", "available": true},
+    {"domain": "feedsonar.com", "available": false},
+    {"domain": "sonarpost.com", "available": false},
+    {"domain": "contentsonar.com", "available": true}
+  ]
+}
+```
+
+## Running 10 Agents in Parallel
+
+Here's where it gets fun. I asked Claude Code (Anthropic's AI-powered CLI) to run 10 agents in parallel, each checking a different batch of domain variations:
+
+- Batch 1: Base sonar names (.com)
+- Batch 2: Sonarr variations (double r)
+- Batch 3: Pulse/radar/ping alternatives
+- Batch 4: Scout/probe/scan alternatives
+- Batch 5: .app domains
+- Batch 6: .io domains
+- Batch 7: Prefix variations (get, use, try, hello)
+- Batch 8: Alternative TLDs (.social, .co)
+- Batch 9: Wave/ripple alternatives
+- Batch 10: .dev/.ai/.xyz domains
+
+All 10 batches ran simultaneously. Total time: ~30 seconds for 200+ domains.
+
+## Getting Prices
+
+Once you've got a list of available domains, you'll want to know what they cost. Vercel's price endpoint has you covered:
+
+```bash
+curl "https://api.vercel.com/v1/registrar/domains/postsonar.com/price" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+Response:
+```json
+{
+  "years": 1,
+  "purchasePrice": 11.25,
+  "renewalPrice": 11.25,
+  "transferPrice": 11.25
+}
+```
+
+## Results
+
+From 200+ domains checked, I got back ~30 available options across different TLDs and price points. The results came back organized by availability, making it easy to filter by price or extension preference.
+
+## The API Endpoints
+
+### Check Availability (Bulk)
+```
+POST https://api.vercel.com/v1/registrar/domains/availability
+Body: { "domains": ["domain1.com", "domain2.com", ...] }
+Max: 50 domains per request
+```
+
+### Check Price
+```
+GET https://api.vercel.com/v1/registrar/domains/{domain}/price
+Returns: purchasePrice, renewalPrice, transferPrice
+```
+
+### Get Token
+1. Go to Vercel Dashboard
+2. Settings → Tokens
+3. Create new token
+
+### Buy Domain
+Found the perfect domain? Skip the checkout UI and buy it directly via API. Payment is charged to the card on file in your Vercel account.
+
+```bash
+curl -X POST "https://api.vercel.com/v1/registrar/domains/mycoolproject.com/buy" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{
+    "autoRenew": true,
+    "years": 1,
+    "expectedPrice": 11.25,
+    "contactInformation": {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane@example.com",
+      "phone": "+1.5551234567",
+      "address1": "123 Main St",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94102",
+      "country": "US"
+    }
+  }'
+```
+
+Response:
+```json
+{
+  "orderId": "ord_abc123xyz"
+}
+```
+
+The `expectedPrice` field is a safety check - the purchase fails if the actual price doesn't match, so you won't get surprised by price changes. Pair this with the price check endpoint and you've got a fully automated domain acquisition pipeline.
+
+## Conclusion
+
+Instead of clicking through registrar UIs for 30 minutes, I found the perfect domain in under a minute:
+
+1. Generate 200+ name variations
+2. Run parallel API checks with AI agents
+3. Filter by availability and price
+4. Buy from cheapest registrar
+
+Time saved? About 29 minutes. Sanity preserved? Priceless.
