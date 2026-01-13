@@ -1,6 +1,6 @@
 "use client";
 
-import { Laptop, MoonIcon, SunIcon } from "lucide-react";
+import { Laptop, MoonIcon, SunIcon, RssIcon } from "lucide-react";
 import {
   Button,
   DropdownMenu,
@@ -60,12 +60,17 @@ export function ThemeToggle() {
   };
 
   return (
-    <div className="lg:fixed absolute top-3 right-3 z-50 bg-popover">
+    <div className="lg:fixed absolute top-3 right-3 z-50 flex items-center gap-1">
+      <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
+        <Button variant="iconButton" size="icon" className="bg-popover">
+          <RssIcon className="h-4 w-4" />
+        </Button>
+      </a>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="iconButton" size="icon" className="">
+          <Button variant="iconButton" size="icon" className="bg-popover">
             {getIcon()}
-            <span className="">{theme}</span>
+            <span className="text-xs">{theme}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="">
