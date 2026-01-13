@@ -34,7 +34,7 @@ const filteredBlogPosts = blogPosts
           as I enjoy writing them.
         </p>
       </div>
-      <PostFeed searchEnabled posts={filteredBlogPosts} client:load />
+      <PostFeed searchEnabled numberOfPost={filteredBlogPosts.length} posts={filteredBlogPosts} client:load />
     </div>
   </Layout>
 </html>
