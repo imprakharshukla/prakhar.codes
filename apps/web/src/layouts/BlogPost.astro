@@ -79,6 +79,19 @@ const { id, remarkPluginFrontmatter } = Astro.props;
           <slot />
         </div>
       </article>
+
+      <!-- Comments -->
+      <section class="mt-12">
+        <script
+          is:inline
+          src="https://utteranc.es/client.js"
+          repo="imprakharshukla/prakhar.codes.comments"
+          issue-term="pathname"
+          theme="preferred-color-scheme"
+          crossorigin="anonymous"
+          async
+        ></script>
+      </section>
     </div>
   </Layout>
 </html>
