@@ -19,7 +19,7 @@ const testimonials: Testimonial[] = [
     company: "Yobr",
     relationship: "Jakob managed Prakhar directly",
     date: "January 4, 2026",
-    image: "https://media.licdn.com/dms/image/v2/C4E03AQEUPcSQmCiBjw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1633700346750?e=1769644800&v=beta&t=ziGE4p9uHWt2EgCFTB-bZ69_kSqI0kzKgz0o3omezXE",
+    image: "/images/recc/jakob_linkedin.jpeg",
     linkedinUrl: "https://www.linkedin.com/in/jakob-erikstad",
     content: "I have worked with Prakhar for about a year, and he is one of the best developers I know. Despite his young age, he consistently performs at a level well above many more senior developers, combining strong technical understanding, rapid execution, and clear initiative. It has been a pleasure working with him, and I hope to do so again in the future."
   },
@@ -29,7 +29,7 @@ const testimonials: Testimonial[] = [
     company: "CaseCraft",
     relationship: "Raman managed Prakhar directly",
     date: "January 5, 2026",
-    image: "https://media.licdn.com/dms/image/v2/D5603AQHDn6QHVFkEfw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1706348931578?e=1769644800&v=beta&t=RvNkEKSkNXGVp6Y7JO2f6sIbddoP_JLX3UEsE9uwKwg",
+    image: "/images/recc/raman_linkedin.jpeg",
     linkedinUrl: "https://www.linkedin.com/in/raman-gupta-9a40441aa",
     content: "I had the pleasure of working with Prakhar at CaseCraft, where he was a key contributor to our medical AI platform as a full-stack engineer.\n\nPrakhar built our entire frontend using React and TanStack Router and designed a robust TypeScript backend with true end-to-end type safety, which became the foundation of the product. He also led our migration from JavaScript to TypeScript across the codebase, significantly improving reliability and reducing application errors.\n\nWhat really sets Prakhar apart is his speed of development and ownership mindset. His ability to move fast without sacrificing quality is exceptional. Beyond execution, he consistently suggested and led important architectural and infrastructure improvements, making thoughtful decisions that scaled well with the product's growth. He also led our entire deployment and setup process, taking full responsibility for shipping and maintaining a production-ready system.\n\nPrakhar implemented our AI pipelines using OpenAI and demonstrated strong technical judgment paired with solid product intuition. He deeply understands the problem, aligns with expectations quickly, and delivers solutions that are often better than initially envisioned.\n\nHe works extremely independently, has a clear can-do attitude, communicates exceptionally well, and is someone you can trust to take ambiguous problems and turn them into high-quality outcomes. Every time he took on a task, he delivered a phenomenal job.\n\nPrakhar is a real asset to any team, and I would happily work with him again. I strongly recommend him to any team looking for a fast, reliable, and thoughtful engineer."
   },
@@ -39,7 +39,7 @@ const testimonials: Testimonial[] = [
     company: "TechKareer",
     relationship: "Prakhar was Harsh's client",
     date: "January 5, 2026",
-    image: "https://media.licdn.com/dms/image/v2/D5635AQFdrq1H8nsedw/profile-framedphoto-shrink_100_100/profile-framedphoto-shrink_100_100/0/1727731710317?e=1768374000&v=beta&t=6vJtciKZpWpj-cv7ZhKEOOr3dx4XFN-lhHg6DUfgZuw",
+    image: "/images/recc/harsh_linkedin.jpeg",
     linkedinUrl: "https://www.linkedin.com/in/itsharshag",
     content: "Prakhar is one of the most exceptional engineers I have come across. Great technical skills, communication skills, and initiative. Has a portfolio of stunning projects especially an Android app with millions of installs that he built almost single-handedly.\n\nWe got connected when he sent one of the most impressive cold DMs to explore a role at TechKareer. We were not hiring for ourselves at that time but luckily one of our hiring partners were. It was a pleasure him to refer him to them. They were also impressed by his experience and performance on the deliverables.\n\nPost that he has gone on many more amazing stints. He will be an invaluable asset to whichever org he decides to join. Godspeed!"
   },
@@ -49,7 +49,7 @@ const testimonials: Testimonial[] = [
     company: "Yobr",
     relationship: "Emma worked with Prakhar on the same team",
     date: "January 9, 2026",
-    image: "https://media.licdn.com/dms/image/v2/D4D03AQGPl5l1ySphOA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1709583169265?e=1769644800&v=beta&t=RFYTgp_yXzKOm-U7se1nm080Yfr_ajHVQ2DNGrkEGAc",
+    image: "/images/recc/emma_linkedin.jpeg",
     linkedinUrl: "https://www.linkedin.com/in/emmaer",
     content: "For the last year I've worked closely with Prakhar at Yobr in a very small, fast paced startup team.\n\nPrakhar took initiative, brought in new ideas and technology, and actively contributed to product discussions and problem solving. He clearly contributed far beyond a typical developer role. He is highly skilled, has strong capacity and drive, and delivers quality, fast.\n\nPrakhar is easy to communicate with and genuinely enjoyable to work with. Together, we continuously developed how we collaborated as designer and developer in a digital setup, and managed to build things quickly as a team.\n\nI would strongly recommend Prakhar and would be very happy to work with him again!"
   }

@@ -11,6 +11,7 @@ publish: true
 type: "Commercial"
 languages: ["Typescript", "Javascript"]
 frameworks: ["NextJS", "Express", "NodeJS"]
+rank: 3
 ---
 Lumoflo is a multi-tenant app that aims to enable small business owners to sell products with automated billing, shipping, invoicing, and inventory management.
 

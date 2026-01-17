@@ -11,6 +11,7 @@ publish: true
 type: "Commercial"
 languages: ["Kotlin", "Typescript", "C", "Bash"]
 frameworks: ["VueJS","ExpressJS"]
+rank: 1
 ---
 ## What is Andronix App?
 Andronix helps you to install Linux distributions like Ubuntu, Debian, Manjaro, Kali etc. on un-rooted Android devices.

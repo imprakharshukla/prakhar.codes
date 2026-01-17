@@ -14,10 +14,10 @@ export default function HiringPopover() {
       cal("ui", {
         cssVarsPerTheme: {
           light: { "cal-brand": "#7B89EF" },
-          dark: { "cal-brand": "#7B89EF" }
+          dark: { "cal-brand": "#7B89EF" },
         },
         hideEventTypeDetails: false,
-        layout: "month_view"
+        layout: "month_view",
       });
     })();
   }, []);
@@ -30,9 +30,9 @@ export default function HiringPopover() {
             data-cal-namespace="hiring"
             data-cal-link="imprakharshukla/30min"
             data-cal-config='{"layout":"month_view"}'
-            className="bg-green-500/20 text-foreground font-medium px-1 -mx-1 rounded hover:bg-green-500/30 transition-all cursor-pointer"
+            className="bg-green-500/35 text-foreground font-medium px-1 mx-[0.1px] rounded hover:bg-green-500/30 transition-all cursor-pointer"
           >
-            exploring new opportunities
+            available for roles
           </button>
         </TooltipTrigger>
         <TooltipContent className="w-80 border-border/60 p-4" align="start">

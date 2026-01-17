@@ -58,10 +58,10 @@ export default function ProjectFeed({
                     <a href={`/projects/${project.id}`} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
                       <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.01] border-transparent">
                         <div className="flex flex-col sm:flex-row gap-4 items-start">
-                          <div className="rounded-sm flex-shrink-0 w-full sm:w-32 overflow-hidden">
+                          <div className="rounded-sm flex-shrink-0 w-full sm:w-40 overflow-hidden">
                             <img
                               style={getTransitionId(project.id)}
-                              className="object-cover object-left rounded-sm w-full h-48 sm:h-24 group-hover:border border-primary shadow-sm"
+                              className="object-cover object-left rounded-sm w-full aspect-video group-hover:border border-primary shadow-sm"
                               src={project.data.heroImage}
                               alt=""
                             />
@@ -105,10 +105,10 @@ export default function ProjectFeed({
                   <a href={`/projects/${project.id}`} className="cursor-pointer" onClick={() => handleProjectClick(project)}>
                     <div className="text-muted-foreground group transform duration-200 cursor-pointer hover:scale-[1.02] border-transparent">
                       <div className="flex flex-col sm:flex-row gap-4 justify-start">
-                        <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden">
+                        <div className="rounded-sm w-full sm:w-56 sm:flex-shrink-0 overflow-hidden">
                           <img
                             style={getTransitionId(project.id)}
-                            className="object-cover rounded-sm w-full h-48 sm:h-32 group-hover:border border-primary shadow-sm"
+                            className="object-cover rounded-sm w-full aspect-video group-hover:border border-primary shadow-sm"
                             src={project.data.heroImage}
                             alt=""
                           />

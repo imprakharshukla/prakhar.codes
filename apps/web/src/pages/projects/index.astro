@@ -8,7 +8,11 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import Layout from "../../layouts/layout.astro";
 import ProjectFeed from "../../components/ProjectFeed";
 
-const projects = await getCollection("project");
+const projects = (await getCollection("project")).sort((a, b) => {
+  const rankA = a.data.rank ?? 999;
+  const rankB = b.data.rank ?? 999;
+  return rankA - rankB;
+});
 ---
 
 <!doctype html>

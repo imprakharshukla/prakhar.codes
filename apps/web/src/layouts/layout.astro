@@ -9,6 +9,7 @@ import { ThemeToggle } from "../components/ThemeToggle";
 import { TailwindIndicator } from "../components/TailwindIndicator";
 import { ChatWidget } from "../components/ChatWidget";
 import PostHog from "../components/posthog.astro";
+import { TopBanner } from "../components/TopBanner";
 ---
 
 <html lang="en">
@@ -45,6 +46,13 @@ import PostHog from "../components/posthog.astro";
     </script>
   </head>
   <body class="bg-background relative">
+    <TopBanner
+      client:load
+      message="Building Post Sonar — an AI research assistant for content creators."
+      link={{ text: "Check it out", href: "https://postsonar.com" }}
+      variant="info"
+      bannerId="postsonar-launch-2026"
+    />
     <div class="max-w-7xl mx-auto">
       <SpeedInsights />
       <div class="w-full flex justify-end">

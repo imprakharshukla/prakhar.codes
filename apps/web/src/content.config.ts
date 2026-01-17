@@ -34,6 +34,7 @@ const project = defineCollection({
     type: z.nativeEnum(ProjectType).optional(),
     languages: z.array(z.string()).optional(),
     frameworks: z.array(z.string()).optional(),
+    rank: z.number().optional(),
   }),
 });
 

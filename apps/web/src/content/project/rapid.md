@@ -11,6 +11,7 @@ publish: true
 type: "Open Source"
 languages: ["Typescript", "Javascript"]
 frameworks: ["NextJS", "Express", "NodeJS"]
+rank: 4
 ---
 
 Rapid includes tools that are configured to work together out of the box. It is designed to be a monorepo that can be used to build full-stack applications.
