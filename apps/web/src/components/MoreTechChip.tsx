@@ -5,7 +5,7 @@ export default function MoreTechChip() {
     <TooltipProvider>
       <Tooltip delayDuration={100}>
         <TooltipTrigger asChild>
-          <span className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-gray-200 text-gray-800 border border-gray-400 dark:bg-slate-100/10 dark:text-slate-200 dark:border-slate-500/20 cursor-help">
+          <span className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-card text-foreground border border-border cursor-help">
             <svg
               className="h-3.5 w-3.5"
               xmlns="http://www.w3.org/2000/svg"
