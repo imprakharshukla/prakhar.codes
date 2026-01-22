@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prakhar.codes/sitemap-index.xml
