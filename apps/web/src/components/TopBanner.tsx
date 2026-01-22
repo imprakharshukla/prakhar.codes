@@ -42,24 +42,27 @@ export function TopBanner({
 
   return (
     <div
-      className={`w-full border-b px-4 py-2.5 text-center text-sm font-medium ${variantStyles[variant]}`}
+      className={`w-full border-b px-4 py-2.5 text-sm font-medium ${variantStyles[variant]}`}
     >
-      <div className="flex items-center justify-center gap-2">
-        <span>{message}</span>
-        {link && (
-          <a
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:opacity-80 transition-opacity font-semibold"
-          >
-            {link.text}
-          </a>
-        )}
+      <div className="flex items-center justify-between gap-2 max-w-7xl mx-auto">
+        <div className="flex items-center gap-2 min-w-0 flex-1 justify-center sm:justify-start">
+          <span className="hidden sm:inline">{message}</span>
+          <span className="sm:hidden truncate">Building Post Sonar</span>
+          {link && (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:opacity-80 transition-opacity font-semibold whitespace-nowrap"
+            >
+              {link.text}
+            </a>
+          )}
+        </div>
         {dismissible && (
           <button
             onClick={handleDismiss}
-            className="ml-2 p-1 hover:opacity-70 transition-opacity"
+            className="p-1 hover:opacity-70 transition-opacity shrink-0"
             aria-label="Dismiss banner"
           >
             <svg

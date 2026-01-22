@@ -13,11 +13,13 @@ import { useState, useEffect } from "react";
 export function ThemeToggle() {
   const [isMounted, setIsMounted] = useState(false);
   const [theme, setTheme] = useState(() => {
-    if (typeof localStorage !== "undefined") {
-      return localStorage.getItem("theme") ?? "dark";
-    } else {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme")!;
+    }
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }
+    return "light";
   });
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <div className="lg:fixed absolute top-3 right-3 z-50 flex items-center gap-1">
+    <div className="lg:fixed absolute top-12 right-3 z-40 flex items-center gap-1">
       <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
         <Button variant="iconButton" size="icon" className="bg-popover">
           <RssIcon className="h-4 w-4" />
