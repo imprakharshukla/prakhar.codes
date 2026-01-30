@@ -46,16 +46,30 @@ const filteredBlogPosts = blogPosts
   </head>
   <Layout>
     <div class="grid gap-2 md:max-w-2xl mt-6 animate-in fade-in duration-200">
-      <!-- Hero Image -->
+      <!-- Hero Video -->
       <div class="w-full mb-6 max-w-md">
-        <img
-          width="800"
-          height="267"
-          class="rounded-xl shadow-md w-full h-auto object-contain rotate-[1.5deg]"
-          src="https://imagedelivery.net/nW2YfjVFqxC-ok-_zXWXQw/eed88e28-99e1-46ec-2bcc-d5b098a29900/hd"
-          alt="Hero"
+        <video
+          id="hero-video"
+          class="rounded-xl shadow-md w-full h-auto object-contain"
+          src="https://resume-cdn.prakhar.codes/prakhar.codes-intro-2-compressed.mp4"
+          autoplay
+          muted
+          playsinline
+          controls
+          preload="metadata"
+          poster="https://resume-cdn.prakhar.codes/prakhar.codes-intro-2-poster.jpg"
         />
       </div>
+      <script>
+        const video = document.getElementById('hero-video') as HTMLVideoElement;
+        const trimSeconds = 2;
+        video.addEventListener('timeupdate', () => {
+          if (video.duration && video.currentTime >= video.duration - trimSeconds) {
+            video.currentTime = 0;
+            video.play();
+          }
+        });
+      </script>
 
       <!-- Old layered images with hover effects (commented out) -->
       <!-- <div class="">
