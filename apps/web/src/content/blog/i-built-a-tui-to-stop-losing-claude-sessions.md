@@ -42,8 +42,8 @@ I wanted something simpler: type a few characters, find the conversation I need,
 - **Fuzzy searches** across all Claude session messages
 - **Resumes sessions** in tmux (grouped by project) or plain Ghostty
 - **Bookmarks** sessions with custom names
-- **Forks conversations** — start fresh but with previous context
-- **Shows active indicators** — see which projects have running Claude instances
+- **Forks conversations** - start fresh but with previous context
+- **Shows active indicators** - see which projects have running Claude instances
 
 One command: `c`. Type to filter. Enter to resume.
 
@@ -53,7 +53,7 @@ One command: `c`. Type to filter. Enter to resume.
 
 - **Ink 5**: React for the terminal. Yes, really. JSX that renders to CLI.
 - **uFuzzy**: Blazing fast fuzzy search (~100k ops/sec)
-- **Node.js**: Claude stores sessions as JSON files — easy to parse
+- **Node.js**: Claude stores sessions as JSON files. Easy to parse.
 - **tmux**: Groups sessions by project, survives terminal crashes
 
 ### Why Ink?
@@ -72,7 +72,7 @@ I'd used Ink before and loved it. You get React's component model and hooks, but
 </Box>
 ```
 
-State management just works. `useState`, `useEffect`, `useMemo` — all there.
+State management just works. `useState`, `useEffect`, `useMemo` - all there.
 
 ### Why uFuzzy over Fuse.js?
 
@@ -138,7 +138,7 @@ Here's where it gets good. Instead of opening 10 separate terminal windows, tmux
 
 1. Group all Claude sessions under one "project" session
 2. Split panes within that session
-3. **Survive terminal crashes** — tmux sessions persist
+3. **Survive terminal crashes** - tmux sessions persist
 
 When you resume a session:
 
@@ -153,7 +153,7 @@ export const launchResume = (sessionId: string, project: string): void => {
     try {
       createSession(sessionName, project, command)
     } catch {
-      // Session exists — split a new pane
+      // Session exists - split a new pane
       splitPane(sessionName, project, command)
     }
 
@@ -162,7 +162,7 @@ export const launchResume = (sessionId: string, project: string): void => {
       spawnTerminal(['tmux', 'attach', '-t', sessionName])
     }
   } else {
-    // No tmux — open directly in terminal
+    // No tmux - open directly in terminal
     spawnTerminalDirect(terminal, project, command)
   }
 }
