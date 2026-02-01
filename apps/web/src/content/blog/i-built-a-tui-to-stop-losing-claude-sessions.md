@@ -4,7 +4,7 @@ description: "How I solved the problem of managing 10+ Claude Code sessions acro
 pubDate: "Feb 01 2026"
 heroImage: "/images/blogs/claude-launcher.png"
 tags: ["Developer Tools", "CLI", "TypeScript", "Terminal", "Ink", "AI Tools"]
-category: "Projects"
+category: "Coding"
 publish: true
 ---
 
