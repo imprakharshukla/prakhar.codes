@@ -1,6 +1,6 @@
 ---
-title: "I Built an AI Assistant That Actually Remembers Things"
-description: "Building Nyx - a cat-themed AI assistant with OpenClaw that checks my calendar, controls my smart home, and has opinions about my life choices."
+title: "I Put My Life on Autopilot with OpenClaw"
+description: "Meet Nyx — the AI cat that checks my emails, controls my smart home, judges my schedule, and actually remembers who I am."
 pubDate: "Feb 02 2026"
 heroImage: "/images/blogs/nyx-openclaw-setup.png"
 tags: ["OpenClaw", "AI", "Automation", "Productivity"]
