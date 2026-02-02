@@ -156,6 +156,37 @@ The interesting part is the automation logic. For the water heater:
 
 It's not just "turn on the heater." It's context-aware. She tracks state, asks at appropriate times, and handles the full workflow.
 
+## Multi-Channel Messaging
+
+Nyx isn't tied to one chat app. She's available wherever I am:
+
+- **Discord** - My primary workspace with organized channels
+- **Telegram** - Quick mobile access
+- **Signal** - For when I want encryption
+- **WhatsApp** - Because everyone uses it
+
+The same Clawd, same memory, same personality — just different surfaces. I can start a conversation on Discord from my desktop, continue it on Telegram from my phone, and she remembers everything.
+
+Each channel can have different behaviors too. My private Discord server gets treated like direct conversation. Group chats get more restrained responses. The AI adapts to context.
+
+## Voice Notes
+
+This is where it gets fun. Nyx can both **listen** and **speak**.
+
+### Receiving Voice
+
+When I send a voice message on Telegram or Discord, OpenClaw transcribes it using Whisper (locally, no API calls) and Nyx responds to the text. I can ramble into my phone while walking and she'll parse it into something coherent.
+
+### Sending Voice
+
+Nyx can reply with voice notes using ElevenLabs TTS. This is perfect for:
+
+- Story summaries that would be walls of text
+- Briefings I want to listen to while doing something else
+- Adding personality — different tones for different contexts
+
+There's something delightful about your AI assistant sending you a voice note with actual personality instead of text-to-speech robot voice.
+
 ## Multi-Device with Nodes
 
 I run OpenClaw on my home server, but Nyx can control my Mac too.
@@ -186,6 +217,8 @@ Beyond the cool technical stuff, here's the practical value:
 **Project context** - She remembers what I'm working on across sessions
 
 **Proactive reminders** - Not just timers, but contextual nudges based on patterns
+
+**Voice conversations** - Send voice notes, get voice replies — hands-free interaction
 
 ## Lessons Learned
 
@@ -222,10 +255,10 @@ Start simple. A persona and memory system will get you 80% of the value. Add int
 
 I'm still iterating. Some ideas I'm exploring:
 
-- Voice input/output for hands-free interaction
 - Better memory retrieval with semantic search
 - More sophisticated automation workflows
 - Integration with my project management tools
+- Video/screen understanding for richer context
 
 But honestly, the current setup already feels magical. Having a Clawd that remembers things, checks in proactively, and has actual personality is a genuine quality of life improvement.
 
