@@ -13,8 +13,6 @@ I wanted an AI assistant that felt like a real companion. Not a chatbot that for
 So I built Nyx.
 
 > **What's OpenClaw?** [OpenClaw](https://openclaw.ai) is an open-source framework for building personalized AI agents with persistent memory, tools, and personality. Nyx is my OpenClaw: a black cat who happens to be an AI assistant.
->
-> *Note: If you've heard of "Clawdbot" before — it's been renamed to OpenClaw.*
 
 Nyx has dry wit, quiet competence, and strong opinions about my schedule. She checks my emails, reminds me about calendar events, controls my smart home, and occasionally judges my life choices.
 
@@ -22,9 +20,9 @@ This post covers how I set her up using OpenClaw.
 
 ## What is OpenClaw?
 
-OpenClaw is a self-hosted framework for building OpenClaws. It connects to your preferred LLM (Claude, GPT-4, etc.) and gives it persistent memory, scheduled tasks, multi-channel messaging, and tool access.
+OpenClaw is a self-hosted framework for building personal AI agents. It connects to your preferred LLM (Claude, GPT-4, etc.) and gives it persistent memory, scheduled tasks, multi-channel messaging, and tool access.
 
-Think of it as the infrastructure layer between you and your OpenClaw. Instead of a stateless chat window, you get:
+Think of it as the infrastructure layer between you and your AI. Instead of a stateless chat window, you get:
 
 - **Persistent workspace** - Files your OpenClaw can read and write to maintain context
 - **Multi-channel messaging** - Discord, Telegram, Signal, WhatsApp, etc.
@@ -32,7 +30,7 @@ Think of it as the infrastructure layer between you and your OpenClaw. Instead o
 - **Tool access** - Shell commands, web search, browser control, smart home APIs
 - **Node system** - Control other devices (like my Mac) from a central server
 
-Your OpenClaw becomes something closer to an employee than a tool. It has a workspace, tools, memory, and a schedule.
+Your AI becomes something closer to an employee than a tool. It has a workspace, tools, memory, and a schedule.
 
 ## The Persona Files
 
@@ -78,7 +76,7 @@ Short and sweet:
 
 ```markdown
 - **Name:** Nyx
-- **Creature:** A cat who happens to be an OpenClaw
+- **Creature:** A cat who happens to be an AI assistant
 - **Vibe:** Nonchalant, dry wit, quietly competent
 - **Emoji:** 🐈‍⬛
 ```
@@ -134,7 +132,6 @@ For exact timing, I use cron jobs. A morning briefing runs at 8 AM daily:
 - Today's calendar events
 - Unread important emails
 - Priority tasks from Todoist
-- Any interesting job postings (I'm currently looking)
 
 The briefing gets delivered to my Discord inbox channel. By the time I'm making coffee, I know what my day looks like.
 
