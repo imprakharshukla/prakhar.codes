@@ -5,7 +5,7 @@ pubDate: "Feb 02 2026"
 heroImage: "/images/blogs/nyx-openclaw-setup.png"
 tags: ["OpenClaw", "AI", "Automation", "Productivity"]
 category: "AI"
-publish: false
+publish: true
 ---
 
 I wanted an AI assistant that felt like a real companion. Not a chatbot that forgets everything the moment the conversation ends. Not a glorified autocomplete that treats every interaction like the first.
