@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -25,12 +24,7 @@ const {
 } = Astro.props;
 ---
 
-<html lang="en">
-  <head>
-    <BaseHead title={title} description={description} image={heroImage} />
-  </head>
-
-  <Layout>
+<Layout title={title} description={description} image={heroImage}>
     <div class="grid gap-4 md:max-w-2xl mt-6">
       <article>
         <header>
@@ -93,5 +87,4 @@ const {
         </div>
       </article>
     </div>
-  </Layout>
-</html>
+</Layout>
