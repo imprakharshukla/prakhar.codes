@@ -1,0 +1,188 @@
+---
+title: "Turning Code into Data: Demystifying ASTs"
+description: "Ever wished you could query your codebase like a database? Here's how ASTs and ts-morph let you parse TypeScript, walk the tree, and build tools that understand your code."
+category: "Tutorials"
+tags: ["AST", "TypeScript", "ts-morph", "Developer Tools", "Code Analysis"]
+pubDate: "Feb 12 2026"
+heroImage: "/images/blogs/turning-code-into-data-ast.jpg"
+publish: true
+---
+
+Ever looked at a codebase and wished you could query it like a database? "Show me all functions that call this method" or "which files import this module?" Turns out, you can. The secret is treating code as data, and the tool for that is the Abstract Syntax Tree.
+
+ASTs sound intimidating. They're not. By the end of this post, you'll know how to parse TypeScript, walk the tree, and extract whatever patterns you're looking for.
+
+## What's an AST, Actually?
+
+When you write code, it's just text. But compilers and tools need structure. An AST is that structure: your code parsed into a tree where each node represents a construct (function, variable, expression, etc.).
+
+Take this simple function:
+
+```typescript
+function greet(name: string) {
+  return `Hello, ${name}!`;
+}
+```
+
+The AST representation looks something like:
+
+```
+FunctionDeclaration
+├── Identifier: "greet"
+├── Parameter
+│   ├── Identifier: "name"
+│   └── TypeAnnotation: "string"
+└── Block
+    └── ReturnStatement
+        └── TemplateExpression
+            └── ...
+```
+
+Every piece of your code becomes a node you can inspect, filter, and manipulate.
+
+## Enter ts-morph
+
+You could work with the raw TypeScript compiler API, but it's verbose and painful. [ts-morph](https://ts-morph.com/) wraps it in a much friendlier interface.
+
+```typescript
+import { Project } from "ts-morph";
+
+const project = new Project();
+project.addSourceFilesAtPaths("src/**/*.ts");
+
+const sourceFiles = project.getSourceFiles();
+```
+
+That's it. You now have programmatic access to every file in your codebase.
+
+## Finding Patterns in Code
+
+Let's say you want to find all exported functions in a file:
+
+```typescript
+sourceFiles.forEach(file => {
+  const functions = file.getFunctions().filter(fn => fn.isExported());
+  
+  functions.forEach(fn => {
+    console.log(`Found: ${fn.getName()}`);
+  });
+});
+```
+
+Or find all classes that extend a specific base class:
+
+```typescript
+const classes = sourceFile
+  .getClasses()
+  .filter(cls => cls.getExtends()?.getText() === "BaseService");
+```
+
+The API is intuitive. If you can describe what you're looking for in English, you can probably write the ts-morph query.
+
+## Walking the Tree
+
+Sometimes you need to go deeper. The `forEachDescendant` method lets you walk every node:
+
+```typescript
+import { SyntaxKind } from "ts-morph";
+
+sourceFile.forEachDescendant(node => {
+  if (node.isKind(SyntaxKind.CallExpression)) {
+    const functionName = node.getExpression().getText();
+    console.log(`Function call: ${functionName}`);
+  }
+});
+```
+
+This finds every function call in the file. You can filter by `SyntaxKind` to target specific constructs: `VariableDeclaration`, `ArrowFunction`, `PropertyAccessExpression`, whatever you need.
+
+## Building Something Useful
+
+Here's where it gets interesting. Once you can extract patterns, you can build tools.
+
+I wanted to visualize how functions in a codebase relate to each other. Which functions call which? What's the dependency graph?
+
+The approach:
+
+1. **Find all function declarations** using `getFunctions()` or by finding specific patterns
+2. **For each function, walk its body** looking for call expressions
+3. **Track the relationships** between caller and callee
+4. **Output the graph** as JSON, feed it to a visualization library
+
+```typescript
+type FunctionInfo = {
+  name: string;
+  calls: string[];
+};
+
+const functions: FunctionInfo[] = [];
+
+sourceFile.getFunctions().forEach(fn => {
+  const info: FunctionInfo = {
+    name: fn.getName() || "anonymous",
+    calls: [],
+  };
+
+  fn.forEachDescendant(node => {
+    if (node.isKind(SyntaxKind.CallExpression)) {
+      const callee = node.getExpression();
+      if (callee.isKind(SyntaxKind.Identifier)) {
+        info.calls.push(callee.getText());
+      }
+    }
+  });
+
+  functions.push(info);
+});
+```
+
+Now you have structured data about your code. Pipe it to D3, React Flow, or even just console.log it as JSON. You've turned code into something you can analyze.
+
+## Practical Applications
+
+Once you're comfortable with ASTs, ideas start flowing:
+
+- **Dependency graphs**: visualize how modules or functions connect
+- **Dead code detection**: find functions that are never called
+- **Custom linting**: enforce patterns specific to your codebase
+- **Auto-documentation**: extract function signatures and comments
+- **Refactoring tools**: find-and-replace on steroids
+
+The TypeScript compiler already does a lot of this internally. You're just tapping into the same power.
+
+## The Mental Model
+
+Here's how I think about it:
+
+1. **Code is text** → but text is hard to analyze
+2. **Parse it into a tree** → now you have structure
+3. **Walk the tree** → find the patterns you care about
+4. **Extract data** → do whatever you want with it
+
+That's it. ASTs aren't magic. They're just a representation of your code that's easier for programs to work with.
+
+## Getting Started
+
+```bash
+npm install ts-morph
+```
+
+Then start exploring:
+
+```typescript
+import { Project } from "ts-morph";
+
+const project = new Project();
+project.addSourceFilesAtPaths("src/**/*.ts");
+
+const file = project.getSourceFiles()[0];
+console.log(file.getStructure());
+```
+
+The `getStructure()` method dumps the entire AST as a JS object. Poke around, see what's there. The best way to learn is to parse some real code and explore.
+
+---
+
+ASTs feel like a superpower once you get them. You stop seeing code as just text and start seeing it as data you can query, transform, and visualize. 
+
+The barrier to entry is lower than you think. Give ts-morph an afternoon and see what you can build.
