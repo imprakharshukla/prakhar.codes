@@ -4,7 +4,7 @@ import { Button, Input } from "@prakhar/ui";
 import { useEffect, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { cn } from "@prakhar/ui/lib";
-import * as Fuse from "fuse.js";
+import Fuse from "fuse.js";
 import { getReadingTimeDynamic } from "../plugins/reading-time-dynamic";
 import FilterDropdown from "./FilterDropdown";
 
@@ -36,7 +36,7 @@ export default function PostFeed(props: {
     return post.data.publish === true;
   });
 
-  const fuse = new Fuse.default(searchList, fuseOptions);
+  const fuse = new Fuse(searchList, fuseOptions);
 
   const searchResults = fuse
     .search(query)
@@ -96,7 +96,11 @@ export default function PostFeed(props: {
               className="text-base text-muted-foreground"
             />
           )}
-          <FilterDropdown setCategory={setCategory} />
+          <FilterDropdown setCategory={setCategory} activeCategory={category} categoryCounts={blogPosts.reduce((acc, p) => {
+            const cat = p.data.category;
+            if (cat) acc[cat] = (acc[cat] || 0) + 1;
+            return acc;
+          }, {} as Record<string, number>)} />
         </div>
       </div>
       <ul ref={parent} className="grid gap-6">
@@ -104,6 +108,7 @@ export default function PostFeed(props: {
           ? searchResults.map((post) => {
               return (
                 <Post
+                  key={post.id}
                   id={post.id}
                   body={post.body || ""}
                   title={post.data.title}
@@ -118,6 +123,7 @@ export default function PostFeed(props: {
           : posts.slice(0, numberOfPost).map((post) => {
               return (
                 <Post
+                  key={post.id}
                   body={post.body || ""}
                   id={post.id}
                   title={post.data.title}
@@ -199,6 +205,7 @@ const Post = ({
             <div className="flex flex-col sm:flex-row gap-4 items-start">
               <div className="rounded-sm flex-shrink-0 w-full sm:w-32 aspect-[16/9]">
                 <img
+                  loading="lazy"
                   style={getTransitionId(id)}
                   className="object-cover rounded-sm w-full h-full group-hover:border border-primary"
                   src={heroImage}
@@ -237,6 +244,7 @@ const Post = ({
           <div className="flex flex-col sm:flex-row gap-4 justify-start">
             <div className="rounded-sm w-full sm:w-48 sm:flex-shrink-0 overflow-hidden aspect-[16/9]">
               <img
+                loading="lazy"
                 style={getTransitionId(id)}
                 className="object-cover rounded-sm w-full h-full group-hover:border border-primary"
                 src={heroImage}
