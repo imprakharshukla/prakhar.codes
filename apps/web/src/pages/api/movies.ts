@@ -30,6 +30,11 @@ const IMDB_IDS = [
   "tt4263482", // The Witch
   "tt1285016", // The Social Network
   "tt1119646", // The Hangover
+  "tt0180093", // Requiem for a Dream
+  "tt0097165", // Dead Poets Society
+  "tt2278388", // The Grand Budapest Hotel
+  "tt1323594", // Despicable Me
+  "tt2380307", // Coco
 ];
 
 interface Movie {
