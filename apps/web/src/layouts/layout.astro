@@ -42,7 +42,9 @@ import { TopBanner } from "../components/TopBanner";
       function applyTheme() {
         var t = localStorage.getItem("theme") || "light";
         if (t === "system") {
-          var isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var isDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
           document.documentElement.classList.toggle("dark", isDark);
         } else {
           document.documentElement.classList.toggle("dark", t === "dark");
@@ -55,7 +57,7 @@ import { TopBanner } from "../components/TopBanner";
   <body class="bg-background relative">
     <TopBanner
       client:load
-      message="Building Post Sonar — an AI research assistant for content creators."
+      message="Building Post Sonar, an AI research assistant for content creators."
       link={{ text: "Check it out", href: "https://postsonar.com" }}
       variant="info"
       bannerId="postsonar-launch-2026"
@@ -68,7 +70,7 @@ import { TopBanner } from "../components/TopBanner";
       <div class="min-h-screen flex">
         <NavigationBar client:load path={currentPath} />
         <main
-          class="w-screen overflow-x-hidden mt-12 lg:mt-0 flex min-h-[calc(100vh-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow px-6 pb-20"
+          class="w-screen overflow-visible mt-12 lg:mt-0 flex min-h-[calc(100vh-_theme(spacing.16))] flex-1 flex-col gap-4 py-2 md:gap-8 md:py-10 grow px-6 pb-20"
         >
           <div class="w-full h-full max-w-[1072px] mx-auto flex flex-col">
             <slot />

@@ -80,7 +80,7 @@ const GitHubStatsBentoGrid: React.FC<{ headingVisible?: boolean }> = ({
     headingVisible = false
 }) => {
     const [stats, setStats] = useState<z.infer<typeof StatZodSchema>>();
-    const statsURL = "https://raw.githubusercontent.com/imprakharshukla/github-stats/master/generated/overview.json";
+    const statsURL = "https://raw.githubusercontent.com/imprakharshukla/github-stats-lite/main/generated/overview.json";
     const containerRef = useRef<HTMLDivElement>(null);
 
     const fetchStats = async () => {
@@ -115,11 +115,17 @@ const GitHubStatsBentoGrid: React.FC<{ headingVisible?: boolean }> = ({
     return (
         <div className="overflow-x-scroll scrollbar-hide">
             {headingVisible &&
-                <div className="flex gap-3">
+                <div className="flex items-center gap-3">
 
                     <h1 className="h3-heading">
                         GitHub Stats
                     </h1>
+                    <div className="relative group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" className="text-muted-foreground cursor-help"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
+                        <div className="absolute top-full left-0 mt-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] pointer-events-none">
+                            A GitHub Action runs daily at midnight, scraping contribution stats into a JSON file hosted on GitHub. This page fetches that JSON and renders the calendar via react-github-calendar.
+                        </div>
+                    </div>
                     <div className="border border-border/50 px-3 py-1.5 flex rounded-full items-center justify-between gap-3">
 
                         <span className="relative flex h-3 w-3">

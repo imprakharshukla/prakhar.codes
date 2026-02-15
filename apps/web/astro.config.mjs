@@ -31,6 +31,11 @@ export default defineConfig({
       theme: "one-dark-pro",
     },
   },
+  vite: {
+    server: {
+      allowedHosts: true,
+    },
+  },
   integrations: [
     mdx(),
     sitemap(),

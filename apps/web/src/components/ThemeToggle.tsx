@@ -22,8 +22,24 @@ export function ThemeToggle() {
     return "light";
   });
 
+  const [bannerVisible, setBannerVisible] = useState(false);
+
   useEffect(() => {
     setIsMounted(true);
+    const checkBanner = () => {
+      const dismissed = localStorage.getItem("banner-dismissed-postsonar-launch-2026");
+      setBannerVisible(!dismissed);
+    };
+    checkBanner();
+    window.addEventListener("storage", checkBanner);
+
+    const observer = new MutationObserver(checkBanner);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener("storage", checkBanner);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -62,7 +78,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <div className="lg:fixed absolute top-12 right-3 z-40 flex items-center gap-1">
+    <div className={`lg:fixed absolute right-3 z-40 flex items-center gap-1 ${bannerVisible ? "top-12" : "top-3"}`}>
       <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
         <Button variant="iconButton" size="icon" className="bg-popover">
           <RssIcon className="h-4 w-4" />

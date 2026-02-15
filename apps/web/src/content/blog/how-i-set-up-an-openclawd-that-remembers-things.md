@@ -1,6 +1,6 @@
 ---
 title: "I Put My Life on Autopilot with OpenClaw"
-description: "Meet Nyx — the AI cat that checks my emails, controls my smart home, judges my schedule, and actually remembers who I am."
+description: "Meet Nyx, the AI cat that checks my emails, controls my smart home, judges my schedule, and actually remembers who I am."
 pubDate: "Feb 02 2026"
 heroImage: "/images/blogs/nyx-openclaw-setup.png"
 tags: ["OpenClaw", "AI", "Automation", "Productivity"]
@@ -162,7 +162,7 @@ Nyx isn't tied to one chat app. She's available wherever I am:
 - **Signal** - For when I want encryption
 - **WhatsApp** - Because everyone uses it
 
-The same OpenClaw, same memory, same personality — just different surfaces. I can start a conversation on Discord from my desktop, continue it on Telegram from my phone, and she remembers everything.
+The same OpenClaw, same memory, same personality, just different surfaces. I can start a conversation on Discord from my desktop, continue it on Telegram from my phone, and she remembers everything.
 
 Each channel can have different behaviors too. My private Discord server gets treated like direct conversation. Group chats get more restrained responses. The AI adapts to context.
 
@@ -180,7 +180,7 @@ Nyx can reply with voice notes using ElevenLabs TTS. This is perfect for:
 
 - Story summaries that would be walls of text
 - Briefings I want to listen to while doing something else
-- Adding personality — different tones for different contexts
+- Adding personality, different tones for different contexts
 
 There's something delightful about your AI assistant sending you a voice note with actual personality instead of text-to-speech robot voice.
 
@@ -215,7 +215,7 @@ Beyond the cool technical stuff, here's the practical value:
 
 **Proactive reminders** - Not just timers, but contextual nudges based on patterns
 
-**Voice conversations** - Send voice notes, get voice replies — hands-free interaction
+**Voice conversations** - Send voice notes, get voice replies, hands-free interaction
 
 ## Lessons Learned
 
