@@ -6,13 +6,14 @@ import "yet-another-react-lightbox/styles.css";
 interface ArtImage {
   src: string;
   alt: string;
+  caption: string;
 }
 
 const artImages: ArtImage[] = [
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6572%202.jpg", alt: "Art piece 1" },
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6574%202.jpg", alt: "Art piece 2" },
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6575%202.jpg", alt: "Art piece 3" },
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6576%202.jpg", alt: "Art piece 4" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6572%202.jpg", alt: "Art piece 1", caption: "Art piece 1" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6574%202.jpg", alt: "Art piece 2", caption: "Art piece 2" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6575%202.jpg", alt: "Art piece 3", caption: "Art piece 3" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6576%202.jpg", alt: "Art piece 4", caption: "Art piece 4" },
 ];
 
 export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
@@ -114,7 +115,7 @@ export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
               }}
               className="snap-start shrink-0 w-[200px] md:w-[220px] text-muted-foreground group transform duration-200 hover:scale-[1.02] cursor-pointer border-transparent"
             >
-              <div className="rounded-sm overflow-hidden aspect-[3/4]">
+              <div className="relative rounded-sm overflow-hidden aspect-[3/4]">
                 <img
                   src={img.src}
                   alt={img.alt}
@@ -122,6 +123,9 @@ export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
                   draggable={false}
                   className="h-full w-full object-cover rounded-sm group-hover:border border-primary"
                 />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <p className="text-white text-xs font-medium">{img.caption}</p>
+                </div>
               </div>
             </button>
           ))}
