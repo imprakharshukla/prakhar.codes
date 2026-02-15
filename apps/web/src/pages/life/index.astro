@@ -34,8 +34,10 @@ import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
       <div class="flex items-center gap-2">
         <h2 class="h3-heading">Workout Activity</h2>
         <div class="relative group">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground cursor-help"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
-          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] pointer-events-none">
+          <button type="button" class="appearance-none bg-transparent border-none p-0 cursor-help">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
+          </button>
+          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]">
             Apple Health → iOS Shortcut (daily automation) → POST /api/workouts → Upstash Redis → React heatmap on page load.
           </div>
         </div>
@@ -82,8 +84,10 @@ import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
       <div class="flex items-center gap-2">
         <h2 class="h3-heading">Home Lab</h2>
         <div class="relative group">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground cursor-help"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
-          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] pointer-events-none">
+          <button type="button" class="appearance-none bg-transparent border-none p-0 cursor-help">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
+          </button>
+          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]">
             All services run as Docker containers on a home server, managed with Coolify and auto-updated via Watchtower.
           </div>
         </div>
@@ -92,7 +96,7 @@ import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
         Self-hosted services running on my home server.
       </p>
       <HomeLabAccordion client:load />
-      <div class="flex gap-2 overflow-x-auto relative z-[100] mt-3 py-2 px-1" style="scrollbar-width: none; -ms-overflow-style: none;">
+      <div class="flex flex-wrap gap-2 relative z-10 mt-3 py-2 px-1">
         {[
           { name: "Plex", desc: "Media server for movies & TV", icon: "/images/homelab/plex.svg" },
           { name: "Jellyfin", desc: "Open-source media streaming", icon: "/images/homelab/jellyfin.svg" },
@@ -106,12 +110,12 @@ import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
           { name: "Homepage", desc: "Application dashboard", icon: "/images/homelab/homarr.svg" },
           { name: "Homarr", desc: "Customisable server dashboard", icon: "/images/homelab/homarr.svg" },
           { name: "Watchtower", desc: "Auto-update Docker containers", icon: "/images/homelab/watchtower.svg" },
-        ].map((svc) => (
+        ].map((svc, i, arr) => (
           <div class="relative group shrink-0">
-            <div class="inline-flex items-center justify-center rounded-md p-2.5 bg-card text-foreground border border-border cursor-default hover:border-primary transition-all duration-300 ease-in-out">
+            <button type="button" class="inline-flex items-center justify-center rounded-md p-2.5 bg-card text-foreground border border-border cursor-default hover:border-primary focus:border-primary transition-all duration-300 ease-in-out">
               <img src={svc.icon} alt={svc.name} class="h-5 w-5" />
-            </div>
-            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-sm whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] pointer-events-none">
+            </button>
+            <div class:list={["absolute bottom-full mb-2 px-3 py-1.5 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-sm whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]", i === 0 ? "left-0" : i === arr.length - 1 ? "right-0" : "left-1/2 -translate-x-1/2"]}>
               <span class="font-medium">{svc.name}</span>
               {" -"}
               <span class="text-muted-foreground">{svc.desc}</span>
@@ -128,8 +132,10 @@ import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
       <div class="flex items-center gap-2">
         <h2 class="h3-heading">Movies I Recommend</h2>
         <div class="relative group">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground cursor-help"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
-          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] pointer-events-none">
+          <button type="button" class="appearance-none bg-transparent border-none p-0 cursor-help">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
+          </button>
+          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]">
             IMDb IDs → OMDB API fetch → Upstash Redis cache → served via /api/movies. Cache auto-invalidates when the ID list changes.
           </div>
         </div>
@@ -147,8 +153,10 @@ import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
       <div class="flex items-center gap-2">
         <h2 class="h3-heading">TV Shows I Recommend</h2>
         <div class="relative group">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground cursor-help"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
-          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] pointer-events-none">
+          <button type="button" class="appearance-none bg-transparent border-none p-0 cursor-help">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
+          </button>
+          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]">
             Same pipeline as movies - IMDb IDs → OMDB API → Redis cache via /api/shows.
           </div>
         </div>

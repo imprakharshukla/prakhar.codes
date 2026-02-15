@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
 import { format, subDays, eachDayOfInterval, startOfDay } from "date-fns";
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@prakhar/ui";
 
 interface WorkoutDay {
   date: string;
@@ -76,31 +70,25 @@ export function WorkoutHeatmap() {
 
   return (
     <div className="flex flex-col gap-2">
-      <TooltipProvider>
-        <div className="flex gap-1">
-          {days.map((day) => (
-            <Tooltip key={day.date.toISOString()} delayDuration={100}>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className={`w-8 h-8 rounded ${getIntensityClass(day.totalMinutes)} flex items-center justify-center text-xs transition-all cursor-default text-white`}
-                >
-                  {format(day.date, "d")}
-                </button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>
-                  <span className="font-medium">{format(day.date, "EEE, MMM d")}</span>
-                  {" - "}
-                  <span className="text-muted-foreground">
-                    {day.totalMinutes > 0 ? `${day.totalMinutes} min` : "Rest day"}
-                  </span>
-                </p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
-        </div>
-      </TooltipProvider>
+      <div className="flex gap-1">
+        {days.map((day, i) => (
+          <div key={day.date.toISOString()} className="relative group">
+            <button
+              type="button"
+              className={`w-8 h-8 rounded ${getIntensityClass(day.totalMinutes)} flex items-center justify-center text-xs transition-all cursor-default text-white`}
+            >
+              {format(day.date, "d")}
+            </button>
+            <div className={`absolute bottom-full mb-2 px-3 py-1.5 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-sm whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 ${i === 0 ? "left-0" : i === days.length - 1 ? "right-0" : "left-1/2 -translate-x-1/2"}`}>
+              <span className="font-medium">{format(day.date, "EEE, MMM d")}</span>
+              {" - "}
+              <span className="text-muted-foreground">
+                {day.totalMinutes > 0 ? `${day.totalMinutes} min` : "Rest day"}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <span>Less</span>
         <div className="flex gap-0.5">

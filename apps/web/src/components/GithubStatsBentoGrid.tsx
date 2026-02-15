@@ -119,8 +119,10 @@ const GitHubStatsBentoGrid: React.FC<{ headingVisible?: boolean }> = ({
                         GitHub Stats
                     </h1>
                     <div className="relative group">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" className="text-muted-foreground cursor-help"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
-                        <div className="absolute top-full left-0 mt-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] pointer-events-none">
+                        <button type="button" className="appearance-none bg-transparent border-none p-0 cursor-help">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" className="text-muted-foreground"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
+                        </button>
+                        <div className="absolute top-full left-0 mt-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]">
                             A GitHub Action runs daily at midnight, scraping contribution stats into a JSON file hosted on GitHub. This page fetches that JSON and renders the calendar via react-github-calendar.
                         </div>
                     </div>
