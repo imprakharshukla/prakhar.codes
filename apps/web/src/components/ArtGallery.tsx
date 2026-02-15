@@ -10,10 +10,10 @@ interface ArtImage {
 }
 
 const artImages: ArtImage[] = [
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6572%202.jpg", alt: "Art piece 1", caption: "Art piece 1" },
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6574%202.jpg", alt: "Art piece 2", caption: "Art piece 2" },
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6575%202.jpg", alt: "Art piece 3", caption: "Art piece 3" },
-  { src: "https://resume-cdn.prakhar.codes/life/IMG_6576%202.jpg", alt: "Art piece 4", caption: "Art piece 4" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6572%202.jpg", alt: "Clay tea light holder with a witch cat", caption: "Clay tea light holder with a witch cat" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6574%202.jpg", alt: "Sunset over a wildflower meadow, acrylic on canvas", caption: "Sunset over a wildflower meadow" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6575%202.jpg", alt: "Purple lilies on teal, acrylic on canvas", caption: "Purple lilies on teal" },
+  { src: "https://resume-cdn.prakhar.codes/life/IMG_6576%202.jpg", alt: "Peeking cat on pink, acrylic on canvas", caption: "Peeking cat on pink (albino raccoon energy)" },
 ];
 
 export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
@@ -136,7 +136,7 @@ export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
         open={open}
         close={() => setOpen(false)}
         index={index}
-        slides={images.map((img) => ({ src: img.src, alt: img.alt }))}
+        slides={images.map((img) => ({ src: img.src, alt: img.alt, title: img.caption }))}
       />
     </>
   );
