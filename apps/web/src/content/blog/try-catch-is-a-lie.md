@@ -16,63 +16,137 @@ TypeScript has absolutely zero opinions about what a function can throw. The com
 
 This means errors are invisible. And invisible errors are the ones that wake you up at 2 AM.
 
+## TypeScript Errors Have No Types
+
+Let's start with the most fundamental problem. In TypeScript, errors aren't typed. At all.
+
+```typescript
+function parseConfig(raw: string): Config {
+  const parsed = JSON.parse(raw); // throws SyntaxError
+  if (!parsed.version) {
+    throw new Error("Missing version field"); // throws Error
+  }
+  if (parsed.version > MAX_VERSION) {
+    throw new RangeError("Unsupported version"); // throws RangeError
+  }
+  return parsed as Config;
+}
+```
+
+Three different error types. The function signature says nothing about any of them. The caller has no idea what to expect:
+
+```typescript
+try {
+  const config = parseConfig(input);
+} catch (e) {
+  // e is `unknown`
+  // Is it SyntaxError? Error? RangeError? A string someone threw?
+  // TypeScript has no opinion. You're guessing.
+}
+```
+
+Java has `throws` declarations. Rust has `Result<T, E>`. Go returns `(value, error)`. Even Python has docstring conventions. TypeScript gives you... `unknown`. The most sophisticated type system in mainstream web development, and it completely gives up at the one place where types matter most.
+
+This isn't a minor inconvenience. It means:
+
+- **No autocomplete** on error properties in catch blocks
+- **No compile-time checks** for unhandled error types
+- **No way to know** what errors a function can throw without reading its source (and every function it calls, recursively)
+- **No refactoring safety**. Change an error type deep in a call stack? The compiler won't tell you about any of the catch blocks that now handle the wrong thing.
+
+And it gets worse. Because `throw` accepts *anything*:
+
+```typescript
+throw "something went wrong";     // string
+throw 42;                          // number
+throw { code: "NOT_FOUND" };      // object
+throw undefined;                   // yes, this is valid
+```
+
+Your catch block doesn't just handle `Error` instances. It handles the entire universe of JavaScript values. Good luck writing exhaustive error handling for that.
+
 ## How Errors Disappear
 
-You don't need complex code for errors to vanish. Here are three patterns that silently eat exceptions, and you've probably written all of them.
+You don't need complex code for errors to vanish. Here are three patterns that silently eat exceptions, and you've probably shipped all of them.
 
-**1. The forgotten await**
-
-```typescript
-async function saveUser(user: User) {
-  try {
-    validate(user);
-    db.save(user);      // forgot await
-    notify(user.email); // forgot await
-  } catch (e) {
-    console.error("Failed to save user", e);
-  }
-}
-// Both db.save and notify can fail silently.
-// The try-catch never sees their errors.
-```
-
-**2. The nested async black hole**
+**1. The Silent forEach**
 
 ```typescript
-async function processOrders(orders: Order[]) {
-  try {
-    await Promise.all(orders.map(async (order) => {
-      const inventory = await checkInventory(order);
-      await chargePayment(order);    // this throws
-      await shipOrder(order);
-    }));
-  } catch (e) {
-    // Which order failed? At which step?
-    // Was payment charged but shipping failed?
-    // You have no idea. e is `unknown`.
-    console.error("Something went wrong", e);
-  }
+async function syncAllUsers(users: User[]) {
+  const api = new ExternalApiClient();
+
+  users.forEach(async (user) => {
+    const profile = await api.fetchProfile(user.id);
+    await db.upsert("profiles", {
+      userId: user.id,
+      data: profile,
+      syncedAt: new Date(),
+    });
+  });
+
+  console.log("All users synced successfully"); // this always prints
 }
 ```
 
-**3. The middleware sandwich**
+`forEach` doesn't await the returned promises. If `fetchProfile` throws for user #3 out of 50, you'll never know. The success log always prints. Your database is silently missing records and nobody finds out until a customer complains weeks later.
+
+**2. The Event Listener Void**
 
 ```typescript
-async function handleRequest(req: Request) {
-  try {
-    const session = await authenticate(req);
-    const data = await fetchData(session);
-    const result = await transform(data);
-    return await serialize(result);
-  } catch (e) {
-    return { error: "Internal server error" };
-    // 4 async calls. Any could fail.
-    // Was it auth? Data? Transform? Serialization?
-    // The user sees "Internal server error".
-    // You see nothing useful in logs.
+function setupRealtimeSync(db: Database) {
+  const stream = db.watch("orders", { fullDocument: "updateLookup" });
+
+  stream.on("change", async (change) => {
+    const order = change.fullDocument;
+    const enriched = await inventoryService.enrich(order);
+    await searchIndex.upsert(enriched);
+    await notifyWarehouse(enriched);
+  });
+
+  stream.on("error", (err) => logger.warn("stream hiccup", err));
+}
+```
+
+The `async` callback on `'change'` returns a promise that Node's EventEmitter completely ignores. If `inventoryService.enrich` throws, there's no `unhandledRejection`, Node swallows it inside `.on()`. Orders silently stop syncing to search. The `'error'` handler only catches stream-level errors, not your callback failures. Your search index drifts from reality and nobody notices until "why can't customers find this order?"
+
+**3. The Payout Cron**
+
+This is the one that really hurts. A monthly payout job that touches six services:
+
+```typescript
+async function processMonthlyPayouts() {
+  const sellers = await db.getActiveSellers();
+
+  for (const seller of sellers) {
+    try {
+      const balance = await ledger.getBalance(seller.id);
+      const fees = await feeService.calculate(balance, seller.plan);
+      const payout = await stripe.transfers.create({
+        amount: balance - fees,
+        destination: seller.stripeAccountId,
+      });
+      await ledger.recordPayout(seller.id, payout.id, balance, fees);
+      await notificationService.send(seller.id, "payout_complete", { amount: balance - fees });
+      await analyticsService.track("payout_processed", { sellerId: seller.id });
+    } catch (e) {
+      // e is `unknown`. Which of the 6 steps failed?
+      // Was money transferred but not recorded in the ledger?
+      // Was the fee calculated wrong, or did Stripe reject it?
+      // Did we send a "payout complete" notification for a failed payout?
+      await db.flagSellerForReview(seller.id);
+      logger.error("Payout failed", { sellerId: seller.id, error: e });
+    }
   }
 }
 ```
+
+Six services. Six potential failure points. And every one of *those* functions has its own internal calls that can throw. `feeService.calculate` might call a tax API. `stripe.transfers.create` might fail after preauthorization. `ledger.recordPayout` might timeout after Stripe already moved the money.
+
+Your try-catch doesn't know if money moved or not. It doesn't know if the notification was sent for a payout that never happened. The type system tells you absolutely nothing about what any of these functions can throw, or when they throw, what state the world is in.
+
+Now multiply this by every cron job, every webhook handler, every background worker in your codebase. Every single one is a prayer that nothing throws in an order you didn't anticipate.
+
+---
 
 Every function in these examples has no type-level indication that it can fail. The compiler is perfectly happy. The code looks clean. And errors vanish into the void.
 
@@ -345,18 +419,16 @@ async function processUpload(file: File) {
 
 Slightly more code. Infinitely more information when something goes wrong.
 
-## Don't Build This Yourself (In Production)
+## Libraries That Make This Painless
 
-Everything above works. But in production, you want battle-tested implementations with proper TypeScript inference, async support, and edge case handling.
+You now understand how Result types work under the hood. You *could* maintain your own implementation, but you don't have to. These libraries handle the edge cases, async patterns, and TypeScript inference so you can focus on your actual code:
 
-Libraries worth looking at:
+- **[better-result](https://github.com/plandek-utils/better-result)**: Full Result type with `Result.gen()` for generators, `Result.tryPromise()`, `mapError`, and clean chaining. This is what I reach for in my projects.
+- **[neverthrow](https://github.com/supermacro/neverthrow)**: Popular, well-maintained, excellent TypeScript inference. `ResultAsync` makes promise-based chains feel native.
+- **[ts-results](https://github.com/vultix/ts-results)**: Rust-inspired with `Option` and `Result` types. If you've written Rust and miss it, this is your pick.
+- **[effect](https://effect.website/)**: The full effect system. Typed errors, dependency injection, concurrency, retries, scheduling. Overkill for a CRUD app. Incredible if you're building something where failure modes actually matter (payments, infra, orchestration).
 
-- **[better-result](https://github.com/plandek-utils/better-result)**: Full Result type with `Result.gen()` for generators, `Result.tryPromise()`, `mapError`, and clean chaining. This is what I use in my projects.
-- **[neverthrow](https://github.com/supermacro/neverthrow)**: Popular, well-maintained, good TypeScript inference. Has `ResultAsync` for promise-based chains.
-- **[ts-results](https://github.com/vultix/ts-results)**: Rust-inspired with `Option` and `Result` types.
-- **[effect](https://effect.website/)**: The nuclear option. Full effect system with typed errors, dependency injection, and more. Overkill for most projects, incredible for complex ones.
-
-The point isn't which library you pick. The point is to stop pretending that try-catch gives you safety. It gives you a syntax for hoping things work out.
+Pick whichever fits your style. The point isn't the library. The point is to stop treating errors as an afterthought that try-catch will magically handle for you.
 
 ## The Takeaway
 
@@ -369,5 +441,3 @@ You don't need to rewrite your codebase overnight. Start with the functions that
 Your 2 AM self will thank you.
 
 ---
-
-*I use Result types extensively in my CLIs and tools. The code examples in this post are inspired by real patterns from [hn-cli](https://github.com/imprakharshukla/hn-cli) and [bookmark-cli](https://github.com/imprakharshukla/bookmark-cli).*
