@@ -419,18 +419,16 @@ async function processUpload(file: File) {
 
 Slightly more code. Infinitely more information when something goes wrong.
 
-## Don't Build This Yourself (In Production)
+## Libraries That Make This Painless
 
-Everything above works. But in production, you want battle-tested implementations with proper TypeScript inference, async support, and edge case handling.
+You now understand how Result types work under the hood. You *could* maintain your own implementation, but you don't have to. These libraries handle the edge cases, async patterns, and TypeScript inference so you can focus on your actual code:
 
-Libraries worth looking at:
+- **[better-result](https://github.com/plandek-utils/better-result)**: Full Result type with `Result.gen()` for generators, `Result.tryPromise()`, `mapError`, and clean chaining. This is what I reach for in my projects.
+- **[neverthrow](https://github.com/supermacro/neverthrow)**: Popular, well-maintained, excellent TypeScript inference. `ResultAsync` makes promise-based chains feel native.
+- **[ts-results](https://github.com/vultix/ts-results)**: Rust-inspired with `Option` and `Result` types. If you've written Rust and miss it, this is your pick.
+- **[effect](https://effect.website/)**: The full effect system. Typed errors, dependency injection, concurrency, retries, scheduling. Overkill for a CRUD app. Incredible if you're building something where failure modes actually matter (payments, infra, orchestration).
 
-- **[better-result](https://github.com/plandek-utils/better-result)**: Full Result type with `Result.gen()` for generators, `Result.tryPromise()`, `mapError`, and clean chaining. This is what I use in my projects.
-- **[neverthrow](https://github.com/supermacro/neverthrow)**: Popular, well-maintained, good TypeScript inference. Has `ResultAsync` for promise-based chains.
-- **[ts-results](https://github.com/vultix/ts-results)**: Rust-inspired with `Option` and `Result` types.
-- **[effect](https://effect.website/)**: The nuclear option. Full effect system with typed errors, dependency injection, and more. Overkill for most projects, incredible for complex ones.
-
-The point isn't which library you pick. The point is to stop pretending that try-catch gives you safety. It gives you a syntax for hoping things work out.
+Pick whichever fits your style. The point isn't the library. The point is to stop treating errors as an afterthought that try-catch will magically handle for you.
 
 ## The Takeaway
 
