@@ -441,5 +441,3 @@ You don't need to rewrite your codebase overnight. Start with the functions that
 Your 2 AM self will thank you.
 
 ---
-
-*I use Result types extensively in my CLIs and tools. The code examples in this post are inspired by real patterns from [hn-cli](https://github.com/imprakharshukla/hn-cli) and [bookmark-cli](https://github.com/imprakharshukla/bookmark-cli).*
