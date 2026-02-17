@@ -18,61 +18,86 @@ This means errors are invisible. And invisible errors are the ones that wake you
 
 ## How Errors Disappear
 
-You don't need complex code for errors to vanish. Here are three patterns that silently eat exceptions, and you've probably written all of them.
+You don't need complex code for errors to vanish. Here are three patterns that silently eat exceptions, and you've probably shipped all of them.
 
-**1. The forgotten await**
-
-```typescript
-async function saveUser(user: User) {
-  try {
-    validate(user);
-    db.save(user);      // forgot await
-    notify(user.email); // forgot await
-  } catch (e) {
-    console.error("Failed to save user", e);
-  }
-}
-// Both db.save and notify can fail silently.
-// The try-catch never sees their errors.
-```
-
-**2. The nested async black hole**
+**1. The Silent forEach**
 
 ```typescript
-async function processOrders(orders: Order[]) {
-  try {
-    await Promise.all(orders.map(async (order) => {
-      const inventory = await checkInventory(order);
-      await chargePayment(order);    // this throws
-      await shipOrder(order);
-    }));
-  } catch (e) {
-    // Which order failed? At which step?
-    // Was payment charged but shipping failed?
-    // You have no idea. e is `unknown`.
-    console.error("Something went wrong", e);
-  }
+async function syncAllUsers(users: User[]) {
+  const api = new ExternalApiClient();
+
+  users.forEach(async (user) => {
+    const profile = await api.fetchProfile(user.id);
+    await db.upsert("profiles", {
+      userId: user.id,
+      data: profile,
+      syncedAt: new Date(),
+    });
+  });
+
+  console.log("All users synced successfully"); // this always prints
 }
 ```
 
-**3. The middleware sandwich**
+`forEach` doesn't await the returned promises. If `fetchProfile` throws for user #3 out of 50, you'll never know. The success log always prints. Your database is silently missing records and nobody finds out until a customer complains weeks later.
+
+**2. The Event Listener Void**
 
 ```typescript
-async function handleRequest(req: Request) {
-  try {
-    const session = await authenticate(req);
-    const data = await fetchData(session);
-    const result = await transform(data);
-    return await serialize(result);
-  } catch (e) {
-    return { error: "Internal server error" };
-    // 4 async calls. Any could fail.
-    // Was it auth? Data? Transform? Serialization?
-    // The user sees "Internal server error".
-    // You see nothing useful in logs.
+function setupRealtimeSync(db: Database) {
+  const stream = db.watch("orders", { fullDocument: "updateLookup" });
+
+  stream.on("change", async (change) => {
+    const order = change.fullDocument;
+    const enriched = await inventoryService.enrich(order);
+    await searchIndex.upsert(enriched);
+    await notifyWarehouse(enriched);
+  });
+
+  stream.on("error", (err) => logger.warn("stream hiccup", err));
+}
+```
+
+The `async` callback on `'change'` returns a promise that Node's EventEmitter completely ignores. If `inventoryService.enrich` throws, there's no `unhandledRejection`, Node swallows it inside `.on()`. Orders silently stop syncing to search. The `'error'` handler only catches stream-level errors, not your callback failures. Your search index drifts from reality and nobody notices until "why can't customers find this order?"
+
+**3. The Payout Cron**
+
+This is the one that really hurts. A monthly payout job that touches six services:
+
+```typescript
+async function processMonthlyPayouts() {
+  const sellers = await db.getActiveSellers();
+
+  for (const seller of sellers) {
+    try {
+      const balance = await ledger.getBalance(seller.id);
+      const fees = await feeService.calculate(balance, seller.plan);
+      const payout = await stripe.transfers.create({
+        amount: balance - fees,
+        destination: seller.stripeAccountId,
+      });
+      await ledger.recordPayout(seller.id, payout.id, balance, fees);
+      await notificationService.send(seller.id, "payout_complete", { amount: balance - fees });
+      await analyticsService.track("payout_processed", { sellerId: seller.id });
+    } catch (e) {
+      // e is `unknown`. Which of the 6 steps failed?
+      // Was money transferred but not recorded in the ledger?
+      // Was the fee calculated wrong, or did Stripe reject it?
+      // Did we send a "payout complete" notification for a failed payout?
+      await db.flagSellerForReview(seller.id);
+      logger.error("Payout failed", { sellerId: seller.id, error: e });
+    }
   }
 }
 ```
+
+Six services. Six potential failure points. And every one of *those* functions has its own internal calls that can throw. `feeService.calculate` might call a tax API. `stripe.transfers.create` might fail after preauthorization. `ledger.recordPayout` might timeout after Stripe already moved the money.
+
+Your try-catch doesn't know if money moved or not. It doesn't know if the notification was sent for a payout that never happened. The type system tells you absolutely nothing about what any of these functions can throw, or when they throw, what state the world is in.
+
+Now multiply this by every cron job, every webhook handler, every background worker in your codebase. Every single one is a prayer that nothing throws in an order you didn't anticipate.
+
+---
 
 Every function in these examples has no type-level indication that it can fail. The compiler is perfectly happy. The code looks clean. And errors vanish into the void.
 
