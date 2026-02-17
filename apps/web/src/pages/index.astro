@@ -155,9 +155,12 @@ const filteredBlogPosts = blogPosts
         </ResumeButton>
 
         <CalEmbed client:load>
-          <IconButton title={"Schedule a call"} link={"#"}>
+          <span
+            class="py-1 px-2 w-fit border-border transform duration-200 hover:text-primary text-muted-foreground hover:bg-primary/10 items-center border rounded-md bg-card flex gap-2 cursor-pointer"
+          >
             <CalendarIcon client:load />
-          </IconButton>
+            <span class="text-foreground description">Schedule a call</span>
+          </span>
         </CalEmbed>
 
         <IconButton
