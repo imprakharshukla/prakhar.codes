@@ -16,6 +16,55 @@ TypeScript has absolutely zero opinions about what a function can throw. The com
 
 This means errors are invisible. And invisible errors are the ones that wake you up at 2 AM.
 
+## TypeScript Errors Have No Types
+
+Let's start with the most fundamental problem. In TypeScript, errors aren't typed. At all.
+
+```typescript
+function parseConfig(raw: string): Config {
+  const parsed = JSON.parse(raw); // throws SyntaxError
+  if (!parsed.version) {
+    throw new Error("Missing version field"); // throws Error
+  }
+  if (parsed.version > MAX_VERSION) {
+    throw new RangeError("Unsupported version"); // throws RangeError
+  }
+  return parsed as Config;
+}
+```
+
+Three different error types. The function signature says nothing about any of them. The caller has no idea what to expect:
+
+```typescript
+try {
+  const config = parseConfig(input);
+} catch (e) {
+  // e is `unknown`
+  // Is it SyntaxError? Error? RangeError? A string someone threw?
+  // TypeScript has no opinion. You're guessing.
+}
+```
+
+Java has `throws` declarations. Rust has `Result<T, E>`. Go returns `(value, error)`. Even Python has docstring conventions. TypeScript gives you... `unknown`. The most sophisticated type system in mainstream web development, and it completely gives up at the one place where types matter most.
+
+This isn't a minor inconvenience. It means:
+
+- **No autocomplete** on error properties in catch blocks
+- **No compile-time checks** for unhandled error types
+- **No way to know** what errors a function can throw without reading its source (and every function it calls, recursively)
+- **No refactoring safety**. Change an error type deep in a call stack? The compiler won't tell you about any of the catch blocks that now handle the wrong thing.
+
+And it gets worse. Because `throw` accepts *anything*:
+
+```typescript
+throw "something went wrong";     // string
+throw 42;                          // number
+throw { code: "NOT_FOUND" };      // object
+throw undefined;                   // yes, this is valid
+```
+
+Your catch block doesn't just handle `Error` instances. It handles the entire universe of JavaScript values. Good luck writing exhaustive error handling for that.
+
 ## How Errors Disappear
 
 You don't need complex code for errors to vanish. Here are three patterns that silently eat exceptions, and you've probably shipped all of them.
