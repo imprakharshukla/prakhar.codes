@@ -11,7 +11,17 @@ publish: true
 type: "Commercial"
 languages: ["TypeScript", "Javascript"]
 frameworks: ["NextJS", "React", "Convex", "Mastra", "Trigger.dev"]
-rank: 2
+screenshots:
+  - "/images/projects/screenshots/postsonar/SCR-20260224-jzyx-2.png"
+  - "/images/projects/screenshots/postsonar/SCR-20260224-jzyx-4.png"
+  - "/images/projects/screenshots/postsonar/SCR-20260224-jzyx-5.png"
+  - "/images/projects/screenshots/postsonar/SCR-20260224-jzyx-6.png"
+  - "/images/projects/screenshots/postsonar/SCR-20260224-kavb.png"
+  - "/images/projects/screenshots/postsonar/SCR-20260224-kavb-2.png"
+  - "/images/projects/screenshots/postsonar/G-2M37tboAM3SNz.jpeg"
+  - "/images/projects/screenshots/postsonar/G-2MaYcaYAApjYe.jpeg"
+  - "/images/projects/screenshots/postsonar/G-2ND69aEAA6YCq.jpeg"
+rank: 3
 ---
 
 PostSonar is an AI-powered research assistant that automates content discovery for thought leaders and content creators. It monitors multiple sources in your domain of expertise, intelligently filters for relevance, and generates personalized post ideas matching your unique writing voice.

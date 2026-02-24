@@ -21,7 +21,25 @@ const {
   pubDate,
   updatedDate,
   heroImage,
+  video,
+  screenshots,
 } = Astro.props;
+
+function getYouTubeEmbedUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname === "youtu.be") {
+      return `https://www.youtube.com/embed/${parsed.pathname.slice(1)}`;
+    }
+    if (parsed.hostname.includes("youtube.com") && parsed.searchParams.get("v")) {
+      return `https://www.youtube.com/embed/${parsed.searchParams.get("v")}`;
+    }
+  } catch {}
+  return null;
+}
+
+const embedUrl = video ? getYouTubeEmbedUrl(video) : null;
+const isDirectVideo = video && !embedUrl;
 ---
 
 <Layout title={title} description={description} image={heroImage}>
@@ -77,11 +95,52 @@ const {
             </div>
           </div>
         </header>
-        <img
-          src={heroImage}
-          alt={heroImage}
-          class="w-full h-64 object-cover object-left rounded-lg mt-4"
-        />
+        {embedUrl && (
+          <div class="mt-4 rounded-lg overflow-hidden aspect-video">
+            <iframe
+              src={embedUrl}
+              title={title}
+              class="w-full h-full"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        )}
+        {isDirectVideo && (
+          <div class="mt-4 rounded-lg overflow-hidden">
+            <video
+              src={video}
+              class="w-full rounded-lg"
+              controls
+              muted
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+        )}
+        {!embedUrl && !isDirectVideo && (
+          <img
+            src={heroImage}
+            alt={heroImage}
+            class="w-full h-64 object-cover object-left rounded-lg mt-4"
+          />
+        )}
+        {screenshots && screenshots.length > 0 && (
+          <div class="mt-8 grid gap-4">
+            <h2 class="text-lg font-semibold text-foreground">Screenshots</h2>
+            <div class="grid gap-4">
+              {screenshots.map((src: string) => (
+                <img
+                  src={src}
+                  alt={`${title} screenshot`}
+                  class="w-full rounded-xl shadow-lg ring-1 ring-border/20"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          </div>
+        )}
         <div class="prose dark:prose-invert mt-8 text-foreground/90">
           <slot />
         </div>

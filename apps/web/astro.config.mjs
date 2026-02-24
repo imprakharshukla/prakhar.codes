@@ -10,6 +10,7 @@ import { remarkReadingTime } from "./src/plugins/reading-time.mjs";
 // https://astro.build/config
 export default defineConfig({
   site: "https://prakhar.codes",
+  prefetch: true,
   adapter: vercel({
     functionPerRoute: false,
   }),

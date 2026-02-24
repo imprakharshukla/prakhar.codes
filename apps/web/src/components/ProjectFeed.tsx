@@ -1,5 +1,4 @@
 import type { CollectionEntry } from 'astro:content';
-import { Button } from "@prakhar/ui";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import TechBadge from './TechBadge';
 
@@ -13,12 +12,10 @@ declare global {
 }
 
 export default function ProjectFeed({
-  numberOfPost = 4,
   headingVisible = false,
   projects,
   compact = false
 }: {
-  numberOfPost?: number,
   headingVisible?: boolean,
   projects: CollectionEntry<"project">[],
   compact?: boolean
@@ -44,14 +41,14 @@ export default function ProjectFeed({
       <div>
         {headingVisible &&
           <h1 className="h3-heading">
-            Latest Projects
+            Projects
           </h1>
         }
       </div>
       <div className="mt-3 grid grid-cols-1 items-center xs:w-full">
         <ul ref={parent} className="grid gap-6">
           {
-            projects.slice(0, numberOfPost).map((project) => {
+            projects.map((project) => {
               if (compact) {
                 return (
                   <li key={project.id}>
@@ -152,16 +149,6 @@ export default function ProjectFeed({
             })
           }
         </ul>
-        {projects.length > numberOfPost &&
-          <div>
-            <a href="/projects">
-              <Button size={"sm"} className="my-4" variant={"secondary"}>
-                View all Projects
-              </Button>
-            </a>
-          </div>
-
-        }
       </div>
     </>
 

@@ -35,7 +35,8 @@ export default function CalEmbed({
     })();
   }, [namespace]);
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     // Track schedule call click
     if (typeof window !== 'undefined' && window.posthog) {
       window.posthog.capture('schedule_call_clicked', {

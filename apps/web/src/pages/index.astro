@@ -19,7 +19,6 @@ import CalendarIcon from "../components/icons/CalendarIcon";
 import GithubLogoIcon from "../components/icons/GithubLogoIcon";
 import XLogoIcon from "../components/icons/XLogoIcon";
 import LinkedinLogoIcon from "../components/icons/LinkedinLogoIcon";
-import MoreTechChip from "../components/MoreTechChip";
 
 const blogPosts = await getCollection("blog");
 const projects = (await getCollection("project")).sort((a, b) => {
@@ -113,30 +112,11 @@ const filteredBlogPosts = blogPosts
             class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
             >Yobr</a
           ></span
-        > in Norway. My <a
-          href="https://andronix.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-foreground font-medium underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
-          >products</a
-        > have reached <span class="text-foreground font-medium"
+        > in Norway. My products have reached <span class="text-foreground font-medium"
           >2.5M+ downloads</span
         > and generated <span class="text-foreground font-medium"
           >$140K+ in revenue</span
-        >. Now <HiringPopover client:load /> while continuing to build <a
-          href="https://lumoflo.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
-          >Lumoflo</a
-        >
-        and <a
-          href="https://andronix.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
-          >Andronix</a
-        >.
+        >. Now <HiringPopover client:load />.
       </p>
       <p class="description">
         I build for the <span class="text-foreground font-medium">web</span>, <span
@@ -380,9 +360,8 @@ const filteredBlogPosts = blogPosts
           >
           Kotlin
         </span>
-        <!-- More -->
-        <MoreTechChip client:load />
       </div>
+      <p class="text-muted-foreground text-xs mt-1.5">I've worked with tons of different tech stacks and I love learning new things. This list is not static and never will be.</p>
 
       <hr class="dark:border-border/50 border-border mt-4" />
       <div>
@@ -396,9 +375,9 @@ const filteredBlogPosts = blogPosts
       <hr class="dark:border-border/50 border-border my-8" />
       <ProjectFeed headingVisible compact projects={projects} client:load />
       <hr class="dark:border-border/50 border-border my-8" />
-      <TestimonialsSection headingVisible client:only="react" />
-      <hr class="dark:border-border/50 border-border my-8" />
       <GitHubStatsBentoGrid headingVisible client:only="react" />
+      <hr class="dark:border-border/50 border-border my-8" />
+      <TestimonialsSection headingVisible client:only="react" />
     </div>
   </Layout>
 </html>
