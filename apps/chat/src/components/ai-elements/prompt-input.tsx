@@ -36,6 +36,7 @@ import {
 } from "@prakhar/ui";
 import { cn } from "@prakhar/ui";
 import type { ChatStatus, FileUIPart } from "ai";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import {
   ImageIcon,
   Loader2Icon,
@@ -263,6 +264,7 @@ export function PromptInputAttachment({
   className,
   ...props
 }: PromptInputAttachmentProps) {
+  const { haptic } = useHapticFeedback();
   const attachments = usePromptInputAttachments();
 
   const filename = data.filename || "";
@@ -305,6 +307,7 @@ export function PromptInputAttachment({
               className="absolute inset-0 size-5 cursor-pointer rounded p-0 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 [&>svg]:size-2.5"
               onClick={(e) => {
                 e.stopPropagation();
+                haptic("warning");
                 attachments.remove(data.id);
               }}
               type="button"
@@ -436,6 +439,7 @@ export const PromptInput = ({
   children,
   ...props
 }: PromptInputProps) => {
+  const { haptic } = useHapticFeedback();
   // Try to use a provider controller if present
   const controller = useOptionalPromptInputController();
   const usingProvider = !!controller;
@@ -663,6 +667,7 @@ export const PromptInput = ({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+    haptic("success");
 
     const form = event.currentTarget;
     const text = usingProvider
@@ -1071,6 +1076,7 @@ export const PromptInputSpeechButton = ({
   onTranscriptionChange,
   ...props
 }: PromptInputSpeechButtonProps) => {
+  const { haptic } = useHapticFeedback();
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
     null
@@ -1142,12 +1148,13 @@ export const PromptInputSpeechButton = ({
       return;
     }
 
+    haptic("nudge");
     if (isListening) {
       recognition.stop();
     } else {
       recognition.start();
     }
-  }, [recognition, isListening]);
+  }, [recognition, isListening, haptic]);
 
   return (
     <PromptInputButton

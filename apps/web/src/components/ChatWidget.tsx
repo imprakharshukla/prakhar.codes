@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Skeleton } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 // Declare PostHog type
 declare global {
@@ -27,6 +28,7 @@ const getChatUrl = () => {
 const CHAT_URL = getChatUrl();
 
 export function ChatWidget() {
+  const { haptic } = useHapticFeedback();
   const [open, setOpen] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [showLabel, setShowLabel] = useState(true);
@@ -49,6 +51,7 @@ export function ChatWidget() {
 
   // Track chat widget opened
   const handleToggleChat = (newState: boolean) => {
+    haptic(newState ? "medium" : "light");
     setOpen(newState);
 
     if (newState && typeof window !== 'undefined' && window.posthog) {

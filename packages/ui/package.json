@@ -56,7 +56,8 @@
     "react-resizable-panels": "^2.0.16",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.2",
-    "vaul": "^0.9.0"
+    "vaul": "^0.9.0",
+    "web-haptics": "^0.0.6"
   },
   "devDependencies": {
     "@types/react": "^19.2.2",

@@ -13,6 +13,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { cn } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import {
   type ComponentProps,
@@ -190,13 +191,15 @@ export const InlineCitationCarouselPrev = ({
   className,
   ...props
 }: InlineCitationCarouselPrevProps) => {
+  const { haptic } = useHapticFeedback();
   const api = useCarouselApi();
 
   const handleClick = useCallback(() => {
     if (api) {
+      haptic("selection");
       api.scrollPrev();
     }
-  }, [api]);
+  }, [api, haptic]);
 
   return (
     <button
@@ -217,13 +220,15 @@ export const InlineCitationCarouselNext = ({
   className,
   ...props
 }: InlineCitationCarouselNextProps) => {
+  const { haptic } = useHapticFeedback();
   const api = useCarouselApi();
 
   const handleClick = useCallback(() => {
     if (api) {
+      haptic("selection");
       api.scrollNext();
     }
-  }, [api]);
+  }, [api, haptic]);
 
   return (
     <button

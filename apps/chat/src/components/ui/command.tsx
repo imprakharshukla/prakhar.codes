@@ -1,8 +1,11 @@
+"use client"
+
 import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
 import { SearchIcon } from "lucide-react"
 
 import { cn } from "@prakhar/ui"
+import { useHapticFeedback } from "@prakhar/ui/lib"
 import {
   Dialog,
   DialogContent,
@@ -138,8 +141,10 @@ function CommandSeparator({
 
 function CommandItem({
   className,
+  onSelect,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Item>) {
+  const { haptic } = useHapticFeedback()
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
@@ -147,6 +152,10 @@ function CommandItem({
         "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      onSelect={(value) => {
+        haptic("selection")
+        onSelect?.(value)
+      }}
       {...props}
     />
   )

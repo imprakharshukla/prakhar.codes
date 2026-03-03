@@ -7,6 +7,7 @@ import { PanelLeftIcon } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@prakhar/ui"
+import { useHapticFeedback } from "@prakhar/ui/lib"
 import { Button } from "@prakhar/ui"
 import { Input } from "@prakhar/ui"
 import { Separator } from "@prakhar/ui"
@@ -259,6 +260,7 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar()
+  const { haptic } = useHapticFeedback()
 
   return (
     <Button
@@ -268,6 +270,7 @@ function SidebarTrigger({
       size="icon"
       className={cn("size-7", className)}
       onClick={(event) => {
+        haptic("nudge")
         onClick?.(event)
         toggleSidebar()
       }}
@@ -502,6 +505,7 @@ function SidebarMenuButton({
   size = "default",
   tooltip,
   className,
+  onClick,
   ...props
 }: React.ComponentProps<"button"> & {
   asChild?: boolean
@@ -510,6 +514,7 @@ function SidebarMenuButton({
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot : "button"
   const { isMobile, state } = useSidebar()
+  const { haptic } = useHapticFeedback()
 
   const button = (
     <Comp
@@ -518,6 +523,10 @@ function SidebarMenuButton({
       data-size={size}
       data-active={isActive}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+        haptic("light")
+        onClick?.(e)
+      }}
       {...props}
     />
   )

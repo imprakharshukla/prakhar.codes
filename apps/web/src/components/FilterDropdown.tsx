@@ -7,6 +7,7 @@ import {
   } from "@prakhar/ui";
   import { ListFilter } from "lucide-react";
   import { Category } from "../types";
+  import { useHapticFeedback } from "@prakhar/ui/lib";
 
   type FilterDropdownProps = {
     setCategory: (category: Category | "All") => void;
@@ -15,6 +16,7 @@ import {
   }
 
   export default function FilterDropdown({ setCategory, activeCategory, categoryCounts }: FilterDropdownProps) {
+    const { haptic } = useHapticFeedback();
     const total = Object.values(categoryCounts).reduce((a, b) => a + b, 0);
 
     return (
@@ -30,12 +32,12 @@ import {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-[180px] border border-border/50">
-          <DropdownMenuItem onClick={() => setCategory("All")} key={"all"} className="flex items-center justify-between">
+          <DropdownMenuItem onClick={() => { haptic("selection"); setCategory("All"); }} key={"all"} className="flex items-center justify-between">
             <span>All</span>
             <span className="text-primary bg-primary/20 px-1.5 py-0.5 rounded font-medium text-xs">{total}</span>
           </DropdownMenuItem>
           {Object.entries(categoryCounts).map(([category, count]) => (
-            <DropdownMenuItem onClick={() => setCategory(category as Category)} key={category} className="flex items-center justify-between">
+            <DropdownMenuItem onClick={() => { haptic("selection"); setCategory(category as Category); }} key={category} className="flex items-center justify-between">
               <span>{category}</span>
               <span className="text-primary bg-primary/20 px-1.5 py-0.5 rounded font-medium text-xs">{count}</span>
             </DropdownMenuItem>

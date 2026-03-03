@@ -1,6 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import TechBadge from './TechBadge';
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 // Declare PostHog type
 declare global {
@@ -22,8 +23,10 @@ export default function ProjectFeed({
 }) {
 
   const [parent] = useAutoAnimate()
+  const { haptic } = useHapticFeedback();
 
   const handleProjectClick = (project: CollectionEntry<"project">) => {
+    haptic("light");
     // Track project click
     if (typeof window !== 'undefined' && window.posthog) {
       window.posthog.capture('project_clicked', {

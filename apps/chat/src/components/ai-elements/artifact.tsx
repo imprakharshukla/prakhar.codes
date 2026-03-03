@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from "@prakhar/ui";
 import { cn } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import { type LucideIcon, XIcon } from "lucide-react";
 import type { ComponentProps, HTMLAttributes } from "react";
 
@@ -45,22 +46,30 @@ export const ArtifactClose = ({
   children,
   size = "sm",
   variant = "ghost",
+  onClick,
   ...props
-}: ArtifactCloseProps) => (
-  <Button
-    className={cn(
-      "size-8 p-0 text-muted-foreground hover:text-foreground",
-      className
-    )}
-    size={size}
-    type="button"
-    variant={variant}
-    {...props}
-  >
-    {children ?? <XIcon className="size-4" />}
-    <span className="sr-only">Close</span>
-  </Button>
-);
+}: ArtifactCloseProps) => {
+  const { haptic } = useHapticFeedback();
+  return (
+    <Button
+      className={cn(
+        "size-8 p-0 text-muted-foreground hover:text-foreground",
+        className
+      )}
+      size={size}
+      type="button"
+      variant={variant}
+      onClick={(e) => {
+        haptic("light");
+        onClick?.(e);
+      }}
+      {...props}
+    >
+      {children ?? <XIcon className="size-4" />}
+      <span className="sr-only">Close</span>
+    </Button>
+  );
+};
 
 export type ArtifactTitleProps = HTMLAttributes<HTMLParagraphElement>;
 
@@ -103,8 +112,10 @@ export const ArtifactAction = ({
   className,
   size = "sm",
   variant = "ghost",
+  onClick,
   ...props
 }: ArtifactActionProps) => {
+  const { haptic } = useHapticFeedback();
   const button = (
     <Button
       className={cn(
@@ -114,6 +125,10 @@ export const ArtifactAction = ({
       size={size}
       type="button"
       variant={variant}
+      onClick={(e) => {
+        haptic("success");
+        onClick?.(e);
+      }}
       {...props}
     >
       {Icon ? <Icon className="size-4" /> : children}

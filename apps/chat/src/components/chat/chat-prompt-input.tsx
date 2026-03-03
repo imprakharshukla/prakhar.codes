@@ -1,6 +1,9 @@
+"use client";
+
 import { PromptInput, PromptInputBody, PromptInputFooter, PromptInputSubmit, PromptInputTextarea } from "@/components/ai-elements/prompt-input";
 import { Suggestions, Suggestion } from "@/components/ai-elements/suggestion";
 import { Skeleton } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import type { ChatStatus } from "ai";
 
@@ -29,6 +32,7 @@ export function ChatPromptInput({
   suggestions,
   suggestionsLoading,
 }: ChatPromptInputProps) {
+  const { haptic } = useHapticFeedback();
   return (
     <div className="grid shrink-0 gap-4 pt-4 max-w-4xl mx-auto w-full">
       {/* Show suggestions above input */}
@@ -38,7 +42,10 @@ export function ChatPromptInput({
             <Suggestion
               key={idx}
               suggestion={suggestion}
-              onClick={onSuggestionClick}
+              onClick={(s) => {
+                haptic("medium");
+                onSuggestionClick?.(s);
+              }}
             />
           ))}
         </Suggestions>

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import ThemeSwitcher from "./theme-switcher";
 import {
   Button,
@@ -15,6 +16,7 @@ import {
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { haptic } = useHapticFeedback();
   const links = [{ to: "/", label: "Hjem" }];
 
   return (
@@ -23,7 +25,7 @@ export default function Header() {
         <nav className="flex gap-4 text-lg">
           {links.map(({ to, label }) => {
             return (
-              <Link key={to} href={to as any}>
+              <Link key={to} href={to as any} onClick={() => haptic("light")}>
                 {label}
               </Link>
             );
@@ -32,7 +34,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button variant="default">Få laget ditt eget verktøy</Button>
+              <Button variant="default" onClick={() => haptic("light")}>Få laget ditt eget verktøy</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>

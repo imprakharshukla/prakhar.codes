@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 // Declare PostHog type
 declare global {
@@ -16,9 +17,11 @@ interface ResumeButtonProps {
 }
 
 export default function ResumeButton({ children, title }: ResumeButtonProps) {
+  const { haptic } = useHapticFeedback();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    haptic("success");
     setIsLoading(true);
 
     // Track resume download

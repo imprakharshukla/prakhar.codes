@@ -4,6 +4,7 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -13,6 +14,7 @@ import {
 
 export function ModeToggle() {
 	const { setTheme } = useTheme();
+	const { haptic } = useHapticFeedback();
 
 	return (
 		<DropdownMenu>
@@ -24,13 +26,13 @@ export function ModeToggle() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem onClick={() => setTheme("light")}>
+				<DropdownMenuItem onClick={() => { haptic("selection"); setTheme("light"); }}>
 					Light
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("dark")}>
+				<DropdownMenuItem onClick={() => { haptic("selection"); setTheme("dark"); }}>
 					Dark
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("system")}>
+				<DropdownMenuItem onClick={() => { haptic("selection"); setTheme("system"); }}>
 					System
 				</DropdownMenuItem>
 			</DropdownMenuContent>

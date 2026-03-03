@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 interface TopBannerProps {
   message: string;
@@ -18,6 +19,7 @@ export function TopBanner({
   dismissible = true,
   bannerId = "top-banner",
 }: TopBannerProps) {
+  const { haptic } = useHapticFeedback();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export function TopBanner({
   }, [bannerId]);
 
   const handleDismiss = () => {
+    haptic("light");
     setIsVisible(false);
     localStorage.setItem(`banner-dismissed-${bannerId}`, "true");
   };
