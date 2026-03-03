@@ -1,6 +1,6 @@
 /**
  * Seeds movie and TV show data from OMDB API into Redis cache.
- * Usage: OMDB_API_KEY=your_key UPSTASH_REDIS_REST_URL=... UPSTASH_REDIS_REST_TOKEN=... npx tsx scripts/fetch-movies.ts
+ * Usage: OMDB_API_KEY=your_key UPSTASH_REDIS_REST_URL=... UPSTASH_REDIS_REST_TOKEN=... bun scripts/fetch-movies.ts
  */
 
 import { Redis } from "@upstash/redis";
