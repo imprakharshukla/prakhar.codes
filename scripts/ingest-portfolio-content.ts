@@ -1,9 +1,9 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env bun
 /**
  * Ingests portfolio content (blog posts, projects, travel, experience) into the RAG system
  *
  * Usage:
- *   pnpm tsx scripts/ingest-portfolio-content.ts
+ *   bun scripts/ingest-portfolio-content.ts
  *
  * Environment variables required:
  *   - DATABASE_URL: PostgreSQL connection string
