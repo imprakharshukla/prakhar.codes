@@ -6,6 +6,7 @@ import {
   CollapsibleTrigger,
 } from "@prakhar/ui";
 import { cn } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import { BookIcon, ChevronDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 
@@ -26,10 +27,17 @@ export const SourcesTrigger = ({
   className,
   count,
   children,
+  onClick,
   ...props
-}: SourcesTriggerProps) => (
+}: SourcesTriggerProps) => {
+  const { haptic } = useHapticFeedback();
+  return (
   <CollapsibleTrigger
     className={cn("flex items-center gap-2", className)}
+    onClick={(e) => {
+      haptic("selection");
+      onClick?.(e);
+    }}
     {...props}
   >
     {children ?? (
@@ -39,7 +47,8 @@ export const SourcesTrigger = ({
       </>
     )}
   </CollapsibleTrigger>
-);
+  );
+};
 
 export type SourcesContentProps = ComponentProps<typeof CollapsibleContent>;
 

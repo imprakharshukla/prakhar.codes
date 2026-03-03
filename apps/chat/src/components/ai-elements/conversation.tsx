@@ -2,6 +2,7 @@
 
 import { Button } from "@prakhar/ui";
 import { cn } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import { ArrowDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 import { useCallback, useEffect, useRef } from "react";
@@ -138,11 +139,13 @@ export const ConversationScrollButton = ({
   className,
   ...props
 }: ConversationScrollButtonProps) => {
+  const { haptic } = useHapticFeedback();
   const { isAtBottom, scrollToBottom } = useStickToBottomContext();
 
   const handleScrollToBottom = useCallback(() => {
+    haptic("nudge");
     scrollToBottom();
-  }, [scrollToBottom]);
+  }, [scrollToBottom, haptic]);
 
   return (
     !isAtBottom && (

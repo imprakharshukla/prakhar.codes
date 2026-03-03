@@ -4,6 +4,7 @@ import { Button, Input } from "@prakhar/ui";
 import { useEffect, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { cn } from "@prakhar/ui/lib";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import Fuse from "fuse.js";
 import { getReadingTimeDynamic } from "../plugins/reading-time-dynamic";
 import FilterDropdown from "./FilterDropdown";
@@ -49,10 +50,12 @@ export default function PostFeed(props: {
     setQuery(value);
   }
 
+  const { haptic } = useHapticFeedback();
   const [category, setCategory] = useState<Category | "All">("All");
   const [posts, setPosts] = useState(blogPosts);
   useEffect(() => {
     console.log({ category });
+    haptic("selection");
     if (category === "All") {
       posts.sort((a, b) => {
         return (
@@ -117,6 +120,7 @@ export default function PostFeed(props: {
                   heroImage={post.data.heroImage}
                   slug={post.id}
                   compact={compact}
+                  haptic={haptic}
                 />
               );
             })
@@ -132,6 +136,7 @@ export default function PostFeed(props: {
                   heroImage={post.data.heroImage}
                   slug={post.id}
                   compact={compact}
+                  haptic={haptic}
                 />
               );
             })}
@@ -170,6 +175,7 @@ const Post = ({
   heroImage,
   slug,
   compact = false,
+  haptic,
 }: {
   id: string;
   title: string;
@@ -179,8 +185,10 @@ const Post = ({
   heroImage?: string;
   slug: string;
   compact?: boolean;
+  haptic: (preset: string) => void;
 }) => {
   const handleClick = () => {
+    haptic("light");
     // Track blog post click
     if (typeof window !== "undefined" && window.posthog) {
       window.posthog.capture("blog_post_clicked", {

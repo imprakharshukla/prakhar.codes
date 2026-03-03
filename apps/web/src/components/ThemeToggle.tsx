@@ -9,8 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@prakhar/ui";
 import { useState, useEffect } from "react";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 export function ThemeToggle() {
+  const { haptic } = useHapticFeedback();
   const [isMounted, setIsMounted] = useState(false);
   const [theme, setTheme] = useState(() => {
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
@@ -92,15 +94,15 @@ export function ThemeToggle() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="">
-          <DropdownMenuItem onClick={() => setTheme("light")}>
+          <DropdownMenuItem onClick={() => { haptic("selection"); setTheme("light"); }}>
             <SunIcon className="mr-2 h-4 w-4" />
             <span>Light</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
+          <DropdownMenuItem onClick={() => { haptic("selection"); setTheme("dark"); }}>
             <MoonIcon className="mr-2 h-4 w-4" />
             <span>Dark</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
+          <DropdownMenuItem onClick={() => { haptic("selection"); setTheme("system"); }}>
             <Laptop className="mr-2 h-4 w-4" />
             <span>System</span>
           </DropdownMenuItem>

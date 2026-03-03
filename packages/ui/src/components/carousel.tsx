@@ -5,6 +5,7 @@ import useEmblaCarousel, {
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "../lib/utils"
+import { useHapticFeedback } from "../lib/use-haptic-feedback"
 import { Button } from "./button"
 
 type CarouselApi = UseEmblaCarouselType[1]
@@ -65,6 +66,7 @@ const Carousel = React.forwardRef<
     )
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const { haptic } = useHapticFeedback()
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -76,12 +78,14 @@ const Carousel = React.forwardRef<
     }, [])
 
     const scrollPrev = React.useCallback(() => {
+      haptic("nudge")
       api?.scrollPrev()
-    }, [api])
+    }, [api, haptic])
 
     const scrollNext = React.useCallback(() => {
+      haptic("nudge")
       api?.scrollNext()
-    }, [api])
+    }, [api, haptic])
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {

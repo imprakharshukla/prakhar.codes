@@ -2,6 +2,7 @@
 
 import { Button } from "@prakhar/ui";
 import { cn } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import type { ComponentProps, HTMLAttributes } from "react";
 
 export type SuggestionsProps = HTMLAttributes<HTMLDivElement>;
@@ -36,7 +37,9 @@ export const Suggestion = ({
   children,
   ...props
 }: SuggestionProps) => {
+  const { haptic } = useHapticFeedback();
   const handleClick = () => {
+    haptic("medium");
     onClick?.(suggestion);
   };
 

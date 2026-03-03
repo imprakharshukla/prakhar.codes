@@ -2,6 +2,7 @@ import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
 
 import { cn } from "../lib/utils";
+import { useHapticFeedback } from "../lib/use-haptic-feedback";
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -18,7 +19,18 @@ const DrawerTrigger = DrawerPrimitive.Trigger;
 
 const DrawerPortal = DrawerPrimitive.Portal;
 
-const DrawerClose = DrawerPrimitive.Close;
+const DrawerClose = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Close>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>
+>(({ onClick, ...props }, ref) => {
+  const { haptic } = useHapticFeedback();
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    haptic("light");
+    onClick?.(e);
+  };
+  return <DrawerPrimitive.Close ref={ref} onClick={handleClick} {...props} />;
+});
+DrawerClose.displayName = "DrawerClose";
 
 const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,

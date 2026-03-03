@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from "@prakhar/ui";
 import { cn } from "@prakhar/ui";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import type { ComponentProps } from "react";
 
 export type ActionsProps = ComponentProps<"div">;
@@ -30,8 +31,10 @@ export const Action = ({
   className,
   variant = "ghost",
   size = "sm",
+  onClick,
   ...props
 }: ActionProps) => {
+  const { haptic } = useHapticFeedback();
   const button = (
     <Button
       className={cn(
@@ -41,6 +44,10 @@ export const Action = ({
       size={size}
       type="button"
       variant={variant}
+      onClick={(e) => {
+        haptic("light");
+        onClick?.(e);
+      }}
       {...props}
     >
       {children}

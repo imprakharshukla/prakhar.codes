@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 interface Movie {
   title: string;
@@ -11,6 +12,7 @@ interface Movie {
 }
 
 export function MovieScroller({ endpoint = "/api/movies" }: { endpoint?: string }) {
+  const { haptic } = useHapticFeedback();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -41,6 +43,7 @@ export function MovieScroller({ endpoint = "/api/movies" }: { endpoint?: string 
   }, [movies]);
 
   const scroll = (dir: "left" | "right") => {
+    haptic("nudge");
     const el = scrollRef.current;
     if (!el) return;
     const amount = el.clientWidth * 0.7;

@@ -7,6 +7,7 @@ import {
   Island,
 } from "@phosphor-icons/react";
 import { cn } from "@prakhar/ui/lib";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 import { Button } from "@prakhar/ui";
 import {
   TooltipProvider,
@@ -55,6 +56,7 @@ export default function NavigationBar({
   className?: string;
   path: string;
 }) {
+  const { haptic } = useHapticFeedback();
   console.log({ path });
   return (
     <div id="bottomNav" className={cn(className, "block")}>
@@ -77,6 +79,7 @@ export default function NavigationBar({
                       <li className="w-full group">
                         <a
                           href={item.path}
+                          onClick={() => haptic("light")}
                           className={cn(
                             color,
                             "flex flex-col items-center justify-center group-hover:text-primary group-hover:scale-[1.12] duration-100 ease-in-out"

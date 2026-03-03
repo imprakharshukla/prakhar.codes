@@ -1,5 +1,6 @@
 import { cn } from "@prakhar/ui";
 import { useState } from "react";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 interface Testimonial {
   name: string;
@@ -71,9 +72,11 @@ const LinkedInIcon = () => (
 const TestimonialsSection: React.FC<{ headingVisible?: boolean }> = ({
   headingVisible = false,
 }) => {
+  const { haptic } = useHapticFeedback();
   const [expandedTestimonials, setExpandedTestimonials] = useState<Set<number>>(new Set());
 
   const toggleExpanded = (index: number) => {
+    haptic("selection");
     setExpandedTestimonials(prev => {
       const newSet = new Set(prev);
       if (newSet.has(index)) {

@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { useHapticFeedback } from "@prakhar/ui/lib";
 
 interface ArtImage {
   src: string;
@@ -17,6 +18,7 @@ const artImages: ArtImage[] = [
 ];
 
 export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
+  const { haptic } = useHapticFeedback();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -39,6 +41,7 @@ export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
   }, []);
 
   const scroll = (dir: "left" | "right") => {
+    haptic("nudge");
     const el = scrollRef.current;
     if (!el) return;
     const amount = el.clientWidth * 0.7;
@@ -109,6 +112,7 @@ export function ArtGallery({ images = artImages }: { images?: ArtImage[] }) {
               key={i}
               onClick={() => {
                 if (!hasDragged.current) {
+                  haptic("medium");
                   setIndex(i);
                   setOpen(true);
                 }
