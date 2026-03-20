@@ -69,7 +69,7 @@
     "lucide-react": "^0.364.0",
     "motion": "^12.23.26",
     "nanoid": "^5.1.6",
-    "next": "^15.1.6",
+    "next": "^16.2.0",
     "next-themes": "^0.3.0",
     "posthog-js": "^1.292.0",
     "posthog-node": "^5.11.2",
