@@ -4,7 +4,6 @@ import Layout from "../../layouts/layout.astro";
 import { ArtGallery } from "../../components/ArtGallery";
 import { MovieScroller } from "../../components/MovieScroller";
 import { HomeLabAccordion } from "../../components/HomeLab";
-import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
 ---
 
 <!doctype html>
@@ -25,27 +24,6 @@ import { WorkoutHeatmap } from "../../components/WorkoutHeatmap";
           The things I do when I'm not staring at a terminal.
         </p>
       </div>
-    </div>
-
-    <hr class="dark:border-border/50 border-border my-8" />
-
-    <!-- Workout Activity -->
-    <div class="grid gap-1">
-      <div class="flex items-center gap-2">
-        <h2 class="h3-heading">Workout Activity</h2>
-        <div class="relative group">
-          <button type="button" class="appearance-none bg-transparent border-none p-0 cursor-help">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
-          </button>
-          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]">
-            Apple Health → iOS Shortcut (daily automation) → POST /api/workouts → Upstash Redis → React heatmap on page load.
-          </div>
-        </div>
-      </div>
-      <p class="s-description max-w-lg mb-4">
-        Last 7 days of workouts, synced from Apple Health.
-      </p>
-      <WorkoutHeatmap client:load />
     </div>
 
     <hr class="dark:border-border/50 border-border my-8" />
