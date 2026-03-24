@@ -31,6 +31,7 @@
     "@upstash/redis": "^1.35.6",
     "@vercel/speed-insights": "^1.0.10",
     "astro": "^5.16.6",
+    "cobe": "^2.0.1",
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.2.0",
     "dotted-map": "^2.2.3",

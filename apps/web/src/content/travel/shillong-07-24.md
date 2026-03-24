@@ -8,7 +8,7 @@ heroImage: "https://imagedelivery.net/nW2YfjVFqxC-ok-_zXWXQw/70d468ed-a3d0-4ed7-
 state: Meghalaya
 country: India
 description: Green Hills, waterfalls, and a beautiful view of the valley.
-location: [25.578773, 91.893257]
+location: [91.893257, 25.578773]
 size: 0.04
 ---
 

@@ -111,6 +111,30 @@
   }
 }
 
+/* Cobe globe marker labels */
+.cobe-marker-label {
+  position: absolute;
+  bottom: anchor(top);
+  left: anchor(center);
+  translate: -50% 0;
+  margin-bottom: 6px;
+  padding: 0.15rem 0.4rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+.cobe-marker-label[data-hidden] {
+  opacity: 0 !important;
+}
+
 /* Fix Radix UI scrollbar removal bug - prevents layout shift when dropdowns/dialogs open */
 [data-scroll-locked] {
   overflow: scroll !important;
