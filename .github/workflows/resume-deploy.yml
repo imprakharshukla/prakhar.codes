@@ -28,18 +28,20 @@ jobs:
         id: metadata
         run: |
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-          FILENAME="Prakhar_Shukla_Software_Engineer.pdf"
+          DOWNLOAD_NAME="Prakhar_Shukla_Software_Engineer.pdf"
+          VERSIONED_FILENAME="Prakhar_Shukla_Software_Engineer_${TIMESTAMP}.pdf"
           echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
-          echo "filename=$FILENAME" >> $GITHUB_OUTPUT
+          echo "filename=$VERSIONED_FILENAME" >> $GITHUB_OUTPUT
+          echo "download_name=$DOWNLOAD_NAME" >> $GITHUB_OUTPUT
 
-          # Rename compiled PDF
-          mv resume.pdf "$FILENAME"
+          # Rename compiled PDF to the versioned filename
+          mv resume.pdf "$VERSIONED_FILENAME"
 
           # Create latest.json with metadata
           cat > latest.json <<EOF
           {
-            "url": "https://resume-cdn.prakhar.codes/${FILENAME}",
-            "filename": "${FILENAME}",
+            "url": "https://resume-cdn.prakhar.codes/${VERSIONED_FILENAME}",
+            "filename": "${DOWNLOAD_NAME}",
             "timestamp": "${TIMESTAMP}",
             "updatedAt": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
           }
@@ -55,11 +57,13 @@ jobs:
           # Install AWS CLI
           pip install awscli
 
-          # Upload the timestamped PDF
+          # Upload the versioned PDF — URL is unique per deploy, so immutable caching is safe.
+          # Content-Disposition keeps the user-facing download name clean.
           aws s3 cp "${{ steps.metadata.outputs.filename }}" \
             s3://${BUCKET_NAME}/${{ steps.metadata.outputs.filename }} \
             --endpoint-url ${AWS_ENDPOINT_URL} \
             --content-type application/pdf \
+            --content-disposition "inline; filename=\"${{ steps.metadata.outputs.download_name }}\"" \
             --cache-control "public, max-age=31536000, immutable"
 
           # Upload latest.json (this will be read by Astro action)
