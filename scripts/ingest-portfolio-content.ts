@@ -19,6 +19,10 @@ import { PgVector } from '@mastra/pg';
 import { createOpenAI } from '@ai-sdk/openai';
 import { embedMany } from 'ai';
 import { experience } from '../apps/web/src/data/experience';
+import {
+  SHOW_HIRING_AVAILABILITY,
+  hiringAvailability,
+} from '../apps/web/src/data/site-settings';
 
 // Recommendations data
 const testimonials = [
@@ -243,22 +247,18 @@ async function embedChunks(chunks: ChunkWithMetadata[]): Promise<void> {
 }
 
 function createHomepageContent(): ContentFile {
-  return {
-    path: 'index.astro',
-    type: 'page',
-    frontmatter: {
-      title: 'Prakhar Shukla - Portfolio Homepage',
-      description: 'Serial founder and software engineer exploring new opportunities',
-      category: 'about',
-      tags: ['about', 'hiring', 'profile', 'career'],
-    },
-    content: `
-# About Prakhar Shukla
+  const availabilityFrontmatter = SHOW_HIRING_AVAILABILITY
+    ? {
+        description: 'Serial founder and software engineer exploring new opportunities',
+        tags: ['about', 'hiring', 'profile', 'career'],
+      }
+    : {
+        description: 'Serial founder and software engineer building products and writing about engineering',
+        tags: ['about', 'profile', 'career'],
+      };
 
-Prakhar Shukla is a serial founder and software engineer who just wrapped up as a Founding Engineer at Yobr in Norway.
-
-## Professional Background
-
+  const availabilityContent = SHOW_HIRING_AVAILABILITY
+    ? `
 - **Current Status**: Exploring new opportunities and available for hire
 - **Previous Role**: Founding Engineer at Yobr (Norway)
 - **Products**: Built Andronix and Lumoflo
@@ -272,10 +272,56 @@ Prakhar Shukla is a serial founder and software engineer who just wrapped up as 
 **Prakhar is actively exploring new opportunities and available for hire.**
 
 ### What He's Looking For:
-- **Role**: Full-stack Engineer or Founding Engineer positions
-- **Tech Stack**: TypeScript, React, Node.js, AI/ML
-- **Location**: Remote (based in India) or willing to relocate
-- **Availability**: Immediate - can start right away
+- **Role**: ${hiringAvailability.role} positions
+- **Tech Stack**: ${hiringAvailability.stack}
+- **Location**: ${hiringAvailability.location}
+- **Availability**: ${hiringAvailability.availability} - can start right away
+`
+    : `
+- **Current Focus**: Building products and writing about practical software engineering
+- **Previous Role**: Founding Engineer at Yobr (Norway)
+- **Products**: Built Andronix and Lumoflo
+- **Achievements**:
+  - 2.5M+ downloads across products
+  - $140K+ in revenue generated
+- **Active Projects**: Currently building Lumoflo and Andronix
+`;
+
+  const contactContent = SHOW_HIRING_AVAILABILITY
+    ? `
+## Contact and Availability
+
+Prakhar is **immediately available** for new opportunities. He is open to:
+- Full-time positions
+- Founding engineer roles
+- Remote work
+- Relocation opportunities
+
+His preferred tech stack includes TypeScript, React, Node.js, and AI/ML technologies, but he is adaptable and quick to learn new technologies.
+`
+    : `
+## Contact
+
+Prakhar's preferred tech stack includes TypeScript, React, Node.js, and AI/ML technologies, but he is adaptable and quick to learn new technologies.
+`;
+
+  return {
+    path: 'index.astro',
+    type: 'page',
+    frontmatter: {
+      title: 'Prakhar Shukla - Portfolio Homepage',
+      description: availabilityFrontmatter.description,
+      category: 'about',
+      tags: availabilityFrontmatter.tags,
+    },
+    content: `
+# About Prakhar Shukla
+
+Prakhar Shukla is a serial founder and software engineer who previously worked as a Founding Engineer at Yobr in Norway.
+
+## Professional Background
+
+${availabilityContent}
 
 ## Technical Skills
 
@@ -303,15 +349,7 @@ Prakhar Shukla is a serial founder and software engineer who just wrapped up as 
 - Currently in active development
 - Modern web application
 
-## Contact and Availability
-
-Prakhar is **immediately available** for new opportunities. He is open to:
-- Full-time positions
-- Founding engineer roles
-- Remote work
-- Relocation opportunities
-
-His preferred tech stack includes TypeScript, React, Node.js, and AI/ML technologies, but he is adaptable and quick to learn new technologies.
+${contactContent}
 `,
   };
 }
