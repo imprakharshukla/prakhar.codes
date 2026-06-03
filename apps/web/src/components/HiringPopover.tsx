@@ -6,9 +6,15 @@ import {
 } from "@prakhar/ui";
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
+import {
+  SHOW_HIRING_AVAILABILITY,
+  hiringAvailability,
+} from "../data/site-settings";
 
 export default function HiringPopover() {
   useEffect(() => {
+    if (!SHOW_HIRING_AVAILABILITY) return;
+
     (async function () {
       const cal = await getCalApi({ namespace: "hiring" });
       cal("ui", {
@@ -21,6 +27,10 @@ export default function HiringPopover() {
       });
     })();
   }, []);
+
+  if (!SHOW_HIRING_AVAILABILITY) {
+    return null;
+  }
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -44,21 +54,21 @@ export default function HiringPopover() {
               <div className="space-y-2 text-sm text-muted-foreground">
                 <div>
                   <span className="text-foreground font-medium">Role:</span>{" "}
-                  Full-stack or Founding Engineer
+                  {hiringAvailability.role}
                 </div>
                 <div>
                   <span className="text-foreground font-medium">Stack:</span>{" "}
-                  TypeScript, React, Node.js, AI/ML
+                  {hiringAvailability.stack}
                 </div>
                 <div>
                   <span className="text-foreground font-medium">Location:</span>{" "}
-                  Remote (India) or willing to relocate
+                  {hiringAvailability.location}
                 </div>
                 <div>
                   <span className="text-foreground font-medium">
                     Availability:
                   </span>{" "}
-                  Immediate
+                  {hiringAvailability.availability}
                 </div>
               </div>
             </div>

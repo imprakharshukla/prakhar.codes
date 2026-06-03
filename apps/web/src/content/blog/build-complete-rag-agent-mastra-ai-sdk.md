@@ -179,7 +179,7 @@ await ingestDocument(blogPostContent, {
 
 **Live implementation**: [Ingestion script](https://github.com/imprakharshukla/prakhar.codes/blob/master/apps/chat/scripts/ingest-portfolio-content.ts)
 
-**Pro tip**: I also generate **synthetic content** for the homepage that emphasizes availability for hire, key skills, and contact information. This ensures critical info is always findable even if it's not in a specific blog post.
+**Pro tip**: I also generate **synthetic content** for the homepage that emphasizes profile context, key skills, and contact information. This ensures critical info is always findable even if it's not in a specific blog post.
 
 ### The internal search tool
 
