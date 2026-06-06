@@ -1,5 +1,5 @@
   ---
-  const { link, title } = Astro.props;
+  const { link, title, newTab = false } = Astro.props;
 
   // Determine the platform from the link
   const getPlatform = (url: string) => {
@@ -14,6 +14,8 @@
 
   <a
     href={link}
+    target={newTab ? '_blank' : undefined}
+    rel={newTab ? 'noopener noreferrer' : undefined}
     class="py-1 px-2 w-fit border-border transform duration-200 hover:text-primary text-muted-foreground hover:bg-primary/10 items-center border rounded-md bg-card flex gap-2 cursor-pointer"
     data-social-platform={platform}
   >

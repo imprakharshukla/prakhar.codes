@@ -20,6 +20,7 @@ import CalendarIcon from "../components/icons/CalendarIcon";
 import GithubLogoIcon from "../components/icons/GithubLogoIcon";
 import XLogoIcon from "../components/icons/XLogoIcon";
 import LinkedinLogoIcon from "../components/icons/LinkedinLogoIcon";
+import LlmsTextIcon from "../components/icons/LlmsTextIcon";
 
 const blogPosts = await getCollection("blog");
 const projects = (await getCollection("project")).sort((a, b) => {
@@ -176,6 +177,10 @@ const filteredBlogPosts = blogPosts
           link={"https://www.linkedin.com/in/iamprakharshukla/"}
         >
           <LinkedinLogoIcon client:load />
+        </IconButton>
+
+        <IconButton title={"llms.txt"} link={"/llms.txt"} newTab>
+          <LlmsTextIcon client:load />
         </IconButton>
       </div>
 
