@@ -1,6 +1,6 @@
 ---
 title: "I Taught Granola to Auto-Record My Gather Meetings"
-description: "Gather keeps your mic open all day, so Granola never realizes you're in a meeting. Here's the little macOS watcher I built to start and stop recording automatically — using WebRTC, a deep link, and the Chrome DevTools Protocol."
+description: "Gather keeps your mic open all day, so Granola never realizes you're in a meeting. Here's the little macOS watcher I built to start and stop recording automatically, using WebRTC, a deep link, and the Chrome DevTools Protocol."
 pubDate: "Jun 11 2026"
 heroImage: "/images/blogs/granola-gather.png"
 tags: ["Automation", "Granola", "Gather", "Remote Work", "macOS", "WebRTC", "Electron"]
@@ -20,7 +20,7 @@ My team works out of [Gather](https://gather.town). It's our virtual office — 
 
 Neither works for Gather.
 
-There's no calendar invite for "Prakhar wandered over to Tristan's desk." And the mic trick? Gather grabs your microphone the *second* you load the space and never lets go — it just mutes the track when you're not talking. So from the OS's point of view, your mic is "in use" all day, every day. There's no clean on/off edge for Granola to notice.
+There's no calendar invite for "Prakhar wandered over to Tristan's desk." And the mic trick? Gather grabs your microphone the *second* you load the space and never lets go. It just mutes the track when you're not talking. So from the OS's point of view, your mic is "in use" all day, every day. There's no clean on/off edge for Granola to notice.
 
 The result: I'd finish a 25-minute conversation and realize nothing got recorded. Again.
 
@@ -30,11 +30,13 @@ I wanted Granola to follow me around Gather. Walk up to someone → recording st
 
 ## Why the Obvious Fixes Don't Work
 
-Before building anything, I killed the easy ideas:
+Before building anything, I killed the easy ideas.
 
-- **Watch the microphone.** Dead on arrival — Gather holds it open continuously, so "mic in use" is always true. There's no edge.
-- **AppleScript the Granola UI.** Granola is an Electron app, and Electron apps don't ship AppleScript dictionaries. The only AppleScript path is GUI scripting (clicking buttons by accessibility), which needs an Accessibility permission and breaks the moment Granola's layout changes.
-- **Replay Granola's API.** Granola's recording is *local audio capture inside its own process*. Replaying its network calls just makes an empty note — there's no audio, because your script isn't the one tapping the mic.
+Watching the microphone is dead on arrival. Gather holds it open continuously, so "mic in use" is always true with no edge to detect.
+
+AppleScript doesn't work either. Granola is Electron, Electron apps don't ship AppleScript dictionaries, and the GUI-scripting fallback needs an Accessibility permission and breaks the moment the layout changes.
+
+Replaying Granola's network calls just makes an empty note. Your script isn't the one tapping the mic, so there's no audio to capture.
 
 So I needed two things: a reliable signal from *inside* Gather, and a reliable way to drive Granola without touching its UI.
 
@@ -42,7 +44,7 @@ So I needed two things: a reliable signal from *inside* Gather, and a reliable w
 
 ## The Signal: WebRTC, Not the Microphone
 
-Here's the key insight. Whether you walk up to someone or join a meeting room, Gather does the same thing under the hood: it opens a WebRTC connection and you start **receiving their audio**. When you're alone, there's nothing. When the last person leaves, the connection closes.
+Whether you walk up to someone or join a meeting room, Gather does the same thing under the hood: it opens a WebRTC connection and starts sending you their audio. When you're alone, nothing. When the last person leaves, the connection closes.
 
 So the question "am I in a conversation?" becomes "do I have any live remote audio tracks?" — which has a clean on/off edge even though the mic never does.
 
@@ -52,7 +54,7 @@ Gather is also an Electron app, which means it's Chromium under the hood. Launch
 open "/Applications/GatherV2.app" --args --remote-debugging-port=9222
 ```
 
-…and you can attach to its page over the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) and inject JavaScript. No screen reading, no fragile accessibility tree — you're talking to the actual web engine.
+…and you can attach to its page over the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) and inject JavaScript. No screen reading, no fragile accessibility tree. You're talking to the actual web engine.
 
 I inject a hook that wraps `RTCPeerConnection` and counts live remote audio tracks:
 
@@ -111,7 +113,7 @@ So I do the same Electron trick on Granola itself. Launch it with a debug port (
 document.querySelector("[data-testid=stop-transcript-button]")?.click();
 ```
 
-This is *not* a synthetic mouse click at screen coordinates. It calls the button's handler inside Granola's web engine, so it works even if Granola is minimized, unfocused, or parked on another monitor. That's the whole reason I ditched AppleScript — the accessibility approach needs the window visible; CDP doesn't care.
+This is *not* a synthetic mouse click at screen coordinates. It calls the button's handler inside Granola's web engine, so it works even if Granola is minimized, unfocused, or parked on another monitor. That's why I ditched AppleScript. The accessibility approach needs the window visible; CDP doesn't care.
 
 ---
 
@@ -143,7 +145,7 @@ function onCallState(inCall) {
 }
 ```
 
-The note titles itself, by the way — Granola's AI names it from the transcript afterward, which is honestly better than anything I'd type. And every note it creates carries `creation_source=gather`, so they're easy to find later.
+The note titles itself. Granola's AI names it from the transcript afterward, and it's usually better than anything I'd type mid-meeting. And every note it creates carries `creation_source=gather`, so they're easy to find later.
 
 ---
 
@@ -156,7 +158,7 @@ So I instrumented everything — a verbose logger dumping every `RTCPeerConnecti
 - When **someone else** met up nearby, my client had **three or four incoming audio tracks, all muted** (`muted: true`). Gather pre-provisions a muted receiver track for basically everyone around you, for spatial audio. My "do I have remote tracks?" check was true almost constantly.
 - When **I** was actually in a conversation, I had a live **outbound** mic track, and I was *sending* packets — `TX` packet counts climbing every poll, my mic audio level spiking when I spoke.
 
-There's the tell. Incoming audio is provisioned for the whole room; **your own outgoing mic is only attached to a connection you actually joined.** So the gate isn't "am I receiving audio," it's "am I sending any":
+Incoming audio is provisioned for the whole room. Your own outgoing mic is only attached to a connection you actually joined. So the gate isn't "am I receiving audio," it's "am I sending any":
 
 ```js
 const haveMyMic = () => {
@@ -171,7 +173,7 @@ const haveMyMic = () => {
 };
 ```
 
-I deliberately ignore the track's `enabled` flag — muting yourself mid-meeting shouldn't stop the recording; *leaving* should. And I caught the fix in the act: sitting in a real meeting it read `out=1` with packets flowing, while across three separate "meetings I wasn't in" it stayed flat at `out=0`. Clean separation, zero false starts since.
+I deliberately ignore the track's `enabled` flag. Muting yourself mid-meeting shouldn't stop the recording; leaving should. And I caught the fix in the act: sitting in a real meeting it read `out=1` with packets flowing, while across three separate "meetings I wasn't in" it stayed flat at `out=0`. Clean separation, zero false starts since.
 
 The lesson generalizes: "I'm receiving audio" is *almost* the right signal, and almost is what bites you. "I'm sending audio" is the one that actually means *you* showed up.
 
@@ -193,13 +195,16 @@ The lesson generalizes: "I'm receiving audio" is *almost* the right signal, and 
 
 ## Try It
 
-It's a single bash script — it embeds the watcher, launches both apps with their debug ports, and can register a login agent so it runs itself:
+It's a single bash script. Download it, run it, and it handles the rest:
 
 ```bash
+curl -O https://prakhar.codes/scripts/granola-gather.sh
 bash granola-gather.sh            # run now
 bash granola-gather.sh install    # also run at every login
 bash granola-gather.sh uninstall  # remove it
 ```
+
+Or [download granola-gather.sh](https://prakhar.codes/scripts/granola-gather.sh) directly.
 
 Requirements: macOS, GatherV2.app + Granola.app, and `bun` or `node >= 21`. If your team lives in Gather like mine does, this might save you a few "wait, was that recorded?" moments.
 
