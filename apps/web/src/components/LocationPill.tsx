@@ -14,39 +14,27 @@ export default function LocationPill() {
           viewBox="0 0 24 24"
           className="flex-shrink-0"
         >
-          <g clipPath="url(#IN_svg__a)">
+          <g clipPath="url(#DE_svg__a)">
             <path
               d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0 0 5.373 0 12s5.373 12 12 12Z"
-              fill="#F0F0F0"
+              fill="#D80027"
             />
             <path
               d="M12-.001A12 12 0 0 0 1.19 6.782h21.62A12 12 0 0 0 12-.001Z"
-              fill="#FF9811"
+              fill="#333333"
             />
             <path
               d="M12 24a12 12 0 0 0 10.809-6.783H1.19A12 12 0 0 0 12 24Z"
-              fill="#6DA544"
-            />
-            <path
-              d="M12 16.173a4.174 4.174 0 1 0 0-8.348 4.174 4.174 0 0 0 0 8.348Z"
-              fill="#0052B4"
-            />
-            <path
-              d="M12 14.608a2.609 2.609 0 1 0 0-5.218 2.609 2.609 0 0 0 0 5.218Z"
-              fill="#F0F0F0"
-            />
-            <path
-              d="m12 8.78.806 1.826 1.983-.216L13.61 12l1.179 1.61-1.983-.216L12 15.219l-.805-1.825-1.983.216L10.39 12l-1.178-1.61 1.983.216L12 8.781Z"
-              fill="#0052B4"
+              fill="#FFDA44"
             />
           </g>
           <defs>
-            <clipPath id="IN_svg__a">
+            <clipPath id="DE_svg__a">
               <path fill="#fff" d="M0 0h24v24H0z" />
             </clipPath>
           </defs>
         </svg>
-        Delhi, India
+        Munich, Germany
       </span>
     </div>
   );
