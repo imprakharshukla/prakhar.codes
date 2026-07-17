@@ -1,9 +1,9 @@
-import { fromZonedTime } from "date-fns-tz";
+import { toZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
 
 export default function LocalTimePill() {
-  const [timeIST, setTimeIST] = useState<string>("");
+  const [localTime, setLocalTime] = useState<string>("");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -11,8 +11,8 @@ export default function LocalTimePill() {
 
     // Update time immediately
     const updateTime = () => {
-      const currentTime = format(fromZonedTime(new Date(), "Asia/Kolkata"), "h:mm a");
-      setTimeIST(currentTime);
+      const currentTime = format(toZonedTime(new Date(), "Europe/Berlin"), "h:mm a");
+      setLocalTime(currentTime);
     };
 
     updateTime();
@@ -45,7 +45,7 @@ export default function LocalTimePill() {
           "inline-flex items-center gap-x-1.5 rounded px-1.5 py-0.5  font-medium text-xs/5 forced-colors:outline bg-amber-500/15 text-amber-700 group-data-[hover]:bg-amber-500/25 w-fit dark:bg-amber-500/10 dark:text-amber-400 dark:group-data-[hover]:bg-amber-500/20"
         }
       >
-        {timeIST}
+        {localTime}
       </span>{" "}
     </div>
   );
