@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = "Prakhar Shukla";
 export const SITE_DESCRIPTION =
-  "Serial founder and software engineer. Former Founding Engineer at Yobr (Norway). Built products with 2.5M+ downloads and $140K+ revenue. Specializing in TypeScript, React, Node.js, and AI/ML (Vercel AI SDK, Mastra).";
+  "Software engineer building production AI agent systems at Sherpa. Serial founder with 2.5M+ downloads and $140K+ revenue. TypeScript, React, Node.js, and AI agents (Mastra, Vercel AI SDK, RAG).";

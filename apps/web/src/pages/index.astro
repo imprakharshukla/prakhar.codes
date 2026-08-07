@@ -1,6 +1,4 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import PostFeed from "../components/PostFeed";
 import ProjectFeed from "../components/ProjectFeed";
@@ -37,15 +35,10 @@ const filteredBlogPosts = blogPosts
   );
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Prakhar Shukla - Serial Founder & Software Engineer"
-      description="Serial founder and Founding Engineer with 2.5M+ downloads and $140K+ revenue. Recently at Yobr (Norway). Building Andronix and Lumoflo. Full-stack, AI/ML, TypeScript, React, Node.js."
-    />
-  </head>
-  <Layout>
+<Layout
+  title="Prakhar Shukla - Software Engineer & Serial Founder"
+  description="Software engineer building production AI agent systems at Sherpa. Serial founder with 2.5M+ downloads and $140K+ revenue. TypeScript, React, Node.js, AI agents."
+>
     <div class="grid gap-2 md:max-w-2xl mt-6 animate-in fade-in duration-200">
       {
         SHOW_HIRING_AVAILABILITY && (
@@ -110,15 +103,21 @@ const filteredBlogPosts = blogPosts
       </div>
 
       <p class="description leading-relaxed max-w-lg">
-        I am a <span class="text-foreground font-medium">serial founder</span> and
-        software engineer who previously worked as a <span class="text-foreground"
-          >Founding Engineer at <a
-            href="https://yobr.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
-            >Yobr</a
-          ></span
+        I am a <span class="text-foreground font-medium">software engineer</span> and
+        serial founder, currently building <span class="text-foreground font-medium"
+          >production AI agent systems</span
+        > at <a
+          href="https://sherpahq.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
+          >Sherpa</a
+        >. Previously Founding Engineer at <a
+          href="https://yobr.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
+          >Yobr</a
         > in Norway. My products have reached <span class="text-foreground font-medium"
           >2.5M+ downloads</span
         > and generated <span class="text-foreground font-medium"
@@ -143,7 +142,7 @@ const filteredBlogPosts = blogPosts
           class="text-foreground font-medium">AI agents</span
         >
         <span class="text-muted-foreground/70"
-          >(Vercel AI SDK, Mastra, LangGraph)</span
+          >(Mastra, Vercel AI SDK, RAG)</span
         >.
       </p>
 
@@ -405,4 +404,3 @@ const filteredBlogPosts = blogPosts
       <TestimonialsSection headingVisible client:only="react" />
     </div>
   </Layout>
-</html>

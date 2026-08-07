@@ -1,12 +1,12 @@
 ---
 title: "Lumoflo"
-description: "Multi-tenant e-commerce SaaS platform with automated billing, shipping, and inventory management. Built with Next.js 14, TypeScript, and end-to-end type safety for Instagram sellers and small businesses."
+description: "Multi-tenant e-commerce SaaS platform with automated billing, shipping, and inventory management. Built with Next.js, TypeScript, and end-to-end type safety for Instagram sellers and small businesses. Shipped to production, processed $1.5M+ in transactions, now sunset."
 tags: ["React", "Express", "NextJS", "E-Commerce"]
 pubDate: "Apr 04 2024"
 link: https://lumoflo.com
 # github: "https://github.com/imprakharshukla/lumoflo"
 heroImage: "/images/projects/lumoflo_pro_banner.png"
-status: "In Progress"
+status: "Completed"
 publish: true
 type: "Commercial"
 languages: ["Typescript", "Javascript"]

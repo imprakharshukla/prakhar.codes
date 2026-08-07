@@ -1,20 +1,14 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
 import Layout from "../../layouts/layout.astro";
 import { ArtGallery } from "../../components/ArtGallery";
 import { MovieScroller } from "../../components/MovieScroller";
 import { HomeLabAccordion } from "../../components/HomeLab";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Life - Prakhar Shukla"
-      description="Beyond code - art, music, home lab, and movie recommendations."
-    />
-  </head>
-  <Layout>
+<Layout
+  title="Life - Prakhar Shukla"
+  description="Beyond code - art, music, home lab, and movie recommendations."
+>
     <div class="overflow-x-hidden">
     <!-- Header -->
     <div class="grid gap-1 md:max-w-2xl mt-6">
@@ -140,4 +134,3 @@ import { HomeLabAccordion } from "../../components/HomeLab";
     </div>
     </div>
   </Layout>
-</html>

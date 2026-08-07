@@ -57,7 +57,6 @@ export default function NavigationBar({
   path: string;
 }) {
   const { haptic } = useHapticFeedback();
-  console.log({ path });
   return (
     <div id="bottomNav" className={cn(className, "block")}>
       <div className="fixed border-t lg:border-t-0 dark:border-border/30 bg-background/80 shadow md:shadow-none w-full md:sticky bottom-0 md:top-0 h-16 md:w-24 shrink-0 md:h-screen overflow-y-auto no-scrollbar lg:border-r z-40 backdrop-blur">
@@ -67,7 +66,6 @@ export default function NavigationBar({
             <nav className="w-full">
               <ul className="flex md:flex-col px-2 md:px-4 items-center justify-evenly md:justify-center md:h-full gap-1 md:gap-4 mb-4 md:mb-0 w-full">
                 {navigationItems.map((item, index) => {
-                  console.log({ path, item: item.path });
                   const color =
                     path === "/" && item.path === "/"
                       ? "text-primary"
