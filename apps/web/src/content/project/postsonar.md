@@ -6,7 +6,7 @@ pubDate: "Jan 17 2026"
 link: "https://postsonar.com"
 # github: "https://github.com/imprakharshukla/social-agent"
 heroImage: "/images/projects/postsonar_banner.png"
-status: "In Progress"
+status: "Completed"
 publish: true
 type: "Commercial"
 languages: ["TypeScript", "Javascript"]

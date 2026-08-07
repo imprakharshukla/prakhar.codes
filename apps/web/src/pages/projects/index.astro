@@ -1,10 +1,5 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
-import FormattedDate from "../../components/FormattedDate.astro";
 import Layout from "../../layouts/layout.astro";
 import ProjectFeed from "../../components/ProjectFeed";
 
@@ -15,15 +10,10 @@ const projects = (await getCollection("project")).sort((a, b) => {
 });
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Projects - Prakhar Shukla"
-      description="Full-stack projects spanning web, mobile, AI agents, and open source. Including Andronix (2.5M+ downloads), Lumoflo, and work from Yobr."
-    />
-  </head>
-  <Layout>
+<Layout
+  title="Projects - Prakhar Shukla"
+  description="Full-stack projects spanning web, mobile, AI agents, and open source. Including Andronix (2.4M+ downloads), Lumoflo, Post Sonar, and SVG Weave."
+>
     <div class="grid gap-1 md:max-w-2xl mt-6">
       <h1 class="h2-heading">Projects</h1>
       <div class="grid gap-3">
@@ -38,4 +28,3 @@ const projects = (await getCollection("project")).sort((a, b) => {
       <ProjectFeed projects={projects} client:load />
     </div>
   </Layout>
-</html>

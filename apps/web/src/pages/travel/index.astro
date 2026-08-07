@@ -1,6 +1,4 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Layout from "../../layouts/layout.astro";
 import { getCollection } from "astro:content";
 
@@ -16,15 +14,10 @@ const locationCoordinates = travels.map((travel) => ({
 }));
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Travel - Prakhar Shukla"
-      description="Travel photography and adventure stories from mountain hiking trips across India and beyond."
-    />
-  </head>
-  <Layout>
+<Layout
+  title="Travel - Prakhar Shukla"
+  description="Travel photography and adventure stories from mountain hiking trips across India and beyond."
+>
     <div class="grid gap-1 md:max-w-2xl mt-6">
       <div class="flex items-center gap-2">
         <h1 class="h2-heading">Travel Log</h1>
@@ -53,4 +46,3 @@ const locationCoordinates = travels.map((travel) => ({
       <TravelFeed travels={travels} client:load />
     </div>
   </Layout>
-</html>

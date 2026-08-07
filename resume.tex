@@ -93,14 +93,30 @@
 %-----------SUMMARY-----------------
 \section{Summary}
 \vspace{2pt}
-Full-stack software engineer building production systems from zero to scale, across TypeScript, React, Node.js, and applied AI/LLM products. Built Andronix (2.4M+ downloads, \$140K revenue) and shipped production AI agents at Yobr. \textbf{GitHub: 3,700+ stars · 790+ forks · 9,400+ contributions}
+Full-stack software engineer building production AI agent systems, across TypeScript, React, Node.js, and applied AI/LLM products. Currently shipping multi-surface AI agents and RAG systems at Sherpa; built Andronix (2.4M+ downloads, \$140K revenue). \textbf{GitHub: 3,700+ stars · 790+ forks · 9,400+ contributions}
 
 %-----------EXPERIENCE-----------------
 \section{Experience}
 \resumeSubHeadingListStart
 \resumeSubheading
+{Software Engineer - Sherpa (sherpahq.ai)}{{Remote}}
+{Contract}{Apr 2026 - Present}
+\resumeItemListStart
+\resumeItem{\textbf{AI Agent Platform}}
+{Architected a production AI agent platform on \textbf{\textit{Mastra}} and the \textbf{\textit{Vercel AI SDK}} --- one agent runtime serving \textbf{web, Slack, and Microsoft Teams} with human-in-the-loop approvals, durable restart-safe sessions, and per-user OAuth; \textbf{145+ PRs merged in 4 months}.}
+\resumeItem{\textbf{Real-Time AI Canvas}}
+{Built a real-time collaborative canvas --- canonical state machine streamed over \textbf{\textit{SSE}}, typed command bus, and per-field three-way merge so concurrent human and AI edits never overwrite each other.}
+\resumeItem{\textbf{Large-Scale RAG}}
+{Built retrieval over a \textbf{185K+ chunk corpus} with a \textbf{350K+ edge knowledge graph} --- 6-lane hybrid retrieval (\textbf{\textit{pgvector}} + \textbf{\textit{BM25}}), cross-encoder reranking, PageRank graph expansion, and deterministic rule engines layered under the LLM.}
+\resumeItem{\textbf{Multi-Tenant Security}}
+{Led a zero-downtime cutover to database-enforced multi-tenancy with \textbf{\textit{Postgres Row Level Security}}, backed by automated policy-coverage checks in CI.}
+\resumeItem{\textbf{AI Gateway \& Platform}}
+{Centralized all LLM traffic behind a typed AI gateway (\textbf{\textit{Cloudflare AI Gateway}}) with retries, cross-model fallback, and cost observability --- enforced by custom lint rules; built per-PR ephemeral preview environments (\textbf{\textit{Railway, Cloudflare Workers}}) and \textbf{4-way sharded Playwright E2E} CI.}
+\resumeItemListEnd
+\vspace{8pt}
+\resumeSubheading
 {Founding Software Engineer - Yobr (yobr.io)}{{Oslo, Norway (Remote)}}
-{Full-Time}{May 2025 - Dec 2025}
+{Full-Time (Intern $\rightarrow$ Founding Engineer)}{Mar 2025 - Dec 2025}
 \resumeItemListStart
 \resumeItem{\textbf{AI Agent Development}}
 {Architected and deployed agentic AI systems with \textbf{100+ tools} using \textbf{\textit{Vercel AI SDK}} and \textbf{\textit{Mastra.ai}}, automating the multi-step job posting workflow end-to-end.}
@@ -108,18 +124,6 @@ Full-stack software engineer building production systems from zero to scale, acr
 {Designed and built flagship Job Planner with nested AI-powered steps and streaming capabilities, reducing job creation time by \textbf{90\%}.}
 \resumeItem{\textbf{Architecture \& Data}}
 {Led migration to \textbf{\textit{Next.js, Fastify, Trigger.dev}} with end-to-end type safety via \textbf{\textit{tRPC}}; ran production \textbf{\textit{PostgreSQL}} migration with a custom application-layer \textbf{\textit{Row Level Security}} system for secure multi-tenant access.}
-\resumeItem{\textbf{Tech Stack}}
-{\textit{Next.js, Fastify, Trigger.dev, tRPC, PostgreSQL, Vercel AI SDK, Mastra.ai, BullMQ}}
-\resumeItemListEnd
-\vspace{8pt}
-\resumeSubheading
-{Software Engineering Intern - Yobr (yobr.io)}{{Oslo, Norway (Remote)}}
-{Internship}{Mar 2025 - Apr 2025}
-\resumeItemListStart
-\resumeItem{\textbf{Flagship Job Planner}}
-{Prototyped the initial Job Planner with nested AI-powered steps and streaming, validating the core product workflow.}
-\resumeItem{\textbf{Organizations \& Team Management}}
-{Architected organizations and team management system with \textbf{\textit{Row Level Security}} for secure multi-tenant access.}
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading
@@ -132,26 +136,20 @@ Full-stack software engineer building production systems from zero to scale, acr
 \vspace{8pt}
 \resumeSubheading
 {Founder \& Software Engineer (Product) - Lumoflo}{\MYhref[blue]{https://lumoflo.com}{Website}}
-{Full-Stack Multi-Tenant E-commerce Platform. \textbf{\$1.5M+ in transactions processed}}{Apr 2024 - Dec 2024}
+{Multi-Tenant E-commerce Platform. \textbf{\$1.5M+ in transactions processed}}{Apr 2024 - Dec 2024}
 \resumeItemListStart
 \resumeItem{\textbf{Full-Stack Ownership}}
 {Architected and built the entire multi-tenant e-commerce platform from scratch as sole engineer --- \textbf{\textit{Express.js}} / \textbf{\textit{ts-rest}} backend, \textbf{\textit{Next.js}} frontend, and infra --- with end-to-end type safety in a \textbf{\textit{monorepo}}, reducing build times by \textbf{56\%}.}
 \resumeItem{\textbf{Systems \& Reliability}}
 {Built account synchronization for carts and queues and a \textbf{\textit{BullMQ}} / \textbf{\textit{Redis}} job-queue system for reliable background processing; wrote \textbf{40+ end-to-end tests} across core modules.}
-\resumeItem{\textbf{Tech Stack}}
-{\textit{Express.js, TypeScript, Postgres, Redis, Next.js 14, TailwindCSS, Docker, Jest}}
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading
 {Founder \& Software Engineer (Product) - Andronix}{\MYhref{https://andronix.app}{\underline{Website}}}
-{\textbf{Ranks No. 1 on Google Play Store for "Linux". 2.4M+ downloads, \$140K+ revenue}}{Apr 2019 - Jun 2024}
+{\textbf{No. 1 on Google Play for "Linux". 2.4M+ downloads, \$140K+ revenue}}{Apr 2019 - Jun 2024}
 \resumeItemListStart
 \resumeItem{\textbf{Product \& Scale}}
-{Built and shipped the consumer product end-to-end as sole engineer, owning client architecture, REST integrations, and release.}
-\resumeItem{\textbf{Backend Architecture}}
-{Refactored codebase to \textbf{\textit{TypeScript}}, increased test coverage to \textbf{80\%}, and modularized into microservices for improved scalability and maintenance.}
-\resumeItem{\textbf{Tech Stack}}
-{\textit{Kotlin, TypeScript, Firebase, Jest}}
+{Built and shipped the consumer product end-to-end as sole engineer --- \textbf{\textit{Kotlin}} client, \textbf{\textit{TypeScript}} microservices backend at \textbf{80\%+ test coverage} --- owning architecture, integrations, and release.}
 \resumeItemListEnd
 \resumeSubHeadingListEnd
 
@@ -161,7 +159,7 @@ Full-stack software engineer building production systems from zero to scale, acr
     \resumeSubItem{Languages}{TypeScript, JavaScript, SQL, Kotlin, Python, Go}
     \resumeSubItem{Frameworks}{React, Next.js, Express.js, Fastify}
     \resumeSubItem{Backend \& Infra}{PostgreSQL, Redis, Docker, BullMQ, Firebase}
-    \resumeSubItem{AI \& LLMs}{OpenAI, Vercel AI SDK, Mastra.ai, LangChain, LangGraph}
+    \resumeSubItem{AI \& LLMs}{Anthropic Claude, Vercel AI SDK, Mastra.ai, OpenAI, RAG (pgvector, hybrid retrieval, reranking), agent evals}
   \resumeSubHeadingListEnd
 
 %-----------EDUCATION-----------------

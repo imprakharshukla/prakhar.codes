@@ -1,6 +1,4 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Layout from "../../layouts/layout.astro";
 import PostFeed from "../../components/PostFeed";
 import { getCollection } from "astro:content";
@@ -16,15 +14,10 @@ const filteredBlogPosts = blogPosts
   );
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title="Blog - Prakhar Shukla"
-      description="Technical articles about full-stack development, AI/ML, DevOps, TypeScript, React, and software engineering. Tutorials on automation, CI/CD, and modern web development."
-    />
-  </head>
-  <Layout>
+<Layout
+  title="Blog - Prakhar Shukla"
+  description="Technical articles about full-stack development, AI/ML, DevOps, TypeScript, React, and software engineering. Tutorials on automation, CI/CD, and modern web development."
+>
     <div class="grid gap-1 md:max-w-2xl mt-6">
       <h1 class="h2-heading">Blog</h1>
       <div class="grid gap-1">
@@ -37,4 +30,3 @@ const filteredBlogPosts = blogPosts
       <PostFeed searchEnabled numberOfPost={filteredBlogPosts.length} posts={filteredBlogPosts} client:load />
     </div>
   </Layout>
-</html>
