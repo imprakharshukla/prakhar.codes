@@ -9,16 +9,16 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     date: "April 2026 - Present",
-    company: "Sherpa (sherpahq.ai) - Remote",
+    company: "Sherpa (sherpahq.ai) - Munich, Germany",
     designation: "Software Engineer (Contract → Full-Time)",
     type: "Full-time",
     details: [
-      "AI Agent Platform: Architected a production AI agent platform on Mastra and the Vercel AI SDK — a single agent runtime serving web, Slack, and Microsoft Teams with human-in-the-loop approvals, durable restart-safe sessions, and per-user OAuth. 145+ PRs merged in 4 months.",
-      "Real-Time AI Canvas: Built a real-time collaborative canvas — a canonical state machine streamed over SSE with a typed command bus and per-field three-way merge, so concurrent human and AI edits never overwrite each other.",
-      "Large-Scale RAG: Built a retrieval system over a 185K+ chunk corpus with a 350K+ edge knowledge graph — 6-lane hybrid retrieval (pgvector + BM25), cross-encoder reranking, PageRank graph expansion, and deterministic rule engines layered under the LLM.",
-      "Multi-Tenant Security: Led a zero-downtime migration to database-enforced multi-tenancy with Postgres Row Level Security, backed by automated policy-coverage checks in CI.",
-      "AI Gateway: Centralized all LLM traffic behind a typed AI gateway (Cloudflare AI Gateway) with edge retries, cross-model fallback, cost controls, and observability — bypass prevented by custom ESLint boundary rules.",
-      "Platform Engineering: Built per-PR ephemeral preview environments (Railway + Cloudflare Workers), 4-way sharded Playwright E2E, and nightly full-stack test pipelines.",
+      "AI Agent Platform: Built a production AI agent platform on Mastra and the Vercel AI SDK. One runtime serves web, Slack, and Microsoft Teams with human-in-the-loop approvals, sessions that survive restarts, and per-user OAuth. 145+ PRs merged in 4 months.",
+      "Real-Time AI Canvas: Built a collaborative canvas: a canonical state machine streamed over SSE, driven by a typed command bus. Per-field three-way merge keeps concurrent human and AI edits from overwriting each other.",
+      "Large-Scale RAG: Built retrieval over a 185K+ chunk corpus and a 350K+ edge knowledge graph: six hybrid search lanes (pgvector + BM25), cross-encoder reranking, PageRank graph expansion, and deterministic rule engines under the LLM.",
+      "Multi-Tenant Security: Led a zero-downtime migration to database-enforced multi-tenancy with Postgres Row Level Security. Automated policy-coverage checks in CI keep new tables from shipping unprotected.",
+      "AI Gateway: Centralized all LLM traffic behind a typed gateway on Cloudflare AI Gateway, with edge retries, cross-model fallback, and cost observability. Custom ESLint rules make bypassing it a build error.",
+      "Platform Engineering: Built per-PR preview environments on Railway and Cloudflare Workers, 4-way sharded Playwright E2E, and nightly full-stack test pipelines.",
     ],
   },
   {
