@@ -10,8 +10,8 @@ export const experience: ExperienceItem[] = [
   {
     date: "April 2026 - Present",
     company: "Sherpa (sherpahq.ai) - Remote",
-    designation: "Software Engineer (Contract)",
-    type: "Contract",
+    designation: "Software Engineer (Contract → Full-Time)",
+    type: "Full-time",
     details: [
       "AI Agent Platform: Architected a production AI agent platform on Mastra and the Vercel AI SDK — a single agent runtime serving web, Slack, and Microsoft Teams with human-in-the-loop approvals, durable restart-safe sessions, and per-user OAuth. 145+ PRs merged in 4 months.",
       "Real-Time AI Canvas: Built a real-time collaborative canvas — a canonical state machine streamed over SSE with a typed command bus and per-field three-way merge, so concurrent human and AI edits never overwrite each other.",
