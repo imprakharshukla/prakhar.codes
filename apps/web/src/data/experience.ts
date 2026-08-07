@@ -9,7 +9,7 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     date: "April 2026 - Present",
-    company: "Sherpa (sherpahq.ai) - Remote",
+    company: "Sherpa (sherpahq.ai) - Munich, Germany",
     designation: "Software Engineer (Contract → Full-Time)",
     type: "Full-time",
     details: [
