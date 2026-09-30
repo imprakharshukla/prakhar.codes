@@ -4,7 +4,7 @@ export default function ProfileAvatar() {
   return (
     <Avatar className="h-12 w-12">
       <AvatarImage
-        src="https://resume-cdn.prakhar.codes/pfp/1756988125464.jpg"
+        src="/images/pfp.jpg"
         alt="Prakhar Shukla"
         className="aspect-square h-full w-full object-cover"
       />
