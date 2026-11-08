@@ -103,15 +103,15 @@ Full-stack software engineer building production AI agent systems, across TypeSc
 {Full-Time (Contract $\rightarrow$ Full-Time)}{Apr 2026 - Present}
 \resumeItemListStart
 \resumeItem{\textbf{AI Agent Platform}}
-{Built a production AI agent platform on \textbf{\textit{Mastra}} and the \textbf{\textit{Vercel AI SDK}}. One runtime serves \textbf{web, Slack, and Microsoft Teams} with human-in-the-loop approvals, sessions that survive restarts, and per-user OAuth; \textbf{145+ PRs merged in 4 months}.}
+{Built Sherpa's AI agent on \textbf{\textit{Mastra}} and the \textbf{\textit{Vercel AI SDK}}: one runtime for \textbf{web, Slack and Microsoft Teams} with shared multi-person chats, resumable turns, per-user memory and proactive nudges. \textbf{1,139 PRs merged in 7 months} (about 46\% of the repo's PRs).}
+\resumeItem{\textbf{Labour-Law Compliance Engine}}
+{Built a deterministic rule engine with \textbf{594 rules across 8 jurisdictions} (DE, UK, US federal + 5 states) and 426 test cases; an LLM compiler turns plain-English company policy into rules \textbf{3x faster} (29s to 10.5s).}
+\resumeItem{\textbf{Legal Knowledge Graph \& RAG}}
+{Built a corpus of \textbf{722 laws} across UK, DE, US, ES and EU: \textbf{331K chunks, 1.03M graph edges}, hybrid \textbf{\textit{pgvector}} + \textbf{\textit{BM25}} search, versioned re-crawls so answers cite only current law.}
 \resumeItem{\textbf{Real-Time AI Canvas}}
-{Built a collaborative canvas: a canonical state machine streamed over \textbf{\textit{SSE}}, driven by a typed command bus. Per-field three-way merge keeps concurrent human and AI edits from overwriting each other.}
-\resumeItem{\textbf{Large-Scale RAG}}
-{Built retrieval over a \textbf{185K+ chunk corpus} and a \textbf{350K+ edge knowledge graph}: six hybrid search lanes (\textbf{\textit{pgvector}} + \textbf{\textit{BM25}}), cross-encoder reranking, PageRank graph expansion, and deterministic rule engines under the LLM.}
-\resumeItem{\textbf{Multi-Tenant Security}}
-{Led a zero-downtime cutover to database-enforced multi-tenancy with \textbf{\textit{Postgres Row Level Security}}. Automated policy-coverage checks in CI keep new tables from shipping unprotected.}
-\resumeItem{\textbf{AI Gateway \& Platform}}
-{Centralized all LLM traffic behind a typed gateway on \textbf{\textit{Cloudflare AI Gateway}}, with edge retries, cross-model fallback, and cost observability; custom lint rules make bypassing it a build error. Built per-PR preview environments (\textbf{\textit{Railway, Cloudflare Workers}}) and \textbf{4-way sharded Playwright E2E} CI.}
+{Rewrote intake as one shared state streamed over \textbf{\textit{SSE}} with typed commands and edit-preserving merges, so a person and the AI edit the same document at once; extended into versioned documents with 10 agent editing tools.}
+\resumeItem{\textbf{Public MCP Server \& Security}}
+{Shipped a public \textbf{\textit{MCP}} server on our own OAuth server with per-area grants and human confirmation before writes. Moved production to \textbf{\textit{Postgres RLS}} with zero downtime and put a permission key on all \textbf{416} org API routes.}
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading
@@ -135,13 +135,13 @@ Full-stack software engineer building production AI agent systems, across TypeSc
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading
-{Founder \& Software Engineer (Product) - Lumoflo}{\MYhref[blue]{https://lumoflo.com}{Website}}
-{Multi-Tenant E-commerce Platform. \textbf{\$1.5M+ in transactions processed}}{Apr 2024 - Dec 2024}
+{Founder \& Software Engineer (Product) - Lumoflo}{\MYhref[blue]{https://svveetpea.com}{svveetpea.com}}
+{Multi-Tenant E-commerce Platform, now running svveetpea.com. \textbf{\$1.5M+ in transactions processed}}{Apr 2024 - Present}
 \resumeItemListStart
 \resumeItem{\textbf{Full-Stack Ownership}}
 {Built the entire multi-tenant e-commerce platform as sole engineer: \textbf{\textit{Express.js}} / \textbf{\textit{ts-rest}} backend, \textbf{\textit{Next.js}} frontend, and infra, with end-to-end type safety in a \textbf{\textit{monorepo}}. Cut build times by \textbf{56\%}.}
-\resumeItem{\textbf{Systems \& Reliability}}
-{Built account synchronization for carts and queues and a \textbf{\textit{BullMQ}} / \textbf{\textit{Redis}} job-queue system for reliable background processing; wrote \textbf{40+ end-to-end tests} across core modules.}
+\resumeItem{\textbf{Store Agent \& Shipping}}
+{Cut the platform down to one live store in Oct 2026; the owner runs it from Claude or ChatGPT through an \textbf{\textit{MCP}} server with \textbf{58 tools} (voice-to-listing AI, packing, Delhivery pickups and labels, analytics).}
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading

@@ -5,7 +5,7 @@ tags: ["Android", "ExpressJS", "Kotlin"]
 pubDate: "Apr 04 2024"
 link: "https://andronix.app"
 github: "https://andronix.app/git"
-heroImage: "/images/projects/andronix_app_banner.png"
+heroImage: "/images/projects/ascii/andronix.png"
 video: "https://youtu.be/Bw5hqPTQskM"
 status: "Completed"
 publish: true

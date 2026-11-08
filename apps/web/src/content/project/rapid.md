@@ -3,7 +3,7 @@ title: "Rapid"
 description: "Production-ready monorepo starter for building full-stack SaaS products. Features end-to-end type safety with TS-Rest, Turborepo structure, and includes Next.js, Express, Prisma, Shadcn/UI, and NextAuth."
 tags: ["React", "Express", "NextJS", "Monorepo", "Turbo", "Prisma", "NextAuth"]
 pubDate: "Apr 25 2024"
-heroImage: "/images/projects/rapid_banner.png"
+heroImage: "/images/projects/ascii/rapid.png"
 status: "Completed"
 link: "https://rapid.prakhar.codes"
 github: "https://github.com/imprakharshukla/rapid"
@@ -11,7 +11,7 @@ publish: true
 type: "Open Source"
 languages: ["Typescript", "Javascript"]
 frameworks: ["NextJS", "Express", "NodeJS"]
-rank: 7
+rank: 9
 ---
 
 Rapid includes tools that are configured to work together out of the box. It is designed to be a monorepo that can be used to build full-stack applications.

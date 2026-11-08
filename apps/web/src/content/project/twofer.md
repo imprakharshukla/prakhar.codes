@@ -5,14 +5,14 @@ tags: ["AI", "CLI", "Multi-Agent", "Architecture"]
 pubDate: "Feb 23 2026"
 link: "https://github.com/imprakharshukla/twofer"
 github: "https://github.com/imprakharshukla/twofer"
-heroImage: "/images/projects/twofer_banner.png"
+heroImage: "/images/projects/ascii/twofer.png"
 video: "https://github.com/user-attachments/assets/8dfe0463-fd38-4b6a-a1c5-5d8f6e232458"
 status: "Completed"
 publish: true
 type: "Open Source"
 languages: ["TypeScript"]
 frameworks: ["NextJS", "React", "OpenCode SDK", "WebSockets"]
-rank: 6
+rank: 8
 ---
 
 ## What is Twofer?

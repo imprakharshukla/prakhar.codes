@@ -1,16 +1,16 @@
 ---
 title: "Lumoflo"
-description: "Multi-tenant e-commerce SaaS platform with automated billing, shipping, and inventory management. Built with Next.js, TypeScript, and end-to-end type safety for Instagram sellers and small businesses. Shipped to production, processed $1.5M+ in transactions, now sunset."
-tags: ["React", "Express", "NextJS", "E-Commerce"]
+description: "Multi-tenant commerce platform I built for Instagram sellers. It no longer takes new stores; the whole stack now runs one live shop, svveetpea.com, with Delhivery shipping, voice-to-listing AI and an MCP agent that runs the store from Claude."
+tags: ["E-Commerce", "AI Agents", "MCP", "Next.js"]
 pubDate: "Apr 04 2024"
-link: https://lumoflo.com
-# github: "https://github.com/imprakharshukla/lumoflo"
-heroImage: "/images/projects/lumoflo_pro_banner.png"
-status: "Completed"
+updatedDate: "Nov 08 2026"
+link: "https://svveetpea.com"
+heroImage: "/images/projects/ascii/lumoflo.png"
+status: "In Progress"
 publish: true
 type: "Commercial"
-languages: ["Typescript", "Javascript"]
-frameworks: ["NextJS", "Express", "NodeJS"]
+languages: ["TypeScript"]
+frameworks: ["NextJS", "Express", "Drizzle", "Trigger.dev"]
 screenshots:
   - "/images/projects/screenshots/lumoflo/lumoflo_ss_selling.png"
   - "/images/projects/screenshots/lumoflo/lumoflo_ss_billing.png"
@@ -18,76 +18,38 @@ screenshots:
   - "/images/projects/screenshots/lumoflo/lumoflo_ss_product.png"
 rank: 2
 ---
-Lumoflo is a multi-tenant app that aims to enable small business owners to sell products with automated billing, shipping, invoicing, and inventory management.
 
-## Features:
+## What happened to Lumoflo?
 
-### Unified Shopping Experience:
-Lumoflo offers users a seamless shopping experience by allowing them to have a single account to shop from all associated Lumoflo stores. With this unified approach, users can easily browse and purchase products across multiple stores without the hassle of managing separate accounts.
+Lumoflo started in 2023 as Gramflow, a tool for Instagram-first clothing sellers in India, and became Lumoflo in May 2024: a multi-tenant commerce platform with a storefront per store, a merchant dashboard, Razorpay payouts and subscriptions, and an Expo mobile app. I built all of it alone.
 
-### Automated Product Queue:
-To reduce the chances of unsold inventory, Lumoflo implements an auto product queue system. This feature ensures that products are strategically queued for customers based on various factors such as popularity, demand trends, and inventory levels. By optimizing the product queue, sellers can maximize sales and minimize wastage.
+It doesn't take new stores anymore. In October 2026 I cut it down to a single tenant, and the whole stack now runs one real shop: **[svveetpea.com](https://svveetpea.com)**, a store selling one-of-a-kind clothing pieces. I removed store onboarding, billing, payouts, the mobile app and the separate search indexer, then rebuilt the shop around pieces that exist exactly once. It went live on October 18, 2026 and gets new work every week (418 commits since October).
 
-### Globally Synced Cards and Queues:
-Lumoflo boasts globally synced cards and queues, providing sellers with real-time access to critical information about their products and orders. Whether managing inventory, processing orders, or tracking sales, sellers can rely on synchronized data across all Lumoflo stores to make informed decisions and streamline operations.
+## What runs svveetpea.com
 
-### Personalized Recommendations:
-One of Lumoflo's standout features is its ability to provide personalized recommendations to users based on their browsing and purchasing history. By leveraging advanced algorithms and machine learning techniques, Lumoflo delivers tailored product suggestions that enhance the shopping experience and increase customer satisfaction.
+### A store agent over MCP
+The owner runs the shop from Claude or ChatGPT. They sign into the admin over OAuth, and the agent gets 58 tools: create pieces from dictation and photos, pack orders, book pickups, print labels and pull analytics.
 
-### One-Click Shipping Automation:
-With Lumoflo, shipping becomes a breeze thanks to its one-click automation feature. Sellers can effortlessly generate shipping labels and initiate deliveries with shipping partners like Delhivery directly from the admin panel. This streamlined process saves valuable time and ensures prompt order fulfillment, enhancing customer satisfaction.
+### Voice to listing
+Describe a piece by voice or text and AI fills in the whole product form. It flags the fields it wasn't sure about so the owner checks those first.
 
-### Automated Invoicing and Accounting:
-Lumoflo simplifies invoicing and accounting for sellers by automating these processes. From generating invoices to tracking payments and managing expenses, Lumoflo handles the financial aspects of selling products online. Sellers can access comprehensive sales reports and financial insights to make informed business decisions and drive growth.
+### Delhivery shipping, end to end
+Auto-booking, print-ready 4x6 and A4 labels, pickup booking, a wallet-balance guard, and returns for any delivered parcel by its AWB, even ones booked by hand. Product pages and checkout show a delivery date estimate: Delhivery's transit days plus the store's packing days, skipping Sundays.
 
-### Customer-Facing Web App and Order Tracking:
-Lumoflo provides a customer-facing web app where users can conveniently submit their details and track their orders in real-time. With secure authentication mechanisms and OTP verification, Lumoflo ensures a seamless and secure experience for customers. Additionally, the order tracking feature allows customers to monitor the status of their orders from purchase to delivery, fostering trust and loyalty.
+### Holds for one-of-one pieces
+Every piece is unique, so Buy now holds it with a countdown on the server's clock. The product page flips live when someone else holds it, payment webhooks finalize idempotently, a sold piece drops out of every other bag, and back-in-stock emails go out on restock.
 
-With these advanced features and capabilities, Lumoflo empowers small business owners to thrive in the competitive e-commerce landscape by streamlining operations, enhancing customer experiences, and driving sales growth.
+### Live dashboard
+Today's sales, the shopper funnel, live holds and who's on the site, with web push to the owner's phone. The admin installs as a PWA, and team roles come with email invites.
 
-## Who is this for?
+### Fast static storefront
+Pages are prerendered and refreshed by tag on every backend write, on Next.js 16 with Turbopack. The shop's font payload went from 412KB to about 170KB.
 
-Lumoflo is designed for small business owners who are looking for an all-in-one solution to streamline their e-commerce operations. Specifically, Lumoflo caters to:
+## Tech stack
 
-### Instagram Sellers:
-Lumoflo is ideal for Instagram sellers who want to scale their business without the complexity of managing multiple platforms. Whether you're a boutique owner, artisan, or independent seller, Lumoflo offers the tools and features you need to automate billing, shipping, invoicing, and inventory management seamlessly.
-
-### Small Businesses:
-Small businesses seeking to establish an online presence and expand their customer base can benefit from Lumoflo's multi-tenant platform. By providing a unified shopping experience and advanced features like automated product queues and personalized recommendations, Lumoflo empowers small businesses to compete effectively in the digital marketplace.
-
-### Entrepreneurs and Startups:
-Entrepreneurs and startups entering the e-commerce space can leverage Lumoflo to kickstart their online ventures with minimal effort. Lumoflo's user-friendly interface, automated processes, and comprehensive analytics make it easy for new businesses to get up and running quickly while focusing on growth and customer acquisition.
-
-### Online Retailers:
-Online retailers looking to optimize their e-commerce operations and improve efficiency can rely on Lumoflo for end-to-end automation. Whether you're managing a single store or multiple storefronts, Lumoflo's features such as one-click shipping automation, automated invoicing, and customer-facing web apps streamline the entire sales process, enabling retailers to deliver exceptional customer experiences and drive sales.
-
-**Backend Infrastructure:**
-- Express JS for server-side application logic
-- TypeScript for enhanced type safety and productivity
-- Ts-Rest for building fully typed API routes
-- Postgres for reliable relational database management
-- Redis for high-performance, in-memory data storage
-- Agenda for efficient job scheduling
-- Jest for comprehensive testing
-- Jupa for seamless package management
-- Custom authentication mechanisms for enhanced security
-
-**Infrastructure and Deployment:**
-- Docker containers for containerization and portability
-- Fly.io for vertical scaling and deployment management
-- Cloudflare R2 as an alternative to store images and files
-- Prisma as the database ORM for simplified data access
-- Supabase for Postgres database management and administration
-- Doppler for environment variables and secret management
-
-**Frontend Development:**
-- NextJS 14 for efficient web application development
-- Turborepo (Monorepo) with Turbopack for streamlined project management
-- Tailwind CSS for rapid UI development and styling
-- React Server Components with Server Actions for dynamic client-server interactions
-- React Hook Form for handling complex forms
-- Zod for schema validation to ensure data integrity
-
-With this powerful tech stack, Lumoflo delivers unparalleled performance, reliability, and scalability, empowering small business owners to thrive in the competitive landscape of online commerce.
-
-
+- **Apps:** Next.js 16 / React 19 storefront and admin in one app, Express backend, Trigger.dev v4 for crons, emails, the Razorpay webhook and DB backups
+- **Data:** Postgres with Drizzle (moved from Prisma), Postgres full-text search with AI search tags, ts-rest typed API contract, Turborepo + pnpm
+- **Auth:** Better Auth (email codes, passkeys, and an OAuth provider for MCP)
+- **Integrations:** Razorpay, Delhivery API, Resend + react-email, web push, self-hosted Umami, MCP SDK
+- **AI:** Vercel AI SDK through AI Gateway (Gemini Flash transcribes, Claude Haiku fills the form)
+- **Infra:** Railway, Vercel, Cloudflare (DNS, R2, Images, Turnstile), Doppler, Sentry, GitHub Actions, Playwright e2e including 9 checkout scenarios against Razorpay test mode
