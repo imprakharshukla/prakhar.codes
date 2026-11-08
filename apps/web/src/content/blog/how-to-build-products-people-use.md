@@ -2,7 +2,7 @@
 title: "How to Build Products That People Actually Use"
 description: "What I learned from building Andronix - 2M downloads, $140K revenue, and still running 6 years later."
 pubDate: "Jan 10 2026"
-heroImage: "/images/blogs/andronix_cloudflare.png"
+heroImage: "/images/blogs/ascii/how-to-build-products-people-use.png"
 tags: ["Product", "Startup", "Indie Hacking", "Building", "Advice"]
 category: "Advice"
 publish: true

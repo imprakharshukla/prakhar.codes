@@ -2,7 +2,7 @@
 title: "I Put My Life on Autopilot with OpenClaw"
 description: "Meet Nyx, the AI cat that checks my emails, controls my smart home, judges my schedule, and actually remembers who I am."
 pubDate: "Feb 02 2026"
-heroImage: "/images/blogs/nyx-openclaw-setup.png"
+heroImage: "/images/blogs/ascii/how-i-set-up-an-openclawd-that-remembers-things.png"
 tags: ["OpenClaw", "AI", "Automation", "Productivity"]
 category: "AI"
 publish: true

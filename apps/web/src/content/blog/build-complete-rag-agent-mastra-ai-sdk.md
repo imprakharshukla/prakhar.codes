@@ -2,7 +2,7 @@
 title: "How to Build a Complete RAG Agent with Mastra and AI SDK"
 description: "A practical guide to building a production RAG system with internal knowledge search, external fallback, conversation history, and streaming responses. Featuring a real implementation: AI chat for my portfolio."
 pubDate: "Jan 08 2026"
-heroImage: "/images/blogs/build_complete_rag_agent.png"
+heroImage: "/images/blogs/ascii/build-complete-rag-agent-mastra-ai-sdk.png"
 tags: ["AI", "Mastra", "AI SDK", "RAG", "TypeScript", "Agents"]
 category: "Tutorials"
 publish: true

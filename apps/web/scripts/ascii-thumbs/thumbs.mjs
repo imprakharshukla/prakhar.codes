@@ -2,7 +2,7 @@
 // Project thumbnails in the halftone-dot ASCII style (inspired by ascii.rest, engine from the Andronix brand art).
 // Each project gets its own palette and a small procedural scene, with its name in dot letters.
 //
-//   node scripts/ascii-thumbs/thumbs.mjs              # all projects -> public/images/projects/ascii/<slug>.png
+//   node scripts/ascii-thumbs/thumbs.mjs              # all projects + blog covers (public/images/{projects,blogs}/ascii/<slug>.png)
 //   node scripts/ascii-thumbs/thumbs.mjs runa zeni    # just these
 import {mkdirSync} from 'node:fs'
 import {dirname, join} from 'node:path'
@@ -231,8 +231,132 @@ const PROJECTS = {
   }},
 }
 
+
+// ---------------------------------------------------------------- blog covers -> public/images/blogs/ascii/<slug>.png
+const P2 = {
+  lime: {background: '#0C1108', ramp: ['#141C0E', '#1B2612', '#243317', '#30461B', '#3E5D1F', '#507A22', '#669A27', '#84BC34', '#A7D85C', '#CDEB9E', '#F4FBE8'], accent: '#F2B84B', ink: '#F4FBE8', muted: '#6B7A5C'},
+  amber: {background: '#120D06', ramp: ['#1E160B', '#2A1E0E', '#3A2911', '#523813', '#6F4B14', '#915F14', '#B87716', '#DE9420', '#F2B451', '#F9D697', '#FFF7E8'], accent: '#7DD3FC', ink: '#FFF7E8', muted: '#857560'},
+}
+const box = (F, x, y, w, h, label, hot) => {
+  F.box(x, y, x + w, y + h, 0, hot ? .95 : .6, hot ? 1 : 4, 2)
+  if (label) F.text(label, Math.round(x + (w - textWidth(label, 1)) / 2), Math.round(y + (h - 7) / 2) + 1, 1, .95, 2)
+}
+const arrow = (F, x0, y, x1, k = 2) => { for (let x = x0; x <= x1; x += 2) F.set(x, y, .85, k); F.set(x1 - 1, y - 1, .9, k); F.set(x1 - 1, y + 1, .9, k) }
+const dust = F => F.each((x, y) => .04 + .05 * (y / DR) ** 2 + .03 * F.rnd(x, y))
+function termWindow(F, x0, y0, x1, y1, rows, prompt = '$') {
+  F.box(x0, y0, x1, y1, 0, .6, 4, 2)
+  for (const [j, k] of [[0, 1], [1, 2], [2, 4]]) F.disc(x0 + 4 + j * 4, y0 + 3, 1, .85, k)
+  for (let x = x0 + 1; x < x1; x++) F.set(x, y0 + 6, .35, 4)
+  for (let r = 0, y = y0 + 9; r < rows && y + 7 < y1; r++, y += 9) {
+    F.text(prompt, x0 + 4, y, 1, .95, 1)
+    const len = 6 + Math.floor(F.rnd(r, 50) * (x1 - x0 - 22))
+    for (let c = 0; c < len; c++) if (F.rnd(c, r + 60) > .15) F.set(x0 + 12 + c, y + 3, .55 + .35 * F.rnd(c, r))
+  }
+}
+
+const COVERS = {
+  'auto-record-gather-meetings-in-granola': {palette: P2.lime, seed: 31, draw(F) {
+    dust(F)
+    const cx = 112, cy = 50
+    for (const r of [6, 11, 16, 21]) F.ring(cx, cy, r, .35 + (21 - r) * .02, 4)
+    F.disc(cx, cy, 4.5, .97, 1)
+    for (let x = 8; x < 86; x++) { const h = Math.abs(Math.sin(x * .5) * Math.sin(x * .13)) * 9; for (let y = -h; y <= h; y += 1.5) F.set(x, 46 + y, .5 + .4 * (h / 9), x % 9 ? 0 : 2) }
+    title(F, 'GRANOLA', {y: 8, x: 8, max: 100})
+    F.label('AUTO-RECORD GATHER', 1)
+  }},
+  'automate-resume-deployment-github-actions-latex': {palette: P.rapid, seed: 32, draw(F) {
+    dust(F)
+    box(F, 8, 40, 30, 12, 'TEX', 0); arrow(F, 40, 46, 54)
+    box(F, 56, 40, 34, 12, 'CI', 1); arrow(F, 92, 46, 106)
+    box(F, 108, 40, 34, 12, 'PDF', 0)
+    for (let x = 108; x <= 142; x += 2) F.set(x, 60, .5, 4)
+    F.text('R2', 120, 63, 1, .9, 1)
+    title(F, 'RESUME CI', {y: 8})
+  }},
+  'build-complete-rag-agent-mastra-ai-sdk': {palette: P.weave, seed: 33, draw(F) {
+    dust(F)
+    for (let j = 0; j < 4; j++) { const x = 12 + j * 3, y = 36 + j * 3; F.rect(x, y, x + 22, y + 26, 0, 3); F.frame(x, y, x + 22, y + 26, .65, 4); for (let r = 4; r < 24; r += 3) for (let c = 3; c < 16 + (r % 5); c++) F.set(x + c, y + r, .45) }
+    arrow(F, 46, 52, 62)
+    const g = [[72, 44], [86, 36], [100, 50], [88, 60], [114, 40], [126, 56], [138, 44]]
+    ;[[0, 1], [1, 2], [0, 3], [2, 3], [2, 4], [4, 6], [2, 5], [5, 6]].forEach(([a, b]) => F.line(g[a][0], g[a][1], g[b][0], g[b][1], .5, 4, 1.5))
+    g.forEach(([x, y], j) => F.disc(x, y, j === 2 ? 2.4 : 1.6, .95, j === 2 ? 1 : 2))
+    title(F, 'RAG AGENT', {y: 8})
+  }},
+  'complete-typesafe-rest-api-with-ts-rest': {palette: P.zeni, seed: 34, draw(F) {
+    dust(F)
+    box(F, 6, 48, 46, 18, 'CLIENT', 0); box(F, 98, 48, 46, 18, 'SERVER', 0)
+    box(F, 58, 32, 34, 10, 'TYPES', 1)
+    arrow(F, 54, 54, 96); for (let x = 96; x >= 54; x -= 2) F.set(x, 60, .85, 5); F.set(55, 59, .9, 5); F.set(55, 61, .9, 5)
+    F.line(75, 42, 75, 53, .8, 1, 2)
+    title(F, 'TS-REST', {y: 4, max: 130})
+  }},
+  'how-ai-agents-work-under-the-hood': {palette: P.twofer, seed: 35, draw(F) {
+    dust(F)
+    const cx = DC / 2, cy = 52, R = 18
+    for (let a = 0; a < 6.2832; a += .05) F.set(cx + Math.cos(a) * R * 2.2, cy + Math.sin(a) * R, .45, 4)
+    ;[['THINK', -1.57], ['TOOL', .52], ['OBSERVE', 2.62]].forEach(([l, a], j) => { const x = cx + Math.cos(a) * R * 2.2, y = cy + Math.sin(a) * R, w = textWidth(l, 1) + 8; box(F, Math.round(x - w / 2), Math.round(y - 5), w, 10, l, j === 1) })
+    title(F, 'AGENT LOOP', {y: 4, max: 140})
+  }},
+  'how-i-set-up-an-openclawd-that-remembers-things': {palette: P.runa, seed: 36, draw(F) {
+    const Hz = Math.round(DR * .72)
+    sky(F, {sx: .7, sy: (Hz + 2) / DR, glow: 1.1, base: .07})
+    sun(F, DC * .7, Hz + 2, DR * .2, Hz); water(F, Hz)
+    for (let t = 0; t <= 1; t += .012) { const x = 10 + t * 90, y = 58 - Math.sin(t * Math.PI) * 26; if ((t * 100 | 0) % 3) F.set(x, y, .9, 1) }
+    F.disc(100, 58, 1.8, .97, 2)
+    title(F, 'AUTOPILOT', {y: 6})
+  }},
+  'how-to-build-products-people-use': {palette: P.andronix, seed: 37, draw(F) {
+    const Hz = Math.round(DR * .7)
+    sky(F, {sx: .5, sy: (Hz + 2) / DR, glow: 1.2, base: .09})
+    sun(F, DC * .5, Hz + 2, DR * .3, Hz); water(F, Hz); glitter(F, DC * .5, Hz, DR * .3)
+    title(F, ['BUILD WHAT', 'PEOPLE USE'], {y: 4})
+  }},
+  'i-built-a-tui-to-stop-losing-claude-sessions': {palette: P.sonar, seed: 38, draw(F) {
+    dust(F)
+    termWindow(F, 12, 30, 138, 76, 4, '>')
+    F.rect(18, 39 + 9, 132, 39 + 15, .18); F.text('>', 16, 48, 1, .97, 1)
+    title(F, 'SESSIONS', {y: 4})
+  }},
+  'stop-spending-weeks-finding-domains': {palette: P.brawl, seed: 39, draw(F) {
+    dust(F)
+    const tl = ['.COM', '.DEV', '.AI', '.IO', '.APP', '.SH', '.CO', '.SO', '.XYZ']
+    tl.forEach((t, j) => { const x = 8 + (j % 3) * 50 + F.rnd(j, 2) * 10, y = 34 + Math.floor(j / 3) * 14; F.text(t, Math.round(x), Math.round(y), 1, j === 4 ? .97 : .7, j === 4 ? 1 : j % 2 ? 2 : 5) })
+    title(F, 'DOMAINS', {y: 6})
+  }},
+  'the-agentic-system-of-an-applied-ai-engineer': {palette: P2.amber, seed: 40, draw(F) {
+    dust(F)
+    for (let j = 0; j < 6; j++) { const x = 8 + (j % 3) * 47, y = 30 + Math.floor(j / 3) * 25; termWindow(F, x, y, x + 42, y + 21, 1, j === 1 ? '>' : '$') }
+    title(F, 'AGENTS', {y: 4})
+  }},
+  'try-catch-is-a-lie': {palette: P.brawl, seed: 41, draw(F) {
+    dust(F)
+    F.box(40, 32, 110, 56, 0, .85, 2, 2)
+    F.text('TRY', 47, 36, 1, .95, 2); F.text('CATCH', 47, 46, 1, .95, 2)
+    for (let j = 0; j < 46; j++) { const x = 44 + F.rnd(j, 1) * 62, y = 58 + F.rnd(j, 2) * 22; F.disc(x, y, .8, .7 + .3 * F.rnd(j, 3), j % 4 ? 0 : 1) }
+    for (let x = 60; x < 70; x++) F.set(x, 56, 0, 3)
+    title(F, 'TRY CATCH', {y: 4})
+  }},
+  'turning-code-into-data-demystifying-asts': {palette: P.weave, seed: 42, draw(F) {
+    dust(F)
+    const n = [[75, 34, 'PROG'], [45, 50, 'FN'], [105, 50, 'VAR'], [30, 66, 'ID'], [60, 66, 'BODY'], [105, 66, 'LIT']]
+    ;[[0, 1], [0, 2], [1, 3], [1, 4], [2, 5]].forEach(([a, b]) => F.line(n[a][0], n[a][1] + 5, n[b][0], n[b][1] - 5, .6, 4, 1.2))
+    n.forEach(([x, y, l], j) => { const w = textWidth(l, 1) + 8; box(F, Math.round(x - w / 2), y - 5, w, 10, l, j === 0) })
+    title(F, 'AST', {y: 4, max: 60})
+  }},
+  'why-i-love-mastra': {palette: P.sonar, seed: 43, draw(F) {
+    dust(F)
+    const N = [[6, 48, 'INPUT'], [55, 36, 'AGENT'], [55, 60, 'MEMORY'], [104, 48, 'TOOLS']]
+    bezier(F, 46, 53, 55, 41, .8, 2); bezier(F, 46, 53, 55, 65, .8, 2)
+    bezier(F, 95, 41, 104, 53, .9, 1); bezier(F, 95, 65, 104, 53, .8, 2)
+    N.forEach(([x, y, l], j) => box(F, x, y, 40, 10, l, j === 1))
+    title(F, 'MASTRA', {y: 6})
+  }},
+}
+for (const [slug, c] of Object.entries(COVERS)) c.out = `../../blogs/ascii/${slug}.png`
+const ALL = {...PROJECTS, ...COVERS}
+
 async function make(slug) {
-  const p = PROJECTS[slug], {cell, cols, rows} = grid(W, H)
+  const p = ALL[slug], {cell, cols, rows} = grid(W, H)
   const F = new Field(cols, rows, p.seed)
   p.draw(F)
   const px = Buffer.from(render(F, W, H, cell, p.palette))
@@ -244,4 +368,4 @@ async function make(slug) {
 
 mkdirSync(OUT, {recursive: true})
 const want = process.argv.slice(2)
-for (const slug of want.length ? want : Object.keys(PROJECTS)) await make(slug)
+for (const slug of want.length ? want : Object.keys(ALL)) await make(slug)
