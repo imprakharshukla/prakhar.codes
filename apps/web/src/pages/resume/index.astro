@@ -1,197 +1,221 @@
 ---
-import { cn } from "@prakhar/ui";
+// Resume page: timeline rail, recent roles open, older roles collapsed (native <details>).
 import Layout from "../../layouts/layout.astro";
-import SkillAccordion from "../../components/SkillAccordion";
-import IconButton from "../../components/IconButton.astro";
 import ResumeButton from "../../components/ResumeButton";
-import { experience } from "../../data/experience";
+import FilePdfIcon from "../../components/icons/FilePdfIcon";
+import TechBadge from "../../components/TechBadge";
+import { roles, education, skillGroups } from "../../lib/resume";
+
+const OPEN_COUNT = 2; // first N roles expanded by default
+const work = roles.filter((r) => r.type !== "Personal Project");
+const founder = roles.filter((r) => r.type === "Personal Project");
 ---
 
 <Layout
   title="Resume - Prakhar Shukla"
   description="Complete professional background: AI engineer at Sherpa building production agent systems, previously Founding Engineer at Yobr (Norway). Serial founder with 2M+ downloads and $140K+ revenue."
 >
-    <div class="grid gap-1 md:max-w-2xl mt-6">
-      <div class="flex items-center gap-2">
+  <div class="grid gap-2 md:max-w-2xl mt-6 animate-in fade-in duration-200">
+    <div class="flex items-start justify-between gap-4 flex-wrap">
+      <div class="grid gap-2">
         <h1 class="h2-heading">Resume</h1>
-        <div class="relative group">
-          <button type="button" class="appearance-none bg-transparent border-none p-0 cursor-help">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="text-muted-foreground"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></svg>
-          </button>
-          <div class="absolute bottom-full left-0 mb-2 px-3 py-2 rounded-md border border-border bg-popover text-popover-foreground shadow-md text-xs leading-relaxed w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-[9999]">
-            LaTeX resume compiled via GitHub Actions, uploaded to Cloudflare R2. The download button fetches the latest version dynamically - no redeploy needed.
-          </div>
-        </div>
-      </div>
-      <div class="grid gap-3">
-        <p class="description mb-4">
-          I'm a software engineer with a passion for building products that
-          people love. I have experience working with a variety of technologies
-          and languages, including JavaScript, TypeScript, React, Node.js. I
-          care about shipping useful software, learning quickly, and growing
-          through ambitious technical problems.
+        <p class="description leading-relaxed max-w-lg">
+          Software engineer and serial founder. Building
+          <span class="text-foreground font-medium">production AI agent systems</span>
+          at Sherpa; previously Founding Engineer at Yobr. Products with
+          <span class="text-foreground font-medium">2M+ downloads</span> and
+          <span class="text-foreground font-medium">$140K+ revenue</span>.
         </p>
       </div>
-      <ResumeButton title={"Resume"} client:load>
-        <svg
-          class="text-current h-4 w-4"
-          role="img"
-          fill="currentColor"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-file-text"
-          ><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-          ></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"
-          ></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg
-        >
-      </ResumeButton>
-      <div class="grid gap-3">
-        <h2
-          class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"
-        >
-          Work Experience
-        </h2>
-        <div class="px-5">
-          <ul class="relative border-l border-border/40 list-none">
-            {
-              experience.map((work, index) => (
-                <li class="mb-10 ml-4">
-                  <div style="">
-                    <div class="absolute w-3 h-3 bg-primary/70 rounded-full mt-1.5 -left-1.5" />
-                    <time class="mb-1 font-normal leading-none text-muted-foreground">
-                      {work.date}
-                    </time>
-                    <div class="grid gap-1">
-                      <h3 class="text-lg font-semibold text-foreground flex items-center gap-2 flex-wrap">
-                        {work.company}
-                        <span
-                          class={cn(
-                            "inline-flex items-center rounded-md px-1.5 py-0.5 font-medium text-xs/5 forced-colors:outline w-fit",
-                            work.type === "Full-time" &&
-                              "bg-blue-500/15 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400",
-                            work.type === "Contract" &&
-                              "bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400",
-                            work.type === "Internship" &&
-                              "bg-purple-500/15 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400",
-                            work.type === "Personal Project" &&
-                              "bg-orange-500/15 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400"
-                          )}
-                        >
-                          {work.type}
-                        </span>
-                      </h3>
-                      <p class="font-normal text-muted-foreground">
-                        {work.designation}
-                      </p>
-                      <ul class="mt-3 space-y-2">
-                        {work.details.map((detail, idx) => {
-                          const colonIndex = detail.indexOf(":");
-                          const hasLabel = colonIndex !== -1;
-                          const label = hasLabel
-                            ? detail.substring(0, colonIndex)
-                            : null;
-                          const text = hasLabel
-                            ? detail.substring(colonIndex + 1).trim()
-                            : detail;
-
-                          return (
-                            <li class="flex gap-2 text-sm leading-relaxed">
-                              <span class="text-muted-foreground mt-1.5">•</span>
-                              <span class="flex-1">
-                                {hasLabel && (
-                                  <span class="font-semibold text-foreground">
-                                    {label}:
-                                  </span>
-                                )}{" "}
-                                <span class="text-muted-foreground">{text}</span>
-                              </span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
-      <!-- Education -->
-      <div class="grid gap-3">
-        <h2
-          class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"
-        >
-          Education
-        </h2>
-        <div class="px-5">
-          <ul class="relative border-l border-border/40 list-none">
-            {
-              [
-                {
-                  date: "2021 - 2025",
-                  institution:
-                    "Dr. A.P.J. Abdul Kalam Technical University (AKTU)",
-                  location: "Lucknow",
-                  details: [
-                    "B.Tech in Computer Science and Engineering (Artificial Intelligence)",
-                    "Part of various Technical Clubs, core member of Loop, the Coding Club",
-                  ],
-                },
-                {
-                  date: "2019 - 2020",
-                  institution: "Spring Dale College",
-                  location: "Lucknow",
-                  details: [
-                    "President of the Computer Science and Mathematics Club",
-                    "Senior Year in PCM + Computer Science",
-                  ],
-                },
-              ].map((education, index) => (
-                <li class="mb-10 ml-4">
-                  <div style="">
-                    <div class="absolute w-3 h-3 bg-primary/70 rounded-full mt-1.5 -left-1.5" />
-                    <time class="mb-1  font-normal leading-none text-muted-foreground">
-                      {education.date}
-                    </time>
-                    <div class="grid gap-1">
-                      <h3 class="text-lg font-semibold text-foreground">
-                        {education.institution}
-                      </h3>
-                      <p class="font-normal  text-muted-foreground">
-                        {education.location}
-                      </p>
-                      {education.details.map((detail, idx) => (
-                        <ul class="">
-                          <li>
-                            <p class=" font-normal text-muted-foreground">
-                              - {detail}
-                            </p>
-                          </li>
-                        </ul>
-                      ))}
-                    </div>
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <!-- Skills -->
-        <div class="grid gap-3">
-          <div class="grid gap-3 mt-5">
-            <h2
-              class="border-l-2 border-primary pl-3 text-foreground font-semibold text-3xl my-5"
-            >
-              Skills
-            </h2>
-            <SkillAccordion client:load />
-          </div>
-        </div>
-      </div>
     </div>
-  </Layout>
+
+    <div class="flex items-center gap-2 mt-3 flex-wrap">
+      <ResumeButton title={"Download PDF"} client:load>
+        <FilePdfIcon client:load />
+      </ResumeButton>
+      <span class="xs-description">Latest build, compiled from LaTeX on every push.</span>
+    </div>
+
+    <hr class="dark:border-border/50 border-border mt-4 mb-2" />
+
+    <!-- Work -->
+    <section class="grid gap-3">
+      <div class="flex items-baseline justify-between">
+        <h2 class="h3-heading">Work</h2>
+        <span class="xs-description">{work.length} roles</span>
+      </div>
+      <ol class="list-none mt-1">
+        {
+          work.map((role, i) => {
+            const last = i === work.length - 1;
+            return (
+            <li class="grid grid-cols-[20px_minmax(0,1fr)] gap-x-3">
+              {/* rail: the dot sits on top, its own line segment runs to the next row, so the line never passes under a dot */}
+              <div class="flex flex-col items-center pt-[18px]" aria-hidden="true">
+                <span
+                  class:list={[
+                    "relative z-10 shrink-0 rounded-full",
+                    role.current
+                      ? "h-3 w-3 bg-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.18)]"
+                      : "h-2.5 w-2.5 border-2 border-muted-foreground/50 bg-background",
+                  ]}
+                />
+                {!last && <span class="mt-1.5 w-px flex-1 bg-border dark:bg-border/70" />}
+              </div>
+              <details class="group min-w-0" open={i < OPEN_COUNT}>
+                <summary class="list-none cursor-pointer select-none rounded-md px-3 py-2.5 hover:bg-primary/5 transition-colors [&::-webkit-details-marker]:hidden">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex flex-col gap-1 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="h5-heading break-words">{role.name}</h3>
+                        <span class="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium text-xs whitespace-nowrap">{role.type}</span>
+                      </div>
+                      <p class="s-description !text-foreground/90 break-words">
+                        {role.title}
+                        {role.titleNote && <span class="text-muted-foreground"> ({role.titleNote})</span>}
+                      </p>
+                      <p class="xs-description flex items-center gap-x-1.5 gap-y-0.5 flex-wrap">
+                        <span class={role.current ? "text-foreground/80" : ""}>{role.date}</span>
+                        {role.location && (
+                          <>
+                            <span aria-hidden="true">·</span>
+                            <span>{role.location}</span>
+                          </>
+                        )}
+                        <span aria-hidden="true">·</span>
+                        <span class="group-open:hidden">{role.bullets.length} highlights</span>
+                        <span class="hidden group-open:inline">Hide</span>
+                      </p>
+                    </div>
+                    <svg
+                      class="mt-1.5 h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    ><path d="m6 9 6 6 6-6" /></svg>
+                  </div>
+                </summary>
+                <div class:list={["px-3", last ? "pb-2" : "pb-7"]}>
+                  {role.tagline && <p class="xs-description mb-2">{role.tagline}</p>}
+                  <ul class="mt-1 grid gap-2.5">
+                    {role.bullets.map((b) => (
+                      <li class="flex gap-2.5 text-sm leading-relaxed min-w-0">
+                        <span class="mt-[9px] h-1 w-1 flex-shrink-0 rounded-full bg-muted-foreground/60" />
+                        <span class="flex-1 min-w-0 break-words">
+                          {b.label && <span class="font-semibold text-foreground">{b.label}. </span>}
+                          <span class="text-muted-foreground">{b.text}</span>
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {!last && <div class="h-3 group-open:hidden" />}
+              </details>
+            </li>
+            );
+          })
+        }
+      </ol>
+    </section>
+
+    <hr class="dark:border-border/50 border-border mt-6 mb-2" />
+
+    <!-- Founder work -->
+    <section class="grid gap-3">
+      <div class="flex items-baseline justify-between">
+        <h2 class="h3-heading">Founder</h2>
+        <span class="xs-description">Both still running</span>
+      </div>
+      <ul class="grid gap-6 mt-1">
+        {
+          founder.map((role) => (
+            <li>
+              <details class="group" open>
+                <summary class="list-none cursor-pointer select-none rounded-md px-2 py-2 hover:bg-primary/5 transition-colors [&::-webkit-details-marker]:hidden">
+                  <div class="flex gap-4 items-start">
+                    {role.thumb && (
+                      <img
+                        src={role.thumb}
+                        alt=""
+                        class="hidden sm:block w-36 aspect-video object-cover rounded-sm shadow-sm flex-shrink-0 border border-transparent group-hover:border-primary transition-colors"
+                      />
+                    )}
+                    <div class="flex flex-col gap-1 min-w-0 flex-1">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="h5-heading">{role.name}</h3>
+                        <span class="text-primary bg-primary/20 px-1.5 py-1 rounded font-medium text-xs">{role.title}</span>
+                      </div>
+                      {role.tagline && <p class="s-description line-clamp-2">{role.tagline}</p>}
+                      <p class="xs-description flex items-center gap-1.5 flex-wrap">
+                        <span>{role.date}</span>
+                        {role.url && (
+                          <>
+                            <span aria-hidden="true">·</span>
+                            <a href={role.url} target="_blank" rel="noopener noreferrer" class="underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:text-foreground transition-all">
+                              {role.url.replace("https://", "")}
+                            </a>
+                          </>
+                        )}
+                        <span aria-hidden="true">·</span>
+                        <span class="group-open:hidden">{role.bullets.length} highlights</span>
+                        <span class="hidden group-open:inline">Hide</span>
+                      </p>
+                    </div>
+                    <svg
+                      class="mt-2 h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    ><path d="m6 9 6 6 6-6" /></svg>
+                  </div>
+                </summary>
+                <ul class="mt-3 grid gap-2.5 px-2 sm:pl-[10.5rem]">
+                  {role.bullets.map((b) => (
+                    <li class="flex gap-2.5 text-sm leading-relaxed">
+                      <span class="mt-[9px] h-1 w-1 flex-shrink-0 rounded-full bg-muted-foreground/60" />
+                      <span class="flex-1 min-w-0 break-words">
+                        {b.label && <span class="font-semibold text-foreground">{b.label}. </span>}
+                        <span class="text-muted-foreground">{b.text}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <hr class="dark:border-border/50 border-border mt-8 mb-2" />
+
+    <!-- Education + Skills side by side on md -->
+    <div class="grid gap-8 md:grid-cols-[1fr_1.4fr]">
+      <section class="grid gap-3 content-start">
+        <h2 class="h3-heading">Education</h2>
+        <ul class="grid gap-4 mt-1">
+          {
+            education.map((edu) => (
+              <li class="grid gap-0.5">
+                <p class="text-sm font-medium text-foreground leading-snug">{edu.institution}</p>
+                <p class="xs-description">{edu.details[0]}</p>
+                <p class="xs-description">{edu.date} <span aria-hidden="true">·</span> {edu.location}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+      <section class="grid gap-3 content-start">
+        <h2 class="h3-heading">Skills</h2>
+        <div class="grid gap-3 mt-1">
+          {
+            skillGroups.map((g) => (
+              <div class="grid gap-1.5">
+                <p class="xs-description font-medium uppercase tracking-wide">{g.name}</p>
+                <div class="flex flex-wrap gap-1.5">
+                  {g.items.map((s) => <TechBadge tech={s} size="sm" />)}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
