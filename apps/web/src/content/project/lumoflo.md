@@ -28,7 +28,7 @@ It doesn't take new stores anymore. In October 2026 I cut it down to a single te
 ## What runs svveetpea.com
 
 ### A store agent over MCP
-The owner runs the shop from Claude or ChatGPT. They sign into the admin over OAuth, and the agent gets 58 tools: create pieces from dictation and photos, pack orders, book pickups, print labels and pull analytics.
+The owner runs the shop from Claude or ChatGPT. They sign into the admin over OAuth, and the agent gets tools to create pieces from dictation and photos, pack orders, book pickups, print labels and pull analytics.
 
 ### Voice to listing
 Describe a piece by voice or text and AI fills in the whole product form. It flags the fields it wasn't sure about so the owner checks those first.

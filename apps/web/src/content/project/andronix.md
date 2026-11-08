@@ -94,5 +94,5 @@ Andronix 2.0 (app 10.x) is a rebuild of the app, the installer and the services 
 - **$140K+** lifetime revenue since 2019.
 - **#1** result on Google Play for "Linux".
 - **8** app languages.
-- **1,000+** unit tests on every release build.
+- Full unit test suite on every release build.
 - In active development since April 2019.
