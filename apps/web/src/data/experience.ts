@@ -77,7 +77,7 @@ export const experience: ExperienceItem[] = [
     date: "April 2019 - June 2024",
     company: "Andronix",
     designation:
-      'Lead Developer - Ranks No. 1 on Google Play Store for "Linux" keyword, Over 2.4M+ downloads',
+      'Lead Developer - Ranks No. 1 on Google Play Store for "Linux" keyword, 2M+ downloads',
     type: "Personal Project",
     details: [
       "Android App: Developed the entire Android App using Kotlin with MVVM architecture. Implemented Retrofit & OkHttp for Rest API calls & caching, LiveData & Coroutines for async operations.",

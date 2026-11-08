@@ -1,6 +1,6 @@
 ---
 title: "How to Build Products That People Actually Use"
-description: "What I learned from building Andronix - 2.5M downloads, $140K revenue, and still running 6 years later."
+description: "What I learned from building Andronix - 2M downloads, $140K revenue, and still running 6 years later."
 pubDate: "Jan 10 2026"
 heroImage: "/images/blogs/andronix_cloudflare.png"
 tags: ["Product", "Startup", "Indie Hacking", "Building", "Advice"]
@@ -10,7 +10,7 @@ publish: true
 
 ![PostHog Analytics showing 81.7K visitors, 8m 55s session](/images/blogs/andronix_posthog.png)
 
-This is Andronix - an app I built in high school. 2.5M downloads, $140K revenue, still running 6 years later.
+This is Andronix - an app I built in high school. 2M downloads, $140K revenue, still running 6 years later.
 
 I'm not writing this to flex. I'm writing this because when I started, I thought I needed:
 
@@ -89,7 +89,7 @@ Start simple. Ship fast. Listen to users. Scale when you need to. Don't chase pe
 
 ## The Stats (Because People Ask)
 
-- 2.5M+ downloads
+- 2M+ downloads
 - $140K+ revenue
 - #1 on Google Play for "Linux"
 - 1.86M requests/month (last 30 days)

@@ -1,6 +1,6 @@
 ---
 title: "Andronix"
-description: "#1 on Google Play for 'Linux' with 2.4M+ downloads and $140K+ revenue. Install full Linux distributions on Android without root using PRoot technology."
+description: "#1 on Google Play for 'Linux' with 2M+ downloads and $140K+ revenue. Install full Linux distributions on Android without root using PRoot technology."
 tags: ["Android", "ExpressJS", "Kotlin"]
 pubDate: "Apr 04 2024"
 link: "https://andronix.app"
