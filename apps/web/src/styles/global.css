@@ -226,8 +226,8 @@ pre button.copy.copied .ready {
    ignores pointer events. Values are CSS variables so the dev-only GrainTuner can
    adjust them live; the defaults below are what ships. */
 :root {
-  --grain-opacity: 0.07;
-  --grain-opacity-dark: 0.11;
+  --grain-opacity: 0.3;
+  --grain-opacity-dark: 0.115;
   --grain-size: 220px;
   --grain-blend: multiply;
   --grain-blend-dark: screen;

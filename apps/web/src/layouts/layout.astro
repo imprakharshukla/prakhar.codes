@@ -8,7 +8,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { TailwindIndicator } from "../components/TailwindIndicator";
 import { ChatWidget } from "../components/ChatWidget";
-import { GrainTuner } from "../components/GrainTuner";
 import PostHog from "../components/posthog.astro";
 ---
 
@@ -71,7 +70,6 @@ import PostHog from "../components/posthog.astro";
         </main>
       </div>
       <TailwindIndicator client:only />
-      {import.meta.env.DEV && <GrainTuner client:only="react" />}
 
       <!-- Chat Widget - available on all pages -->
       <ChatWidget client:load />
