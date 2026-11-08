@@ -23,7 +23,7 @@ rank: 2
 
 Lumoflo started in 2023 as Gramflow, a tool for Instagram-first clothing sellers in India, and became Lumoflo in May 2024: a multi-tenant commerce platform with a storefront per store, a merchant dashboard, Razorpay payouts and subscriptions, and an Expo mobile app. I built all of it alone.
 
-It doesn't take new stores anymore. In October 2026 I cut it down to a single tenant, and the whole stack now runs one real shop: **[svveetpea.com](https://svveetpea.com)**, a store selling one-of-a-kind clothing pieces. I removed store onboarding, billing, payouts, the mobile app and the separate search indexer, then rebuilt the shop around pieces that exist exactly once. It went live on October 18, 2026 and gets new work every week (418 commits since October).
+It doesn't take new stores anymore. In October 2026 I cut it down to a single tenant, and the whole stack now runs one real shop: **[svveetpea.com](https://svveetpea.com)**, a store selling one-of-a-kind clothing pieces. I removed store onboarding, billing, payouts, the mobile app and the separate search indexer, then rebuilt the shop around pieces that exist exactly once. It went live on October 18, 2026 and still gets new work every week.
 
 ## What runs svveetpea.com
 
