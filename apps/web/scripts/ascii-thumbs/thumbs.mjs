@@ -214,36 +214,6 @@ const PROJECTS = {
     F.label('FIND IT BY MEANING', 1)
   }},
 
-  // not a project: the Munich travel-log hero (twin towers of the Frauenkirche with the Alps behind)
-  munich: {palette: {background: '#081018', ramp: ['#0E1A26', '#122233', '#172C42', '#1C3A57', '#21496F', '#2A5C8A', '#3B74A8', '#5A92C4', '#86B4DB', '#BCD7EE', '#F2F8FD'], accent: '#F6C453', ink: '#F2F8FD', muted: '#4A6178'},
-    seed: 21, out: '../../travel/munich.png', draw(F) {
-    sky(F, {sx: .69, sy: .5, glow: 1.25, base: .07, haze: .25})
-    sun(F, 104, 40, DR * .26)
-    // the Alps: a jagged ridge, snow on the peaks
-    const ridge = x => 48 - 10 * Math.abs(Math.sin(x * .045 + 1)) - 7 * fbm(x * .08, 0, 3) - 4 * Math.abs(Math.sin(x * .17))
-    F.each((x, y, v) => { const r = ridge(x); return y >= r ? (y < r + 3 ? .8 : .32 + .1 * fbm(x * .2, y * .2, 5)) : v })
-    // rooftops of the old town
-    let hx = F.X0
-    while (hx < F.X1) {
-      const w = 6 + Math.floor(F.rnd(hx, 7) * 8), h = 56 + Math.floor(F.rnd(hx, 8) * 6)
-      for (let x = hx; x < hx + w; x++) for (let y = h - Math.min(x - hx, hx + w - 1 - x) * .6; y <= F.Y1; y++) F.set(x, y, .16, 4)
-      for (let x = hx + 1; x < hx + w - 1; x += 3) if (F.rnd(x, 9) > .55) F.set(x, h + 4, .95, 1)
-      hx += w
-    }
-    // the Frauenkirche: two brick towers with round caps
-    const tower = cx => {
-      const top = 22, w = 5
-      for (let y = top; y <= F.Y1; y++) for (let x = cx - w; x <= cx + w; x++) F.set(x, y, .1, 4)
-      for (let y = top + 6; y < 46; y += 7) F.set(cx, y, .9, 1)
-      F.ring(cx, top, w, .1, 4, 1.15, 3.14, 6.29); for (let r = 0; r < w; r++) F.ring(cx, top, r, .1, 4, 1.15, 3.14, 6.29)
-      F.set(cx, top - w * 1.15 - 1, .95, 2); F.set(cx, top - w * 1.15 - 2, .95, 2)
-    }
-    tower(96); tower(112)
-    for (let y = 46; y <= F.Y1; y++) for (let x = 86; x <= 122; x++) F.set(x, y, .1, 4)
-    for (let x = 86; x <= 122; x++) F.set(x, 46 - Math.min(x - 86, 122 - x) * .25, .1, 4)
-    title(F, 'MUNICH', {y: 6, x: 10, max: 70})
-  }},
-
   zeni: {palette: P.zeni, seed: 7, draw(F) {
     // savings bars climbing toward a dotted goal line
     F.each((x, y) => .05 + .1 * (y / DR) ** 2 + .03 * F.rnd(x, y))

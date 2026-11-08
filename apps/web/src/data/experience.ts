@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    date: "April 2025 - May 2025",
+    date: "March 2025 - May 2025",
     company: "Yobr (yobr.io) - Oslo, Norway",
     designation: "Software Engineering Intern",
     type: "Internship",
@@ -47,7 +47,7 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    date: "July 2024 - Oct 2024",
+    date: "July 2024 - Nov 2024",
     company: "CaseCraft (NUS Singapore)",
     designation:
       "Software Engineering Intern - Full-Stack Development & AI Integration",
@@ -74,15 +74,16 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    date: "April 2019 - June 2024",
+    date: "April 2019 - Present",
     company: "Andronix",
     designation:
-      'Founder & Engineer - Linux-on-Android app, 2M+ downloads, $140K+ revenue; ranked No. 1 on Google Play for "Linux"',
+      'Founder & Engineer - Linux-on-Android app, 2M+ downloads, $140K+ revenue; No. 1 on Google Play for "Linux"',
     type: "Personal Project",
     details: [
-      "Android App: Built the Android app in Kotlin with MVVM, Retrofit and OkHttp for networking and caching, and LiveData and Coroutines for async work.",
-      "Backend: Built a TypeScript microservices backend split into Internal, Commerce and Product APIs, with 80%+ test coverage; Firebase emulators took integration coverage from 0% to 78%.",
-      "Website: Built the website in Nuxt and Vue with Tailwind CSS, with end-to-end Cypress tests.",
+      "Andronix 2.0 (2026): Rebuilt the app, installer and services: Modded OS desktop editions, Termux:X11 desktops, server-confirmed Play Billing 8 purchases, eight languages, and staged Play rollouts gated on crash rates.",
+      "Android App: Kotlin, single-activity architecture, coroutines and Flow, Hilt, Firebase and Sentry, with 1,000+ unit tests on every release build.",
+      "Backend: TypeScript and Express services (Products, Commerce and Internal APIs) on Railway, with Firebase and Postgres, downloads on Cloudflare R2, and a revenue ledger fed by Play real-time notifications.",
+      "Website and Support: andronix.app on Astro and Cloudflare Workers, docs on Next.js, and a support desk where AI-drafted replies are fact-checked before sending.",
     ],
   },
 ];

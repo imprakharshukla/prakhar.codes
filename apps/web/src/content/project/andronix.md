@@ -1,93 +1,98 @@
 ---
 title: "Andronix"
-description: "#1 on Google Play for 'Linux' with 2M+ downloads and $140K+ revenue. Install full Linux distributions on Android without root using PRoot technology."
-tags: ["Android", "ExpressJS", "Kotlin"]
-pubDate: "Apr 04 2024"
+description: "Linux on Android without root. 2M+ Google Play downloads and $140K+ lifetime revenue. Andronix 2.0 adds Modded OS desktops, Termux:X11 and a rebuilt backend, support desk and release pipeline."
+tags: ["Android", "Kotlin", "Linux", "ExpressJS", "Astro", "Next.js"]
+pubDate: "Apr 04 2019"
+updatedDate: "Nov 08 2026"
 link: "https://andronix.app"
 github: "https://andronix.app/git"
 heroImage: "/images/projects/ascii/andronix.png"
-video: "https://youtu.be/Bw5hqPTQskM"
-status: "Completed"
+status: "In Progress"
 publish: true
 type: "Commercial"
-languages: ["Kotlin", "Typescript", "C", "Bash"]
-frameworks: ["VueJS","ExpressJS"]
+languages: ["Kotlin", "TypeScript", "C", "Bash"]
+frameworks: ["Android SDK", "ExpressJS", "Astro", "Next.js", "Firebase", "TailwindCSS"]
+screenshotLayout: "phone"
+screenshots:
+  - "/images/projects/screenshots/andronix/app10-home.webp"
+  - "/images/projects/screenshots/andronix/app10-distro-list.webp"
+  - "/images/projects/screenshots/andronix/app10-desktop-picker.webp"
+  - "/images/projects/screenshots/andronix/termux-x11-desktop.webp"
+  - "/images/projects/screenshots/andronix/app10-modded-editions-owned.webp"
 rank: 1
 ---
-## What is Andronix App?
-Andronix helps you to install Linux distributions like Ubuntu, Debian, Manjaro, Kali etc. on un-rooted Android devices.
+## What is Andronix?
 
-## How does this work?
+Andronix installs full Linux distributions such as Ubuntu, Debian, Arch, Fedora, Manjaro and Kali on Android phones, tablets and Chromebooks, with no root. You pick a distro and a desktop in the app, run one command in Termux, and get a Linux terminal or a full desktop on your device.
 
-Andronix is simple inside the hood (well not really, but most of it is simple to understand). Andronix uses **PRoot** to
-run your favourite Linux distribution on your Android devices.
+The free distros cover most users. Modded OS editions and Andronix Premium are paid tiers, and they fund the project.
 
-### What exactly is PRoot?
+## How it works
 
-As stated in the official website of PRoot
+Andronix runs Linux with **PRoot**, a user-space implementation of `chroot`, `mount --bind` and `binfmt_misc`. PRoot lets an ordinary app process treat a directory as the root file system, so a complete Linux userland runs inside Termux without special privileges.
 
-> PRoot is a user-space implementation of **chroot, mount --bind, and binfmt_misc**. This means that users don't need
-> any privileges or setup to do things like using an arbitrary directory as the new root file system, making files
-> accessible somewhere else in the file system hierarchy, or executing programs built for another CPU architecture
-> transparently through QEMU user-mode.
+- The app handles choosing a distro and desktop, purchases, accounts and help.
+- **Termux** provides the terminal and the Android-side packages.
+- The `andronix` installer command downloads the root file system, sets up the user and desktop, and writes the start scripts.
+- Desktops display through **Termux:X11**, with VNC as a fallback.
 
+## What's new in 2.0
 
-or in easier words, the benefits of enabling PRoot include running Linux operating systems in a
-Termux [chroot](https://en.m.wikipedia.org/wiki/Chroot) on an Android smartphone, tablet and Chromebook.
+Andronix 2.0 (app 10.x) is a rebuild of the app, the installer and the services behind them.
 
-We use **Termux** to provide the command line and the packages that are especially compiled for Termux implemented
-inside Andronix
+- **New app design.** A new icon and brand, a Home screen built around free distros and Modded OS, and outline icons throughout.
+- **Modded OS editions.** Ready-made desktops, styled and set up by Andronix, on Ubuntu, Debian, KDE Plasma, Manjaro and Kali bases.
+- **Termux:X11 desktops.** Native X11 display instead of VNC by default, which is faster and works better with touch, keyboard and mouse.
+- **A new installer.** It works on more devices, gives clearer errors, and includes `andronix report`, which uploads a problem report and returns a short ID to send to support.
+- **In-app tools.** Reset a forgotten Linux password from the distro menu, check purchases on the Owned screen, and read the in-app What's new.
+- **Eight languages.** English, German, Spanish, French, Brazilian Portuguese, Turkish, Indonesian and Russian, in both the app and the release notes.
+- **Play Billing 8.** Purchases are confirmed on the server and restored on reinstall, with seasonal offers that switch on and off on schedule.
 
-## My contribution to Andronix
+## How I build and run it
 
-### Android App
+### Android app
 
-- I have developed the entire Android app using Kotlin and the **Model-View-ViewModel (MVVM) architecture**. This modern
-  programming language, along with the powerful MVVM design pattern, has allowed me to create a scalable and
-  maintainable codebase for the app.
-- Utilized **Retrofit** to handle all API calls in our app. This popular HTTP client simplifies the process of making
-  network requests and allows for a more efficient and reliable communication with our backend servers.
-- Used Firebase Realtime Database and Firestore, and all the realtime listeners are handled using Kotlin's **StateFlow**
-  and **SharedFlow** which are passed to the ViewModel and then to the UI using Kotlin coroutines.
-- Andronix uses **Hilt**, a dependency injection library developed by Google, to efficiently manage and maintain the
-  dependencies within the app. The implementation of this software design pattern, along with Hilt's code generation and
-  testing support, results in a more robust and reliable user experience in Andronix.
-- I have created a wrapper around the **Google Play Billing library v5.0** to allow for easier integration of payments
-  in our app. By implementing this custom solution, I have been able to streamline the integration process and improve
-  the overall user experience when making payments within the app.
-- Implemented **single activity architecture** using **Jetpack Navigation Component**. This allows for a more efficient
-  and reliable user experience when navigating between different screens in the app.
-
-### Frontend
-
-- I have developed the frontend of the Andronix app's websites using **NuxtJS** and **VueJS**, two popular JavaScript
-  libraries. I have also employed TailwindCSS for styling, resulting in a visually appealing and user-friendly website.
-  The combination of these technologies has allowed me to efficiently create and maintain the websites for our app
-- Completely re-designed the websites from scratch and implemented a **modular approach** in the coding process. This
-  systematic method of development has resulted in a more organized and efficient codebase, allowing for easier
-  maintenance and updates to the websites.
-- I have implemented automated **end-to-end testing** using **CypressJS** in order to ensure the quality and reliability
-  of the websites. This powerful testing tool allows me to simulate user actions and verify that the websites are
-  functioning as intended, ultimately improving the user experience.
-- Implemented **unit testing** using the popular libraries **chai** and **mocha** in order to thoroughly test the
-  individual components of the websites. This approach allows me to identify and fix any issues at the unit level,
-  resulting in a more robust and reliable website overall.
-- Added **Razorpay**, a payment gateway, to the websites in order to enable payments for our users. This integration
-  allows us to securely process transactions and expand the functionality of the websites.
+- Kotlin, single-activity architecture, ViewModels with coroutines and Flow, and Dagger/Hilt for dependency injection.
+- Google Play Billing 8, Firebase (Auth, Firestore, Realtime Database, Remote Config, Messaging) and Sentry for error reports.
+- Native code (C) for the parts that run Linux processes and audio.
+- More than 1,000 unit tests (JUnit and Robolectric) run on every release build.
+- Release builds refuse to build when a required key is missing or the version has no changelog entry.
 
 ### Backend
 
-- Developed the backend of Andronix to efficiently handle download requests at scale. The backend is powered by NodeJS (
-  using the **ExpressJS** and **NestJS** frameworks), **Firebase**, **Hasura** (using **GraphQL**), and **Apollo
-  GraphQL** for internal tooling. In order to ensure the quality and reliability of the backend, I have implemented
-  testing using **ChaiJS** and **MochaJS**.
-- Refactored the code to **Typescript** in order to improve the type safety and maintainability of the backend. This
-  effort has resulted in an increase in the test coverage to over 80%. Additionally, I have utilized the Firebase
-  emulators to increase the integration **test coverage from 0% to 78%**.
-- **Modularized the API** into Internal, Commerce, and Product APIs in order to improve the organization and
-  maintainability of the backend. This approach has allowed me to reduce the time spent on maintenance and more
-  efficiently manage the various components of the API
-- Transitioned the deployment of the backend from bare metal servers with **Nginx** as a load-balancer to the cloud
-  using Render. This decision has allowed for **improved scalability and reliability of the backend**. In order to
-  streamline the development process, I have also implemented CI/CD pipelines using **GitHub Actions** for **automated
-  unit and integration testing**, as well as **automated deployment**.
+- TypeScript and Express services, each with one job:
+  - Products API: catalog, entitlements, install tokens and problem reports.
+  - Commerce API: purchases and server-side purchase confirmation.
+  - Internal API: tooling.
+- Hosted on Railway, with Firebase and Postgres for data.
+- Distro images and downloads are served from Cloudflare R2 behind Cloudflare.
+- Revenue is tracked from Google Play's real-time notifications into a ledger that removes duplicate orders.
+- Product analytics run on a self-hosted OpenPanel and ClickHouse stack.
+
+### Website and docs
+
+- [andronix.app](https://andronix.app) is built with Astro and Tailwind and deployed on Cloudflare Workers.
+- The site's changelog file also feeds the app's What's new screen.
+- [docs.andronix.app](https://docs.andronix.app) is a Next.js site with guides, troubleshooting and recorded terminal demos of the real installer.
+
+### Release and QA
+
+- Every build is tested on real phones first. AWS Device Farm runs release checks across phones I don't own.
+- Production releases go out as Play staged rollouts, widened step by step (for example 20%, then 50%, then 100%) based on crash rates.
+- Scripts that call the Google Play Developer API upload builds, widen rollouts and keep release notes in every language.
+
+### Support and operations
+
+- A support desk built with Next.js and Postgres collects email tickets and installer reports in one place.
+- AI drafts replies, and each draft is fact-checked against the code and docs before it is sent.
+- Hourly checks cover new tickets, failed purchases and new crashes in Sentry, so problems surface within the hour.
+- I run much of the day-to-day work (triage, release steps, monitoring) with AI coding agents. I review their work, and releases and payments need my approval.
+
+## Numbers
+
+- **2M+** downloads on Google Play.
+- **$140K+** lifetime revenue since 2019.
+- **#1** result on Google Play for "Linux".
+- **8** app languages.
+- **1,000+** unit tests on every release build.
+- In active development since April 2019.
