@@ -36,8 +36,8 @@ const filteredBlogPosts = blogPosts
 ---
 
 <Layout
-  title="Prakhar Shukla - Software Engineer & Serial Founder"
-  description="Software engineer building production AI agent systems at Sherpa. Serial founder with 2.5M+ downloads and $140K+ revenue. TypeScript, React, Node.js, AI agents."
+  title="Prakhar Shukla - Applied AI Engineer & Founder"
+  description="Applied AI engineer in Munich building production AI agents at Sherpa. Runs Andronix (2M+ downloads, $140K+ revenue) and the stack behind svveetpea.com. TypeScript, MCP, Mastra, Vercel AI SDK."
 >
     <div class="grid gap-2 md:max-w-2xl mt-6 animate-in fade-in duration-200">
       {
@@ -103,47 +103,22 @@ const filteredBlogPosts = blogPosts
       </div>
 
       <p class="description leading-relaxed max-w-lg">
-        I am a <span class="text-foreground font-medium">software engineer</span> and
-        serial founder, currently building <span class="text-foreground font-medium"
-          >production AI agent systems</span
-        > at <a
-          href="https://sherpahq.ai"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
-          >Sherpa</a
-        >. Previously Founding Engineer at <a
-          href="https://yobr.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded"
-          >Yobr</a
-        > in Norway. My products have reached <span class="text-foreground font-medium"
-          >2.5M+ downloads</span
-        > and generated <span class="text-foreground font-medium"
-          >$140K+ in revenue</span
-        >. {
-          SHOW_HIRING_AVAILABILITY ? (
-            <>
-              Now <HiringPopover client:load />.
-            </>
-          ) : (
-            <>
-              These days, I am focused on building useful products and writing
-              about the engineering behind them.
-            </>
-          )
-        }
+        I'm an <span class="text-foreground font-medium">applied AI engineer</span> in
+        Munich, building <span class="text-foreground font-medium">production AI agents</span>
+        at <a href="https://sherpahq.ai" target="_blank" rel="noopener noreferrer" class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded">Sherpa</a>:
+        agents in Slack and Teams, legal RAG, and public MCP servers. On the side I run
+        <a href="/projects/andronix" class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded">Andronix</a> (Linux on Android,
+        <span class="text-foreground font-medium">2M+ downloads</span>,
+        <span class="text-foreground font-medium">$140K+ revenue</span>, 2.0 just shipped) and
+        the stack behind <a href="https://svveetpea.com" target="_blank" rel="noopener noreferrer" class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded">svveetpea.com</a>,
+        a store run from Claude. Before that I was Founding Engineer at
+        <a href="https://yobr.io" target="_blank" rel="noopener noreferrer" class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded">Yobr</a> in Norway.
+        {SHOW_HIRING_AVAILABILITY && (<> Now <HiringPopover client:load />.</>)}
       </p>
       <p class="description">
-        I build for the <span class="text-foreground font-medium">web</span>, <span
-          class="text-foreground font-medium">server</span
-        >, <span class="text-foreground font-medium">mobile</span>, and <span
-          class="text-foreground font-medium">AI agents</span
-        >
-        <span class="text-muted-foreground/70"
-          >(Mastra, Vercel AI SDK, RAG)</span
-        >.
+        I build <span class="text-foreground font-medium">agents</span>, the
+        <span class="text-foreground font-medium">systems around them</span>, and the products
+        people actually use. I <a href="/blog" class="text-foreground underline decoration-primary/40 underline-offset-2 hover:decoration-primary hover:bg-primary/10 transition-all px-0.5 -mx-0.5 rounded">write about it here</a>.
       </p>
 
       <div class="flex items-center gap-2 mt-3 flex-wrap">
@@ -267,21 +242,14 @@ const filteredBlogPosts = blogPosts
           >
           PostgreSQL
         </span>
-        <!-- Docker -->
+        <!-- Claude -->
         <span
           class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-card text-foreground border border-border"
         >
-          <svg
-            class="h-3.5 w-3.5"
-            role="img"
-            viewBox="0 0 24 24"
-            fill="#008fe2"
-            xmlns="http://www.w3.org/2000/svg"
-            ><path
-              d="M13.98 11.08h2.12a.19.19 0 0 0 .19-.19V9.01a.19.19 0 0 0-.19-.19h-2.12a.18.18 0 0 0-.18.18v1.9c0 .1.08.18.18.18m-2.95-5.43h2.12a.19.19 0 0 0 .18-.19V3.57a.19.19 0 0 0-.18-.18h-2.12a.18.18 0 0 0-.19.18v1.9c0 .1.09.18.19.18m0 2.71h2.12a.19.19 0 0 0 .18-.18V6.29a.19.19 0 0 0-.18-.18h-2.12a.18.18 0 0 0-.19.18v1.89c0 .1.09.18.19.18m-2.93 0h2.12a.19.19 0 0 0 .18-.18V6.29a.18.18 0 0 0-.18-.18H8.1a.18.18 0 0 0-.18.18v1.89c0 .1.08.18.18.18m-2.96 0h2.11a.19.19 0 0 0 .19-.18V6.29a.18.18 0 0 0-.19-.18H5.14a.19.19 0 0 0-.19.18v1.89c0 .1.08.18.19.18m5.89 2.72h2.12a.19.19 0 0 0 .18-.19V9.01a.19.19 0 0 0-.18-.19h-2.12a.18.18 0 0 0-.19.18v1.9c0 .1.09.18.19.18m-2.93 0h2.12a.18.18 0 0 0 .18-.19V9.01a.18.18 0 0 0-.18-.19H8.1a.18.18 0 0 0-.18.18v1.9c0 .1.08.18.18.18m-2.96 0h2.11a.18.18 0 0 0 .19-.19V9.01a.18.18 0 0 0-.18-.19H5.14a.19.19 0 0 0-.19.19v1.88c0 .1.08.19.19.19m-2.92 0h2.12a.18.18 0 0 0 .18-.19V9.01a.18.18 0 0 0-.18-.19H2.22a.18.18 0 0 0-.19.18v1.9c0 .1.08.18.19.18m21.54-1.19c-.06-.05-.67-.51-1.95-.51-.34 0-.68.03-1.01.09a3.77 3.77 0 0 0-1.72-2.57l-.34-.2-.23.33a4.6 4.6 0 0 0-.6 1.43c-.24.97-.1 1.88.4 2.66a4.7 4.7 0 0 1-1.75.42H.76a.75.75 0 0 0-.76.75 11.38 11.38 0 0 0 .7 4.06 6.03 6.03 0 0 0 2.4 3.12c1.18.73 3.1 1.14 5.28 1.14.98 0 1.96-.08 2.93-.26a12.25 12.25 0 0 0 3.82-1.4 10.5 10.5 0 0 0 2.61-2.13c1.25-1.42 2-3 2.55-4.4h.23c1.37 0 2.21-.55 2.68-1 .3-.3.55-.66.7-1.06l.1-.28Z"
-            ></path></svg
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="#D97757" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+            ><path d="M12 2l1.6 6.2L20 6l-4.4 4.8L22 12l-6.4 1.2L20 18l-6.4-2.2L12 22l-1.6-6.2L4 18l4.4-4.8L2 12l6.4-1.2L4 6l6.4 2.2z"></path></svg
           >
-          Docker
+          Claude
         </span>
         <!-- Trigger.dev -->
         <span
@@ -383,6 +351,24 @@ const filteredBlogPosts = blogPosts
             ></path></svg
           >
           Kotlin
+        </span>
+        <!-- MCP -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-card text-foreground border border-border"
+        >
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            ><path d="M12 22v-5"></path><path d="M9 8V2"></path><path d="M15 8V2"></path><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"></path></svg
+          >
+          MCP
+        </span>
+        <!-- Cloudflare -->
+        <span
+          class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 font-medium text-xs/5 bg-card text-foreground border border-border"
+        >
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="#F38020" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+            ><path d="M16.5 17H5a3.5 3.5 0 0 1-.6-6.95A5 5 0 0 1 14 8.3 4.5 4.5 0 0 1 21 12.2 2.4 2.4 0 0 1 19.5 17Z"></path></svg
+          >
+          Cloudflare
         </span>
       </div>
       <p class="text-muted-foreground text-xs mt-1.5">I've worked with tons of different tech stacks and I love learning new things. This list is not static and never will be.</p>

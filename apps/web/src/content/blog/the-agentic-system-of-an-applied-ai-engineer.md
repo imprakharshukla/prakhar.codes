@@ -2,7 +2,7 @@
 title: "The Agentic System of an Applied AI Engineer"
 description: "A guide to running coding agents across several machines with one model gateway, one tool gateway and one skills repo."
 pubDate: "Nov 05 2026"
-heroImage: "/images/blogs/agentic-system/thumb-option-1-conductor.jpg"
+heroImage: "/images/blogs/ascii/the-agentic-system-of-an-applied-ai-engineer.png"
 tags: ["AI Agents", "T3 Code", "Claude Code", "MCP", "Developer Tools"]
 category: "AI"
 publish: true

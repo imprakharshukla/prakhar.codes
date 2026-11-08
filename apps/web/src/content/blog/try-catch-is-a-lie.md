@@ -2,7 +2,7 @@
 title: "Try-Catch is a Lie: Why TypeScript Error Handling is Broken (and How to Fix It)"
 description: "TypeScript catches every type error except the ones that crash your app at 2 AM. Here's how to build a Result type that makes errors impossible to ignore."
 pubDate: "Feb 17 2026"
-heroImage: "/images/blogs/try-catch-is-a-lie.jpg"
+heroImage: "/images/blogs/ascii/try-catch-is-a-lie.png"
 tags: ["TypeScript", "Error Handling", "Patterns"]
 category: "Coding"
 publish: true

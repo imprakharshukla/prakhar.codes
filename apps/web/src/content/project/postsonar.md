@@ -5,7 +5,7 @@ tags: ["AI", "Next.js", "Convex", "Mastra"]
 pubDate: "Jan 17 2026"
 link: "https://postsonar.com"
 # github: "https://github.com/imprakharshukla/social-agent"
-heroImage: "/images/projects/postsonar_banner.png"
+heroImage: "/images/projects/ascii/postsonar.png"
 status: "Completed"
 publish: true
 type: "Commercial"
@@ -21,7 +21,7 @@ screenshots:
   - "/images/projects/screenshots/postsonar/G-2M37tboAM3SNz.jpeg"
   - "/images/projects/screenshots/postsonar/G-2MaYcaYAApjYe.jpeg"
   - "/images/projects/screenshots/postsonar/G-2ND69aEAA6YCq.jpeg"
-rank: 3
+rank: 5
 ---
 
 PostSonar is an AI-powered research assistant that automates content discovery for thought leaders and content creators. It monitors multiple sources in your domain of expertise, intelligently filters for relevance, and generates personalized post ideas matching your unique writing voice.

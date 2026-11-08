@@ -4,14 +4,14 @@ description: "AI-powered SVG animation studio with a node-based graph editor for
 tags: ["AI", "SVG", "Animation", "Node Graph", "Design Tool"]
 pubDate: "Feb 23 2026"
 link: "https://svgweave.com/"
-heroImage: "/images/projects/svgweave_banner.png"
+heroImage: "/images/projects/ascii/svgweave.png"
 video: "https://www.youtube.com/watch?v=-oQ03YIvrDg"
 status: "Completed"
 publish: true
 type: "Personal"
 languages: ["TypeScript"]
 frameworks: ["NextJS", "React", "React Flow", "Zustand", "Convex"]
-rank: 4
+rank: 3
 ---
 
 ## What is SVG Weave?

@@ -4,14 +4,14 @@ description: "Describe your startup idea and instantly get creative, available d
 tags: ["AI", "Domains", "Mastra", "Next.js"]
 pubDate: "Feb 23 2026"
 link: "https://domains.prakhar.codes/"
-heroImage: "/images/projects/domain_brawl_banner.png"
+heroImage: "/images/projects/ascii/domain-brawl.png"
 video: "https://youtu.be/zs4Pqp_EhFA"
 status: "Completed"
 publish: true
 type: "Personal"
 languages: ["TypeScript"]
 frameworks: ["NextJS", "React", "Mastra", "Vercel AI SDK"]
-rank: 5
+rank: 7
 ---
 
 ## What is Domain Brawl?

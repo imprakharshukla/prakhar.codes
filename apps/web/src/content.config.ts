@@ -36,6 +36,7 @@ const project = defineCollection({
     frameworks: z.array(z.string()).optional(),
     video: z.string().url().optional(),
     screenshots: z.array(z.string()).optional(),
+    screenshotLayout: z.enum(["wide", "phone"]).optional(),
     rank: z.number().optional(),
   }),
 });

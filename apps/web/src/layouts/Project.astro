@@ -23,6 +23,7 @@ const {
   heroImage,
   video,
   screenshots,
+  screenshotLayout,
 } = Astro.props;
 
 function getYouTubeEmbedUrl(url: string): string | null {
@@ -122,14 +123,14 @@ const isDirectVideo = video && !embedUrl;
         {!embedUrl && !isDirectVideo && (
           <img
             src={heroImage}
-            alt={heroImage}
-            class="w-full h-64 object-cover object-left rounded-lg mt-4"
+            alt={`${title} thumbnail`}
+            class="w-full aspect-video object-cover rounded-lg mt-4"
           />
         )}
         {screenshots && screenshots.length > 0 && (
           <div class="mt-8 grid gap-4">
             <h2 class="text-lg font-semibold text-foreground">Screenshots</h2>
-            <div class="grid gap-4">
+            <div class={screenshotLayout === "phone" ? "grid grid-cols-2 sm:grid-cols-3 gap-4" : "grid gap-4"}>
               {screenshots.map((src: string) => (
                 <img
                   src={src}

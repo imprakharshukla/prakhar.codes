@@ -2,7 +2,7 @@
 title: "How Do AI Agents Actually Work Under the Hood?"
 description: "Forget the frameworks. Let's build an AI agent from scratch to understand streaming, tool calling, and the agentic loop."
 pubDate: "Feb 11 2026"
-heroImage: "/images/blogs/ai-agents-under-the-hood.jpg"
+heroImage: "/images/blogs/ascii/how-ai-agents-work-under-the-hood.png"
 tags: ["AI", "Agents", "TypeScript", "Streaming"]
 category: "AI"
 publish: true

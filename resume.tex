@@ -93,35 +93,35 @@
 %-----------SUMMARY-----------------
 \section{Summary}
 \vspace{2pt}
-Full-stack software engineer building production AI agent systems, across TypeScript, React, Node.js, and applied AI/LLM products. Currently shipping multi-surface AI agents and RAG systems at Sherpa; built Andronix (2.4M+ downloads, \$140K revenue). \textbf{GitHub: 3,700+ stars · 790+ forks · 9,400+ contributions}
+Full-stack software engineer (TypeScript, React, Node.js) building production AI agent and RAG systems at Sherpa. Founder of Andronix, a Linux-on-Android app with 2M+ downloads and \$140K+ revenue. \textbf{Open source: 3,700+ GitHub stars, 790+ forks}
 
 %-----------EXPERIENCE-----------------
 \section{Experience}
 \resumeSubHeadingListStart
 \resumeSubheading
 {Software Engineer - Sherpa (sherpahq.ai)}{{Munich, Germany (On-site)}}
-{Full-Time (Contract $\rightarrow$ Full-Time)}{Apr 2026 - Present}
+{Contract $\rightarrow$ Full-Time}{Apr 2026 - Present}
 \resumeItemListStart
 \resumeItem{\textbf{AI Agent Platform}}
-{Built a production AI agent platform on \textbf{\textit{Mastra}} and the \textbf{\textit{Vercel AI SDK}}. One runtime serves \textbf{web, Slack, and Microsoft Teams} with human-in-the-loop approvals, sessions that survive restarts, and per-user OAuth; \textbf{145+ PRs merged in 4 months}.}
+{Built Sherpa's AI agent on \textbf{\textit{Mastra}} and the \textbf{\textit{Vercel AI SDK}}: one runtime for \textbf{web, Slack and Microsoft Teams} with shared multi-person chats, resumable turns, per-user memory and proactive nudges.}
+\resumeItem{\textbf{Employment Law Compliance Engine}}
+{Built a deterministic rule engine with \textbf{594 rules across 8 jurisdictions} (Germany, UK, US federal and 5 states), fully covered by tests; added an LLM compiler that turns plain-English company policy into rules, cutting compile time from \textbf{29s to 10.5s}.}
+\resumeItem{\textbf{Legal Knowledge Graph \& RAG}}
+{Built a corpus of \textbf{722 laws} across UK, DE, US, ES and EU: \textbf{331K chunks, 1.03M graph edges}, hybrid \textbf{\textit{pgvector}} + \textbf{\textit{BM25}} search, versioned re-crawls so answers cite only current law.}
 \resumeItem{\textbf{Real-Time AI Canvas}}
-{Built a collaborative canvas: a canonical state machine streamed over \textbf{\textit{SSE}}, driven by a typed command bus. Per-field three-way merge keeps concurrent human and AI edits from overwriting each other.}
-\resumeItem{\textbf{Large-Scale RAG}}
-{Built retrieval over a \textbf{185K+ chunk corpus} and a \textbf{350K+ edge knowledge graph}: six hybrid search lanes (\textbf{\textit{pgvector}} + \textbf{\textit{BM25}}), cross-encoder reranking, PageRank graph expansion, and deterministic rule engines under the LLM.}
-\resumeItem{\textbf{Multi-Tenant Security}}
-{Led a zero-downtime cutover to database-enforced multi-tenancy with \textbf{\textit{Postgres Row Level Security}}. Automated policy-coverage checks in CI keep new tables from shipping unprotected.}
-\resumeItem{\textbf{AI Gateway \& Platform}}
-{Centralized all LLM traffic behind a typed gateway on \textbf{\textit{Cloudflare AI Gateway}}, with edge retries, cross-model fallback, and cost observability; custom lint rules make bypassing it a build error. Built per-PR preview environments (\textbf{\textit{Railway, Cloudflare Workers}}) and \textbf{4-way sharded Playwright E2E} CI.}
+{Rewrote intake as one shared state streamed over \textbf{\textit{SSE}} with typed commands and edit-preserving merges, so a person and the AI edit the same document at once; extended into versioned documents the agent edits through typed tools.}
+\resumeItem{\textbf{Public MCP Server \& Security}}
+{Shipped a public \textbf{\textit{MCP}} server behind an in-house OAuth server, with per-area grants and human confirmation before every write. Moved production to \textbf{\textit{Postgres RLS}} with zero downtime and added permission checks to every org API route.}
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading
 {Founding Software Engineer - Yobr (yobr.io)}{{Oslo, Norway (Remote)}}
-{Full-Time (Intern $\rightarrow$ Founding Engineer)}{Mar 2025 - Dec 2025}
+{Intern $\rightarrow$ Founding Engineer}{Mar 2025 - Dec 2025}
 \resumeItemListStart
 \resumeItem{\textbf{AI Agent Development}}
-{Architected and deployed agentic AI systems with \textbf{100+ tools} using \textbf{\textit{Vercel AI SDK}} and \textbf{\textit{Mastra.ai}}, automating the multi-step job posting workflow end-to-end.}
-\resumeItem{\textbf{Flagship Job Planner}}
-{Designed and built flagship Job Planner with nested AI-powered steps and streaming capabilities, reducing job creation time by \textbf{90\%}.}
+{Built and deployed AI agents with \textbf{100+ tools} on the \textbf{\textit{Vercel AI SDK}} and \textbf{\textit{Mastra.ai}}, automating the job posting workflow end to end.}
+\resumeItem{\textbf{Job Planner}}
+{Designed and built the Job Planner, a streaming, multi-step AI flow that cut job creation time by \textbf{90\%}.}
 \resumeItem{\textbf{Architecture \& Data}}
 {Led migration to \textbf{\textit{Next.js, Fastify, Trigger.dev}} with end-to-end type safety via \textbf{\textit{tRPC}}; ran production \textbf{\textit{PostgreSQL}} migration with a custom application-layer \textbf{\textit{Row Level Security}} system for secure multi-tenant access.}
 \resumeItemListEnd
@@ -131,25 +131,25 @@ Full-stack software engineer building production AI agent systems, across TypeSc
 {Full-Stack Development \& AI Integration}{Jul 2024 - Nov 2024}
 \resumeItemListStart
 \resumeItem{\textbf{Full-Stack \& AI}}
-{Built a \textbf{\textit{React}} / \textbf{\textit{TypeScript, ts-rest, PostgreSQL}} full-stack with end-to-end type safety and \textbf{\textit{OpenAI}}-powered AI pipelines; led JS$\rightarrow$TS migration cutting failure rates by \textbf{24\%}.}
+{Built a \textbf{\textit{React, TypeScript, ts-rest, PostgreSQL}} app with end-to-end type safety and \textbf{\textit{OpenAI}} pipelines; led the JavaScript to TypeScript migration, cutting error rates by \textbf{24\%}.}
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading
-{Founder \& Software Engineer (Product) - Lumoflo}{\MYhref[blue]{https://lumoflo.com}{Website}}
-{Multi-Tenant E-commerce Platform. \textbf{\$1.5M+ in transactions processed}}{Apr 2024 - Dec 2024}
+{Founder \& Engineer - Lumoflo}{\MYhref{https://svveetpea.com}{\underline{svveetpea.com}}}
+{E-commerce platform, \textbf{\$1.5M+ processed}; now powers svveetpea.com}{Apr 2024 - Present}
 \resumeItemListStart
 \resumeItem{\textbf{Full-Stack Ownership}}
-{Built the entire multi-tenant e-commerce platform as sole engineer: \textbf{\textit{Express.js}} / \textbf{\textit{ts-rest}} backend, \textbf{\textit{Next.js}} frontend, and infra, with end-to-end type safety in a \textbf{\textit{monorepo}}. Cut build times by \textbf{56\%}.}
-\resumeItem{\textbf{Systems \& Reliability}}
-{Built account synchronization for carts and queues and a \textbf{\textit{BullMQ}} / \textbf{\textit{Redis}} job-queue system for reliable background processing; wrote \textbf{40+ end-to-end tests} across core modules.}
+{Built the multi-tenant e-commerce platform end to end as sole engineer: \textbf{\textit{Express.js}} / \textbf{\textit{ts-rest}} backend, \textbf{\textit{Next.js}} frontend, and infra, with end-to-end type safety in a \textbf{\textit{monorepo}}. Cut build times by \textbf{56\%}.}
+\resumeItem{\textbf{Store Agent \& Shipping}}
+{Refocused the platform on a single live store, svveetpea.com (2026). The store owner runs it from Claude or ChatGPT through an \textbf{\textit{MCP}} server with \textbf{58 tools}: voice-to-listing AI, order packing, Delhivery pickups and labels, and analytics.}
 \resumeItemListEnd
 \vspace{8pt}
 \resumeSubheading
-{Founder \& Software Engineer (Product) - Andronix}{\MYhref{https://andronix.app}{\underline{Website}}}
-{\textbf{No. 1 on Google Play for "Linux". 2.4M+ downloads, \$140K+ revenue}}{Apr 2019 - Jun 2024}
+{Founder \& Engineer - Andronix}{\MYhref{https://andronix.app}{\underline{andronix.app}}}
+{\textbf{2M+ downloads, \$140K+ revenue}; No. 1 on Google Play for ``Linux''}{Apr 2019 - Present}
 \resumeItemListStart
 \resumeItem{\textbf{Product \& Scale}}
-{Built and shipped the consumer product end to end as sole engineer: \textbf{\textit{Kotlin}} client and a \textbf{\textit{TypeScript}} microservices backend at \textbf{80\%+ test coverage}. Owned architecture, integrations, and release.}
+{Built and run the product end to end as sole engineer: \textbf{\textit{Kotlin}} app and \textbf{\textit{TypeScript}} services. Shipped Andronix 2.0 in 2026 with Termux:X11 desktops, 8 languages and staged Play rollouts gated on crash rates.}
 \resumeItemListEnd
 \resumeSubHeadingListEnd
 

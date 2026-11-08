@@ -2,7 +2,7 @@
 title: "I Built a TUI to Stop Losing Claude Sessions"
 description: "How I solved the problem of managing 10+ Claude Code sessions across different projects with a simple terminal UI, fuzzy search, and tmux integration."
 pubDate: "Feb 01 2026"
-heroImage: "/images/blogs/claude-launcher.png"
+heroImage: "/images/blogs/ascii/i-built-a-tui-to-stop-losing-claude-sessions.png"
 tags: ["Developer Tools", "CLI", "TypeScript", "Terminal", "Ink", "AI Tools"]
 category: "Coding"
 publish: true

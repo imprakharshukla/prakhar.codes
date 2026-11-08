@@ -2,7 +2,7 @@
 title: "Why I Love Mastra: Building Production AI Agents That Actually Work"
 description: "How Mastra and AI SDK helped me build a production-grade AI agent with 11 specialized tools, streaming responses, real business logic, and RAG capabilities."
 pubDate: "Jan 03 2026"
-heroImage: "/images/blogs/why_i_love_mastra.jpg"
+heroImage: "/images/blogs/ascii/why-i-love-mastra.png"
 tags: ["AI", "Mastra", "AI SDK", "TypeScript", "Agents", "RAG"]
 category: "AI Agents"
 publish: true

@@ -9,7 +9,8 @@
     "build": "astro check && astro build",
     "check-types": "astro check",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "thumbs": "node scripts/ascii-thumbs/thumbs.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",

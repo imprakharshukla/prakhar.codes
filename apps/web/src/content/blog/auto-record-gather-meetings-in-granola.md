@@ -2,7 +2,7 @@
 title: "I Taught Granola to Auto-Record My Gather Meetings"
 description: "Gather keeps your mic open all day, so Granola never realizes you're in a meeting. Here's the little macOS watcher I built to start and stop recording automatically, using WebRTC, a deep link, and the Chrome DevTools Protocol."
 pubDate: "Jun 11 2026"
-heroImage: "/images/blogs/granola-gather.png"
+heroImage: "/images/blogs/ascii/auto-record-gather-meetings-in-granola.png"
 tags: ["Automation", "Granola", "Gather", "Remote Work", "macOS", "WebRTC", "Electron"]
 category: "Automation"
 publish: true
