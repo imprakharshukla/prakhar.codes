@@ -9,7 +9,7 @@ export interface Role {
   location?: string; // "Munich, Germany"
   title: string; // "Software Engineer"
   titleNote?: string; // "Contract → Full-Time" / "Full-Time"
-  tagline?: string; // "E-commerce Platform, $1.5M+ processed, ..."
+  tagline?: string; // "E-commerce Platform, now powering svveetpea.com"
   date: string;
   current: boolean;
   type: ExperienceItem["type"];
